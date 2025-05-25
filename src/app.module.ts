@@ -12,8 +12,7 @@ import { UsersModule } from "./modules/users/users.module";
       isGlobal: true,
       load: [appEnv],
       validationSchema: validSchema,
-      expandVariables: true,
-      envFilePath: `.env.${process.env.NODE_ENV}`
+      expandVariables: true
     }),
     UsersModule,
     AuthModule,
