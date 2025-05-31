@@ -7,8 +7,6 @@ CREATE TABLE "users" (
     "email" TEXT NOT NULL,
     "password" TEXT,
     "name" TEXT,
-    "provider_id" TEXT,
-    "profile" JSONB,
     "photo_link" TEXT,
     "role" "UsersRoles" NOT NULL DEFAULT 'user',
     "active" BOOLEAN NOT NULL DEFAULT true,
@@ -18,8 +16,22 @@ CREATE TABLE "users" (
     CONSTRAINT "users_pkey" PRIMARY KEY ("id")
 );
 
+-- CreateTable
+CREATE TABLE "users_providers" (
+    "id" SERIAL NOT NULL,
+    "provider" TEXT NOT NULL,
+    "providerId" TEXT NOT NULL,
+    "profile" JSONB,
+    "userId" INTEGER NOT NULL,
+
+    CONSTRAINT "users_providers_pkey" PRIMARY KEY ("id")
+);
+
 -- CreateIndex
 CREATE UNIQUE INDEX "users_email_key" ON "users"("email");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "users_provider_id_key" ON "users"("provider_id");
+CREATE UNIQUE INDEX "users_providers_provider_providerId_key" ON "users_providers"("provider", "providerId");
+
+-- AddForeignKey
+ALTER TABLE "users_providers" ADD CONSTRAINT "users_providers_userId_fkey" FOREIGN KEY ("userId") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

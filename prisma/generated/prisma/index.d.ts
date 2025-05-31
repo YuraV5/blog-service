@@ -18,6 +18,11 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
  * 
  */
 export type User = $Result.DefaultSelection<Prisma.$UserPayload>
+/**
+ * Model UserProvider
+ * 
+ */
+export type UserProvider = $Result.DefaultSelection<Prisma.$UserProviderPayload>
 
 /**
  * Enums
@@ -170,6 +175,16 @@ export class PrismaClient<
     * ```
     */
   get user(): Prisma.UserDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.userProvider`: Exposes CRUD operations for the **UserProvider** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more UserProviders
+    * const userProviders = await prisma.userProvider.findMany()
+    * ```
+    */
+  get userProvider(): Prisma.UserProviderDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -610,7 +625,8 @@ export namespace Prisma {
 
 
   export const ModelName: {
-    User: 'User'
+    User: 'User',
+    UserProvider: 'UserProvider'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -629,7 +645,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user"
+      modelProps: "user" | "userProvider"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -704,6 +720,80 @@ export namespace Prisma {
           count: {
             args: Prisma.UserCountArgs<ExtArgs>
             result: $Utils.Optional<UserCountAggregateOutputType> | number
+          }
+        }
+      }
+      UserProvider: {
+        payload: Prisma.$UserProviderPayload<ExtArgs>
+        fields: Prisma.UserProviderFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.UserProviderFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserProviderPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.UserProviderFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserProviderPayload>
+          }
+          findFirst: {
+            args: Prisma.UserProviderFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserProviderPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.UserProviderFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserProviderPayload>
+          }
+          findMany: {
+            args: Prisma.UserProviderFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserProviderPayload>[]
+          }
+          create: {
+            args: Prisma.UserProviderCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserProviderPayload>
+          }
+          createMany: {
+            args: Prisma.UserProviderCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.UserProviderCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserProviderPayload>[]
+          }
+          delete: {
+            args: Prisma.UserProviderDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserProviderPayload>
+          }
+          update: {
+            args: Prisma.UserProviderUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserProviderPayload>
+          }
+          deleteMany: {
+            args: Prisma.UserProviderDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.UserProviderUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.UserProviderUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserProviderPayload>[]
+          }
+          upsert: {
+            args: Prisma.UserProviderUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserProviderPayload>
+          }
+          aggregate: {
+            args: Prisma.UserProviderAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateUserProvider>
+          }
+          groupBy: {
+            args: Prisma.UserProviderGroupByArgs<ExtArgs>
+            result: $Utils.Optional<UserProviderGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.UserProviderCountArgs<ExtArgs>
+            result: $Utils.Optional<UserProviderCountAggregateOutputType> | number
           }
         }
       }
@@ -792,6 +882,7 @@ export namespace Prisma {
   }
   export type GlobalOmitConfig = {
     user?: UserOmit
+    userProvider?: UserProviderOmit
   }
 
   /* Types for Logging */
@@ -881,6 +972,36 @@ export namespace Prisma {
    */
 
 
+  /**
+   * Count Type UserCountOutputType
+   */
+
+  export type UserCountOutputType = {
+    providers: number
+  }
+
+  export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    providers?: boolean | UserCountOutputTypeCountProvidersArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserCountOutputType
+     */
+    select?: UserCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountProvidersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserProviderWhereInput
+  }
+
 
   /**
    * Models
@@ -911,8 +1032,7 @@ export namespace Prisma {
     email: string | null
     password: string | null
     name: string | null
-    providerId: string | null
-    photoLink: string | null
+    photoUrl: string | null
     role: $Enums.UsersRoles | null
     active: boolean | null
     createdAt: Date | null
@@ -924,8 +1044,7 @@ export namespace Prisma {
     email: string | null
     password: string | null
     name: string | null
-    providerId: string | null
-    photoLink: string | null
+    photoUrl: string | null
     role: $Enums.UsersRoles | null
     active: boolean | null
     createdAt: Date | null
@@ -937,9 +1056,7 @@ export namespace Prisma {
     email: number
     password: number
     name: number
-    providerId: number
-    profile: number
-    photoLink: number
+    photoUrl: number
     role: number
     active: number
     createdAt: number
@@ -961,8 +1078,7 @@ export namespace Prisma {
     email?: true
     password?: true
     name?: true
-    providerId?: true
-    photoLink?: true
+    photoUrl?: true
     role?: true
     active?: true
     createdAt?: true
@@ -974,8 +1090,7 @@ export namespace Prisma {
     email?: true
     password?: true
     name?: true
-    providerId?: true
-    photoLink?: true
+    photoUrl?: true
     role?: true
     active?: true
     createdAt?: true
@@ -987,9 +1102,7 @@ export namespace Prisma {
     email?: true
     password?: true
     name?: true
-    providerId?: true
-    profile?: true
-    photoLink?: true
+    photoUrl?: true
     role?: true
     active?: true
     createdAt?: true
@@ -1088,9 +1201,7 @@ export namespace Prisma {
     email: string
     password: string | null
     name: string | null
-    providerId: string | null
-    profile: JsonValue | null
-    photoLink: string | null
+    photoUrl: string | null
     role: $Enums.UsersRoles
     active: boolean
     createdAt: Date
@@ -1121,13 +1232,13 @@ export namespace Prisma {
     email?: boolean
     password?: boolean
     name?: boolean
-    providerId?: boolean
-    profile?: boolean
-    photoLink?: boolean
+    photoUrl?: boolean
     role?: boolean
     active?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    providers?: boolean | User$providersArgs<ExtArgs>
+    _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -1135,9 +1246,7 @@ export namespace Prisma {
     email?: boolean
     password?: boolean
     name?: boolean
-    providerId?: boolean
-    profile?: boolean
-    photoLink?: boolean
+    photoUrl?: boolean
     role?: boolean
     active?: boolean
     createdAt?: boolean
@@ -1149,9 +1258,7 @@ export namespace Prisma {
     email?: boolean
     password?: boolean
     name?: boolean
-    providerId?: boolean
-    profile?: boolean
-    photoLink?: boolean
+    photoUrl?: boolean
     role?: boolean
     active?: boolean
     createdAt?: boolean
@@ -1163,28 +1270,32 @@ export namespace Prisma {
     email?: boolean
     password?: boolean
     name?: boolean
-    providerId?: boolean
-    profile?: boolean
-    photoLink?: boolean
+    photoUrl?: boolean
     role?: boolean
     active?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "password" | "name" | "providerId" | "profile" | "photoLink" | "role" | "active" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "password" | "name" | "photoUrl" | "role" | "active" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+  export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    providers?: boolean | User$providersArgs<ExtArgs>
+    _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type UserIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
 
   export type $UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "User"
-    objects: {}
+    objects: {
+      providers: Prisma.$UserProviderPayload<ExtArgs>[]
+    }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       email: string
       password: string | null
       name: string | null
-      providerId: string | null
-      profile: Prisma.JsonValue | null
-      photoLink: string | null
+      photoUrl: string | null
       role: $Enums.UsersRoles
       active: boolean
       createdAt: Date
@@ -1583,6 +1694,7 @@ export namespace Prisma {
    */
   export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    providers<T extends User$providersArgs<ExtArgs> = {}>(args?: Subset<T, User$providersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserProviderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1616,9 +1728,7 @@ export namespace Prisma {
     readonly email: FieldRef<"User", 'String'>
     readonly password: FieldRef<"User", 'String'>
     readonly name: FieldRef<"User", 'String'>
-    readonly providerId: FieldRef<"User", 'String'>
-    readonly profile: FieldRef<"User", 'Json'>
-    readonly photoLink: FieldRef<"User", 'String'>
+    readonly photoUrl: FieldRef<"User", 'String'>
     readonly role: FieldRef<"User", 'UsersRoles'>
     readonly active: FieldRef<"User", 'Boolean'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
@@ -1640,6 +1750,10 @@ export namespace Prisma {
      */
     omit?: UserOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * Filter, which User to fetch.
      */
     where: UserWhereUniqueInput
@@ -1658,6 +1772,10 @@ export namespace Prisma {
      */
     omit?: UserOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * Filter, which User to fetch.
      */
     where: UserWhereUniqueInput
@@ -1675,6 +1793,10 @@ export namespace Prisma {
      * Omit specific fields from the User
      */
     omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
     /**
      * Filter, which User to fetch.
      */
@@ -1724,6 +1846,10 @@ export namespace Prisma {
      */
     omit?: UserOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * Filter, which User to fetch.
      */
     where?: UserWhereInput
@@ -1772,6 +1898,10 @@ export namespace Prisma {
      */
     omit?: UserOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * Filter, which Users to fetch.
      */
     where?: UserWhereInput
@@ -1814,6 +1944,10 @@ export namespace Prisma {
      * Omit specific fields from the User
      */
     omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
     /**
      * The data needed to create a User.
      */
@@ -1862,6 +1996,10 @@ export namespace Prisma {
      * Omit specific fields from the User
      */
     omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
     /**
      * The data needed to update a User.
      */
@@ -1929,6 +2067,10 @@ export namespace Prisma {
      */
     omit?: UserOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * The filter to search for the User to update in case it exists.
      */
     where: UserWhereUniqueInput
@@ -1955,6 +2097,10 @@ export namespace Prisma {
      */
     omit?: UserOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * Filter which User to delete.
      */
     where: UserWhereUniqueInput
@@ -1975,6 +2121,30 @@ export namespace Prisma {
   }
 
   /**
+   * User.providers
+   */
+  export type User$providersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserProvider
+     */
+    select?: UserProviderSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserProvider
+     */
+    omit?: UserProviderOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserProviderInclude<ExtArgs> | null
+    where?: UserProviderWhereInput
+    orderBy?: UserProviderOrderByWithRelationInput | UserProviderOrderByWithRelationInput[]
+    cursor?: UserProviderWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: UserProviderScalarFieldEnum | UserProviderScalarFieldEnum[]
+  }
+
+  /**
    * User without action
    */
   export type UserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -1986,6 +2156,1102 @@ export namespace Prisma {
      * Omit specific fields from the User
      */
     omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model UserProvider
+   */
+
+  export type AggregateUserProvider = {
+    _count: UserProviderCountAggregateOutputType | null
+    _avg: UserProviderAvgAggregateOutputType | null
+    _sum: UserProviderSumAggregateOutputType | null
+    _min: UserProviderMinAggregateOutputType | null
+    _max: UserProviderMaxAggregateOutputType | null
+  }
+
+  export type UserProviderAvgAggregateOutputType = {
+    id: number | null
+    userId: number | null
+  }
+
+  export type UserProviderSumAggregateOutputType = {
+    id: number | null
+    userId: number | null
+  }
+
+  export type UserProviderMinAggregateOutputType = {
+    id: number | null
+    provider: string | null
+    providerId: string | null
+    userId: number | null
+  }
+
+  export type UserProviderMaxAggregateOutputType = {
+    id: number | null
+    provider: string | null
+    providerId: string | null
+    userId: number | null
+  }
+
+  export type UserProviderCountAggregateOutputType = {
+    id: number
+    provider: number
+    providerId: number
+    profile: number
+    userId: number
+    _all: number
+  }
+
+
+  export type UserProviderAvgAggregateInputType = {
+    id?: true
+    userId?: true
+  }
+
+  export type UserProviderSumAggregateInputType = {
+    id?: true
+    userId?: true
+  }
+
+  export type UserProviderMinAggregateInputType = {
+    id?: true
+    provider?: true
+    providerId?: true
+    userId?: true
+  }
+
+  export type UserProviderMaxAggregateInputType = {
+    id?: true
+    provider?: true
+    providerId?: true
+    userId?: true
+  }
+
+  export type UserProviderCountAggregateInputType = {
+    id?: true
+    provider?: true
+    providerId?: true
+    profile?: true
+    userId?: true
+    _all?: true
+  }
+
+  export type UserProviderAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which UserProvider to aggregate.
+     */
+    where?: UserProviderWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserProviders to fetch.
+     */
+    orderBy?: UserProviderOrderByWithRelationInput | UserProviderOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: UserProviderWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserProviders from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserProviders.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned UserProviders
+    **/
+    _count?: true | UserProviderCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: UserProviderAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: UserProviderSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: UserProviderMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: UserProviderMaxAggregateInputType
+  }
+
+  export type GetUserProviderAggregateType<T extends UserProviderAggregateArgs> = {
+        [P in keyof T & keyof AggregateUserProvider]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateUserProvider[P]>
+      : GetScalarType<T[P], AggregateUserProvider[P]>
+  }
+
+
+
+
+  export type UserProviderGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserProviderWhereInput
+    orderBy?: UserProviderOrderByWithAggregationInput | UserProviderOrderByWithAggregationInput[]
+    by: UserProviderScalarFieldEnum[] | UserProviderScalarFieldEnum
+    having?: UserProviderScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: UserProviderCountAggregateInputType | true
+    _avg?: UserProviderAvgAggregateInputType
+    _sum?: UserProviderSumAggregateInputType
+    _min?: UserProviderMinAggregateInputType
+    _max?: UserProviderMaxAggregateInputType
+  }
+
+  export type UserProviderGroupByOutputType = {
+    id: number
+    provider: string
+    providerId: string
+    profile: JsonValue | null
+    userId: number
+    _count: UserProviderCountAggregateOutputType | null
+    _avg: UserProviderAvgAggregateOutputType | null
+    _sum: UserProviderSumAggregateOutputType | null
+    _min: UserProviderMinAggregateOutputType | null
+    _max: UserProviderMaxAggregateOutputType | null
+  }
+
+  type GetUserProviderGroupByPayload<T extends UserProviderGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<UserProviderGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof UserProviderGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], UserProviderGroupByOutputType[P]>
+            : GetScalarType<T[P], UserProviderGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type UserProviderSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    provider?: boolean
+    providerId?: boolean
+    profile?: boolean
+    userId?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["userProvider"]>
+
+  export type UserProviderSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    provider?: boolean
+    providerId?: boolean
+    profile?: boolean
+    userId?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["userProvider"]>
+
+  export type UserProviderSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    provider?: boolean
+    providerId?: boolean
+    profile?: boolean
+    userId?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["userProvider"]>
+
+  export type UserProviderSelectScalar = {
+    id?: boolean
+    provider?: boolean
+    providerId?: boolean
+    profile?: boolean
+    userId?: boolean
+  }
+
+  export type UserProviderOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "provider" | "providerId" | "profile" | "userId", ExtArgs["result"]["userProvider"]>
+  export type UserProviderInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type UserProviderIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type UserProviderIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $UserProviderPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "UserProvider"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      provider: string
+      providerId: string
+      profile: Prisma.JsonValue | null
+      userId: number
+    }, ExtArgs["result"]["userProvider"]>
+    composites: {}
+  }
+
+  type UserProviderGetPayload<S extends boolean | null | undefined | UserProviderDefaultArgs> = $Result.GetResult<Prisma.$UserProviderPayload, S>
+
+  type UserProviderCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<UserProviderFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: UserProviderCountAggregateInputType | true
+    }
+
+  export interface UserProviderDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['UserProvider'], meta: { name: 'UserProvider' } }
+    /**
+     * Find zero or one UserProvider that matches the filter.
+     * @param {UserProviderFindUniqueArgs} args - Arguments to find a UserProvider
+     * @example
+     * // Get one UserProvider
+     * const userProvider = await prisma.userProvider.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends UserProviderFindUniqueArgs>(args: SelectSubset<T, UserProviderFindUniqueArgs<ExtArgs>>): Prisma__UserProviderClient<$Result.GetResult<Prisma.$UserProviderPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one UserProvider that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {UserProviderFindUniqueOrThrowArgs} args - Arguments to find a UserProvider
+     * @example
+     * // Get one UserProvider
+     * const userProvider = await prisma.userProvider.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends UserProviderFindUniqueOrThrowArgs>(args: SelectSubset<T, UserProviderFindUniqueOrThrowArgs<ExtArgs>>): Prisma__UserProviderClient<$Result.GetResult<Prisma.$UserProviderPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first UserProvider that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserProviderFindFirstArgs} args - Arguments to find a UserProvider
+     * @example
+     * // Get one UserProvider
+     * const userProvider = await prisma.userProvider.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends UserProviderFindFirstArgs>(args?: SelectSubset<T, UserProviderFindFirstArgs<ExtArgs>>): Prisma__UserProviderClient<$Result.GetResult<Prisma.$UserProviderPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first UserProvider that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserProviderFindFirstOrThrowArgs} args - Arguments to find a UserProvider
+     * @example
+     * // Get one UserProvider
+     * const userProvider = await prisma.userProvider.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends UserProviderFindFirstOrThrowArgs>(args?: SelectSubset<T, UserProviderFindFirstOrThrowArgs<ExtArgs>>): Prisma__UserProviderClient<$Result.GetResult<Prisma.$UserProviderPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more UserProviders that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserProviderFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all UserProviders
+     * const userProviders = await prisma.userProvider.findMany()
+     * 
+     * // Get first 10 UserProviders
+     * const userProviders = await prisma.userProvider.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const userProviderWithIdOnly = await prisma.userProvider.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends UserProviderFindManyArgs>(args?: SelectSubset<T, UserProviderFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserProviderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a UserProvider.
+     * @param {UserProviderCreateArgs} args - Arguments to create a UserProvider.
+     * @example
+     * // Create one UserProvider
+     * const UserProvider = await prisma.userProvider.create({
+     *   data: {
+     *     // ... data to create a UserProvider
+     *   }
+     * })
+     * 
+     */
+    create<T extends UserProviderCreateArgs>(args: SelectSubset<T, UserProviderCreateArgs<ExtArgs>>): Prisma__UserProviderClient<$Result.GetResult<Prisma.$UserProviderPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many UserProviders.
+     * @param {UserProviderCreateManyArgs} args - Arguments to create many UserProviders.
+     * @example
+     * // Create many UserProviders
+     * const userProvider = await prisma.userProvider.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends UserProviderCreateManyArgs>(args?: SelectSubset<T, UserProviderCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many UserProviders and returns the data saved in the database.
+     * @param {UserProviderCreateManyAndReturnArgs} args - Arguments to create many UserProviders.
+     * @example
+     * // Create many UserProviders
+     * const userProvider = await prisma.userProvider.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many UserProviders and only return the `id`
+     * const userProviderWithIdOnly = await prisma.userProvider.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends UserProviderCreateManyAndReturnArgs>(args?: SelectSubset<T, UserProviderCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserProviderPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a UserProvider.
+     * @param {UserProviderDeleteArgs} args - Arguments to delete one UserProvider.
+     * @example
+     * // Delete one UserProvider
+     * const UserProvider = await prisma.userProvider.delete({
+     *   where: {
+     *     // ... filter to delete one UserProvider
+     *   }
+     * })
+     * 
+     */
+    delete<T extends UserProviderDeleteArgs>(args: SelectSubset<T, UserProviderDeleteArgs<ExtArgs>>): Prisma__UserProviderClient<$Result.GetResult<Prisma.$UserProviderPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one UserProvider.
+     * @param {UserProviderUpdateArgs} args - Arguments to update one UserProvider.
+     * @example
+     * // Update one UserProvider
+     * const userProvider = await prisma.userProvider.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends UserProviderUpdateArgs>(args: SelectSubset<T, UserProviderUpdateArgs<ExtArgs>>): Prisma__UserProviderClient<$Result.GetResult<Prisma.$UserProviderPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more UserProviders.
+     * @param {UserProviderDeleteManyArgs} args - Arguments to filter UserProviders to delete.
+     * @example
+     * // Delete a few UserProviders
+     * const { count } = await prisma.userProvider.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends UserProviderDeleteManyArgs>(args?: SelectSubset<T, UserProviderDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more UserProviders.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserProviderUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many UserProviders
+     * const userProvider = await prisma.userProvider.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends UserProviderUpdateManyArgs>(args: SelectSubset<T, UserProviderUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more UserProviders and returns the data updated in the database.
+     * @param {UserProviderUpdateManyAndReturnArgs} args - Arguments to update many UserProviders.
+     * @example
+     * // Update many UserProviders
+     * const userProvider = await prisma.userProvider.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more UserProviders and only return the `id`
+     * const userProviderWithIdOnly = await prisma.userProvider.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends UserProviderUpdateManyAndReturnArgs>(args: SelectSubset<T, UserProviderUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserProviderPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one UserProvider.
+     * @param {UserProviderUpsertArgs} args - Arguments to update or create a UserProvider.
+     * @example
+     * // Update or create a UserProvider
+     * const userProvider = await prisma.userProvider.upsert({
+     *   create: {
+     *     // ... data to create a UserProvider
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the UserProvider we want to update
+     *   }
+     * })
+     */
+    upsert<T extends UserProviderUpsertArgs>(args: SelectSubset<T, UserProviderUpsertArgs<ExtArgs>>): Prisma__UserProviderClient<$Result.GetResult<Prisma.$UserProviderPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of UserProviders.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserProviderCountArgs} args - Arguments to filter UserProviders to count.
+     * @example
+     * // Count the number of UserProviders
+     * const count = await prisma.userProvider.count({
+     *   where: {
+     *     // ... the filter for the UserProviders we want to count
+     *   }
+     * })
+    **/
+    count<T extends UserProviderCountArgs>(
+      args?: Subset<T, UserProviderCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], UserProviderCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a UserProvider.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserProviderAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends UserProviderAggregateArgs>(args: Subset<T, UserProviderAggregateArgs>): Prisma.PrismaPromise<GetUserProviderAggregateType<T>>
+
+    /**
+     * Group by UserProvider.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserProviderGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends UserProviderGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: UserProviderGroupByArgs['orderBy'] }
+        : { orderBy?: UserProviderGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, UserProviderGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetUserProviderGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the UserProvider model
+   */
+  readonly fields: UserProviderFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for UserProvider.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__UserProviderClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the UserProvider model
+   */
+  interface UserProviderFieldRefs {
+    readonly id: FieldRef<"UserProvider", 'Int'>
+    readonly provider: FieldRef<"UserProvider", 'String'>
+    readonly providerId: FieldRef<"UserProvider", 'String'>
+    readonly profile: FieldRef<"UserProvider", 'Json'>
+    readonly userId: FieldRef<"UserProvider", 'Int'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * UserProvider findUnique
+   */
+  export type UserProviderFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserProvider
+     */
+    select?: UserProviderSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserProvider
+     */
+    omit?: UserProviderOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserProviderInclude<ExtArgs> | null
+    /**
+     * Filter, which UserProvider to fetch.
+     */
+    where: UserProviderWhereUniqueInput
+  }
+
+  /**
+   * UserProvider findUniqueOrThrow
+   */
+  export type UserProviderFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserProvider
+     */
+    select?: UserProviderSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserProvider
+     */
+    omit?: UserProviderOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserProviderInclude<ExtArgs> | null
+    /**
+     * Filter, which UserProvider to fetch.
+     */
+    where: UserProviderWhereUniqueInput
+  }
+
+  /**
+   * UserProvider findFirst
+   */
+  export type UserProviderFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserProvider
+     */
+    select?: UserProviderSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserProvider
+     */
+    omit?: UserProviderOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserProviderInclude<ExtArgs> | null
+    /**
+     * Filter, which UserProvider to fetch.
+     */
+    where?: UserProviderWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserProviders to fetch.
+     */
+    orderBy?: UserProviderOrderByWithRelationInput | UserProviderOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for UserProviders.
+     */
+    cursor?: UserProviderWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserProviders from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserProviders.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of UserProviders.
+     */
+    distinct?: UserProviderScalarFieldEnum | UserProviderScalarFieldEnum[]
+  }
+
+  /**
+   * UserProvider findFirstOrThrow
+   */
+  export type UserProviderFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserProvider
+     */
+    select?: UserProviderSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserProvider
+     */
+    omit?: UserProviderOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserProviderInclude<ExtArgs> | null
+    /**
+     * Filter, which UserProvider to fetch.
+     */
+    where?: UserProviderWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserProviders to fetch.
+     */
+    orderBy?: UserProviderOrderByWithRelationInput | UserProviderOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for UserProviders.
+     */
+    cursor?: UserProviderWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserProviders from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserProviders.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of UserProviders.
+     */
+    distinct?: UserProviderScalarFieldEnum | UserProviderScalarFieldEnum[]
+  }
+
+  /**
+   * UserProvider findMany
+   */
+  export type UserProviderFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserProvider
+     */
+    select?: UserProviderSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserProvider
+     */
+    omit?: UserProviderOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserProviderInclude<ExtArgs> | null
+    /**
+     * Filter, which UserProviders to fetch.
+     */
+    where?: UserProviderWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserProviders to fetch.
+     */
+    orderBy?: UserProviderOrderByWithRelationInput | UserProviderOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing UserProviders.
+     */
+    cursor?: UserProviderWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserProviders from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserProviders.
+     */
+    skip?: number
+    distinct?: UserProviderScalarFieldEnum | UserProviderScalarFieldEnum[]
+  }
+
+  /**
+   * UserProvider create
+   */
+  export type UserProviderCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserProvider
+     */
+    select?: UserProviderSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserProvider
+     */
+    omit?: UserProviderOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserProviderInclude<ExtArgs> | null
+    /**
+     * The data needed to create a UserProvider.
+     */
+    data: XOR<UserProviderCreateInput, UserProviderUncheckedCreateInput>
+  }
+
+  /**
+   * UserProvider createMany
+   */
+  export type UserProviderCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many UserProviders.
+     */
+    data: UserProviderCreateManyInput | UserProviderCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * UserProvider createManyAndReturn
+   */
+  export type UserProviderCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserProvider
+     */
+    select?: UserProviderSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserProvider
+     */
+    omit?: UserProviderOmit<ExtArgs> | null
+    /**
+     * The data used to create many UserProviders.
+     */
+    data: UserProviderCreateManyInput | UserProviderCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserProviderIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * UserProvider update
+   */
+  export type UserProviderUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserProvider
+     */
+    select?: UserProviderSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserProvider
+     */
+    omit?: UserProviderOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserProviderInclude<ExtArgs> | null
+    /**
+     * The data needed to update a UserProvider.
+     */
+    data: XOR<UserProviderUpdateInput, UserProviderUncheckedUpdateInput>
+    /**
+     * Choose, which UserProvider to update.
+     */
+    where: UserProviderWhereUniqueInput
+  }
+
+  /**
+   * UserProvider updateMany
+   */
+  export type UserProviderUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update UserProviders.
+     */
+    data: XOR<UserProviderUpdateManyMutationInput, UserProviderUncheckedUpdateManyInput>
+    /**
+     * Filter which UserProviders to update
+     */
+    where?: UserProviderWhereInput
+    /**
+     * Limit how many UserProviders to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * UserProvider updateManyAndReturn
+   */
+  export type UserProviderUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserProvider
+     */
+    select?: UserProviderSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserProvider
+     */
+    omit?: UserProviderOmit<ExtArgs> | null
+    /**
+     * The data used to update UserProviders.
+     */
+    data: XOR<UserProviderUpdateManyMutationInput, UserProviderUncheckedUpdateManyInput>
+    /**
+     * Filter which UserProviders to update
+     */
+    where?: UserProviderWhereInput
+    /**
+     * Limit how many UserProviders to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserProviderIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * UserProvider upsert
+   */
+  export type UserProviderUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserProvider
+     */
+    select?: UserProviderSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserProvider
+     */
+    omit?: UserProviderOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserProviderInclude<ExtArgs> | null
+    /**
+     * The filter to search for the UserProvider to update in case it exists.
+     */
+    where: UserProviderWhereUniqueInput
+    /**
+     * In case the UserProvider found by the `where` argument doesn't exist, create a new UserProvider with this data.
+     */
+    create: XOR<UserProviderCreateInput, UserProviderUncheckedCreateInput>
+    /**
+     * In case the UserProvider was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<UserProviderUpdateInput, UserProviderUncheckedUpdateInput>
+  }
+
+  /**
+   * UserProvider delete
+   */
+  export type UserProviderDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserProvider
+     */
+    select?: UserProviderSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserProvider
+     */
+    omit?: UserProviderOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserProviderInclude<ExtArgs> | null
+    /**
+     * Filter which UserProvider to delete.
+     */
+    where: UserProviderWhereUniqueInput
+  }
+
+  /**
+   * UserProvider deleteMany
+   */
+  export type UserProviderDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which UserProviders to delete
+     */
+    where?: UserProviderWhereInput
+    /**
+     * Limit how many UserProviders to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * UserProvider without action
+   */
+  export type UserProviderDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserProvider
+     */
+    select?: UserProviderSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserProvider
+     */
+    omit?: UserProviderOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserProviderInclude<ExtArgs> | null
   }
 
 
@@ -2008,9 +3274,7 @@ export namespace Prisma {
     email: 'email',
     password: 'password',
     name: 'name',
-    providerId: 'providerId',
-    profile: 'profile',
-    photoLink: 'photoLink',
+    photoUrl: 'photoUrl',
     role: 'role',
     active: 'active',
     createdAt: 'createdAt',
@@ -2018,6 +3282,17 @@ export namespace Prisma {
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+  export const UserProviderScalarFieldEnum: {
+    id: 'id',
+    provider: 'provider',
+    providerId: 'providerId',
+    profile: 'profile',
+    userId: 'userId'
+  };
+
+  export type UserProviderScalarFieldEnum = (typeof UserProviderScalarFieldEnum)[keyof typeof UserProviderScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -2044,6 +3319,14 @@ export namespace Prisma {
   export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
 
 
+  export const NullsOrder: {
+    first: 'first',
+    last: 'last'
+  };
+
+  export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
   export const JsonNullValueFilter: {
     DbNull: typeof DbNull,
     JsonNull: typeof JsonNull,
@@ -2051,14 +3334,6 @@ export namespace Prisma {
   };
 
   export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
-
-
-  export const NullsOrder: {
-    first: 'first',
-    last: 'last'
-  };
-
-  export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 
 
   /**
@@ -2091,20 +3366,6 @@ export namespace Prisma {
    * Reference to a field of type 'String[]'
    */
   export type ListStringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String[]'>
-    
-
-
-  /**
-   * Reference to a field of type 'Json'
-   */
-  export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
-    
-
-
-  /**
-   * Reference to a field of type 'QueryMode'
-   */
-  export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
     
 
 
@@ -2144,6 +3405,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Json'
+   */
+  export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
+    
+
+
+  /**
+   * Reference to a field of type 'QueryMode'
+   */
+  export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
+    
+
+
+  /**
    * Reference to a field of type 'Float'
    */
   export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -2168,13 +3443,12 @@ export namespace Prisma {
     email?: StringFilter<"User"> | string
     password?: StringNullableFilter<"User"> | string | null
     name?: StringNullableFilter<"User"> | string | null
-    providerId?: StringNullableFilter<"User"> | string | null
-    profile?: JsonNullableFilter<"User">
-    photoLink?: StringNullableFilter<"User"> | string | null
+    photoUrl?: StringNullableFilter<"User"> | string | null
     role?: EnumUsersRolesFilter<"User"> | $Enums.UsersRoles
     active?: BoolFilter<"User"> | boolean
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
+    providers?: UserProviderListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -2182,40 +3456,36 @@ export namespace Prisma {
     email?: SortOrder
     password?: SortOrderInput | SortOrder
     name?: SortOrderInput | SortOrder
-    providerId?: SortOrderInput | SortOrder
-    profile?: SortOrderInput | SortOrder
-    photoLink?: SortOrderInput | SortOrder
+    photoUrl?: SortOrderInput | SortOrder
     role?: SortOrder
     active?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    providers?: UserProviderOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
     id?: number
     email?: string
-    providerId?: string
     AND?: UserWhereInput | UserWhereInput[]
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
     password?: StringNullableFilter<"User"> | string | null
     name?: StringNullableFilter<"User"> | string | null
-    profile?: JsonNullableFilter<"User">
-    photoLink?: StringNullableFilter<"User"> | string | null
+    photoUrl?: StringNullableFilter<"User"> | string | null
     role?: EnumUsersRolesFilter<"User"> | $Enums.UsersRoles
     active?: BoolFilter<"User"> | boolean
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
-  }, "id" | "email" | "providerId">
+    providers?: UserProviderListRelationFilter
+  }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
     id?: SortOrder
     email?: SortOrder
     password?: SortOrderInput | SortOrder
     name?: SortOrderInput | SortOrder
-    providerId?: SortOrderInput | SortOrder
-    profile?: SortOrderInput | SortOrder
-    photoLink?: SortOrderInput | SortOrder
+    photoUrl?: SortOrderInput | SortOrder
     role?: SortOrder
     active?: SortOrder
     createdAt?: SortOrder
@@ -2235,26 +3505,81 @@ export namespace Prisma {
     email?: StringWithAggregatesFilter<"User"> | string
     password?: StringNullableWithAggregatesFilter<"User"> | string | null
     name?: StringNullableWithAggregatesFilter<"User"> | string | null
-    providerId?: StringNullableWithAggregatesFilter<"User"> | string | null
-    profile?: JsonNullableWithAggregatesFilter<"User">
-    photoLink?: StringNullableWithAggregatesFilter<"User"> | string | null
+    photoUrl?: StringNullableWithAggregatesFilter<"User"> | string | null
     role?: EnumUsersRolesWithAggregatesFilter<"User"> | $Enums.UsersRoles
     active?: BoolWithAggregatesFilter<"User"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
   }
 
+  export type UserProviderWhereInput = {
+    AND?: UserProviderWhereInput | UserProviderWhereInput[]
+    OR?: UserProviderWhereInput[]
+    NOT?: UserProviderWhereInput | UserProviderWhereInput[]
+    id?: IntFilter<"UserProvider"> | number
+    provider?: StringFilter<"UserProvider"> | string
+    providerId?: StringFilter<"UserProvider"> | string
+    profile?: JsonNullableFilter<"UserProvider">
+    userId?: IntFilter<"UserProvider"> | number
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type UserProviderOrderByWithRelationInput = {
+    id?: SortOrder
+    provider?: SortOrder
+    providerId?: SortOrder
+    profile?: SortOrderInput | SortOrder
+    userId?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type UserProviderWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    provider_providerId?: UserProviderProviderProviderIdCompoundUniqueInput
+    AND?: UserProviderWhereInput | UserProviderWhereInput[]
+    OR?: UserProviderWhereInput[]
+    NOT?: UserProviderWhereInput | UserProviderWhereInput[]
+    provider?: StringFilter<"UserProvider"> | string
+    providerId?: StringFilter<"UserProvider"> | string
+    profile?: JsonNullableFilter<"UserProvider">
+    userId?: IntFilter<"UserProvider"> | number
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id" | "provider_providerId">
+
+  export type UserProviderOrderByWithAggregationInput = {
+    id?: SortOrder
+    provider?: SortOrder
+    providerId?: SortOrder
+    profile?: SortOrderInput | SortOrder
+    userId?: SortOrder
+    _count?: UserProviderCountOrderByAggregateInput
+    _avg?: UserProviderAvgOrderByAggregateInput
+    _max?: UserProviderMaxOrderByAggregateInput
+    _min?: UserProviderMinOrderByAggregateInput
+    _sum?: UserProviderSumOrderByAggregateInput
+  }
+
+  export type UserProviderScalarWhereWithAggregatesInput = {
+    AND?: UserProviderScalarWhereWithAggregatesInput | UserProviderScalarWhereWithAggregatesInput[]
+    OR?: UserProviderScalarWhereWithAggregatesInput[]
+    NOT?: UserProviderScalarWhereWithAggregatesInput | UserProviderScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"UserProvider"> | number
+    provider?: StringWithAggregatesFilter<"UserProvider"> | string
+    providerId?: StringWithAggregatesFilter<"UserProvider"> | string
+    profile?: JsonNullableWithAggregatesFilter<"UserProvider">
+    userId?: IntWithAggregatesFilter<"UserProvider"> | number
+  }
+
   export type UserCreateInput = {
     email: string
     password?: string | null
     name?: string | null
-    providerId?: string | null
-    profile?: NullableJsonNullValueInput | InputJsonValue
-    photoLink?: string | null
+    photoUrl?: string | null
     role?: $Enums.UsersRoles
     active?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    providers?: UserProviderCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -2262,26 +3587,24 @@ export namespace Prisma {
     email: string
     password?: string | null
     name?: string | null
-    providerId?: string | null
-    profile?: NullableJsonNullValueInput | InputJsonValue
-    photoLink?: string | null
+    photoUrl?: string | null
     role?: $Enums.UsersRoles
     active?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    providers?: UserProviderUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
     email?: StringFieldUpdateOperationsInput | string
     password?: NullableStringFieldUpdateOperationsInput | string | null
     name?: NullableStringFieldUpdateOperationsInput | string | null
-    providerId?: NullableStringFieldUpdateOperationsInput | string | null
-    profile?: NullableJsonNullValueInput | InputJsonValue
-    photoLink?: NullableStringFieldUpdateOperationsInput | string | null
+    photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUsersRolesFieldUpdateOperationsInput | $Enums.UsersRoles
     active?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    providers?: UserProviderUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -2289,13 +3612,12 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: NullableStringFieldUpdateOperationsInput | string | null
     name?: NullableStringFieldUpdateOperationsInput | string | null
-    providerId?: NullableStringFieldUpdateOperationsInput | string | null
-    profile?: NullableJsonNullValueInput | InputJsonValue
-    photoLink?: NullableStringFieldUpdateOperationsInput | string | null
+    photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUsersRolesFieldUpdateOperationsInput | $Enums.UsersRoles
     active?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    providers?: UserProviderUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -2303,9 +3625,7 @@ export namespace Prisma {
     email: string
     password?: string | null
     name?: string | null
-    providerId?: string | null
-    profile?: NullableJsonNullValueInput | InputJsonValue
-    photoLink?: string | null
+    photoUrl?: string | null
     role?: $Enums.UsersRoles
     active?: boolean
     createdAt?: Date | string
@@ -2316,9 +3636,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: NullableStringFieldUpdateOperationsInput | string | null
     name?: NullableStringFieldUpdateOperationsInput | string | null
-    providerId?: NullableStringFieldUpdateOperationsInput | string | null
-    profile?: NullableJsonNullValueInput | InputJsonValue
-    photoLink?: NullableStringFieldUpdateOperationsInput | string | null
+    photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUsersRolesFieldUpdateOperationsInput | $Enums.UsersRoles
     active?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -2330,13 +3648,63 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: NullableStringFieldUpdateOperationsInput | string | null
     name?: NullableStringFieldUpdateOperationsInput | string | null
-    providerId?: NullableStringFieldUpdateOperationsInput | string | null
-    profile?: NullableJsonNullValueInput | InputJsonValue
-    photoLink?: NullableStringFieldUpdateOperationsInput | string | null
+    photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUsersRolesFieldUpdateOperationsInput | $Enums.UsersRoles
     active?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserProviderCreateInput = {
+    provider: string
+    providerId: string
+    profile?: NullableJsonNullValueInput | InputJsonValue
+    user: UserCreateNestedOneWithoutProvidersInput
+  }
+
+  export type UserProviderUncheckedCreateInput = {
+    id?: number
+    provider: string
+    providerId: string
+    profile?: NullableJsonNullValueInput | InputJsonValue
+    userId: number
+  }
+
+  export type UserProviderUpdateInput = {
+    provider?: StringFieldUpdateOperationsInput | string
+    providerId?: StringFieldUpdateOperationsInput | string
+    profile?: NullableJsonNullValueInput | InputJsonValue
+    user?: UserUpdateOneRequiredWithoutProvidersNestedInput
+  }
+
+  export type UserProviderUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    provider?: StringFieldUpdateOperationsInput | string
+    providerId?: StringFieldUpdateOperationsInput | string
+    profile?: NullableJsonNullValueInput | InputJsonValue
+    userId?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type UserProviderCreateManyInput = {
+    id?: number
+    provider: string
+    providerId: string
+    profile?: NullableJsonNullValueInput | InputJsonValue
+    userId: number
+  }
+
+  export type UserProviderUpdateManyMutationInput = {
+    provider?: StringFieldUpdateOperationsInput | string
+    providerId?: StringFieldUpdateOperationsInput | string
+    profile?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type UserProviderUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    provider?: StringFieldUpdateOperationsInput | string
+    providerId?: StringFieldUpdateOperationsInput | string
+    profile?: NullableJsonNullValueInput | InputJsonValue
+    userId?: IntFieldUpdateOperationsInput | number
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -2379,29 +3747,6 @@ export namespace Prisma {
     mode?: QueryMode
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
-  export type JsonNullableFilter<$PrismaModel = never> =
-    | PatchUndefined<
-        Either<Required<JsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>,
-        Required<JsonNullableFilterBase<$PrismaModel>>
-      >
-    | OptionalFlat<Omit<Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>
-
-  export type JsonNullableFilterBase<$PrismaModel = never> = {
-    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    path?: string[]
-    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
-    string_contains?: string | StringFieldRefInput<$PrismaModel>
-    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
-    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
-    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-  }
 
   export type EnumUsersRolesFilter<$PrismaModel = never> = {
     equals?: $Enums.UsersRoles | EnumUsersRolesFieldRefInput<$PrismaModel>
@@ -2426,9 +3771,19 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
+  export type UserProviderListRelationFilter = {
+    every?: UserProviderWhereInput
+    some?: UserProviderWhereInput
+    none?: UserProviderWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
+  }
+
+  export type UserProviderOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type UserCountOrderByAggregateInput = {
@@ -2436,9 +3791,7 @@ export namespace Prisma {
     email?: SortOrder
     password?: SortOrder
     name?: SortOrder
-    providerId?: SortOrder
-    profile?: SortOrder
-    photoLink?: SortOrder
+    photoUrl?: SortOrder
     role?: SortOrder
     active?: SortOrder
     createdAt?: SortOrder
@@ -2454,8 +3807,7 @@ export namespace Prisma {
     email?: SortOrder
     password?: SortOrder
     name?: SortOrder
-    providerId?: SortOrder
-    photoLink?: SortOrder
+    photoUrl?: SortOrder
     role?: SortOrder
     active?: SortOrder
     createdAt?: SortOrder
@@ -2467,8 +3819,7 @@ export namespace Prisma {
     email?: SortOrder
     password?: SortOrder
     name?: SortOrder
-    providerId?: SortOrder
-    photoLink?: SortOrder
+    photoUrl?: SortOrder
     role?: SortOrder
     active?: SortOrder
     createdAt?: SortOrder
@@ -2530,32 +3881,6 @@ export namespace Prisma {
     _min?: NestedStringNullableFilter<$PrismaModel>
     _max?: NestedStringNullableFilter<$PrismaModel>
   }
-  export type JsonNullableWithAggregatesFilter<$PrismaModel = never> =
-    | PatchUndefined<
-        Either<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
-        Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>
-      >
-    | OptionalFlat<Omit<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
-
-  export type JsonNullableWithAggregatesFilterBase<$PrismaModel = never> = {
-    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    path?: string[]
-    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
-    string_contains?: string | StringFieldRefInput<$PrismaModel>
-    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
-    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
-    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedJsonNullableFilter<$PrismaModel>
-    _max?: NestedJsonNullableFilter<$PrismaModel>
-  }
 
   export type EnumUsersRolesWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.UsersRoles | EnumUsersRolesFieldRefInput<$PrismaModel>
@@ -2588,6 +3913,111 @@ export namespace Prisma {
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
+  export type JsonNullableFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
+
+  export type UserScalarRelationFilter = {
+    is?: UserWhereInput
+    isNot?: UserWhereInput
+  }
+
+  export type UserProviderProviderProviderIdCompoundUniqueInput = {
+    provider: string
+    providerId: string
+  }
+
+  export type UserProviderCountOrderByAggregateInput = {
+    id?: SortOrder
+    provider?: SortOrder
+    providerId?: SortOrder
+    profile?: SortOrder
+    userId?: SortOrder
+  }
+
+  export type UserProviderAvgOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+  }
+
+  export type UserProviderMaxOrderByAggregateInput = {
+    id?: SortOrder
+    provider?: SortOrder
+    providerId?: SortOrder
+    userId?: SortOrder
+  }
+
+  export type UserProviderMinOrderByAggregateInput = {
+    id?: SortOrder
+    provider?: SortOrder
+    providerId?: SortOrder
+    userId?: SortOrder
+  }
+
+  export type UserProviderSumOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+  }
+  export type JsonNullableWithAggregatesFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableWithAggregatesFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedJsonNullableFilter<$PrismaModel>
+    _max?: NestedJsonNullableFilter<$PrismaModel>
+  }
+
+  export type UserProviderCreateNestedManyWithoutUserInput = {
+    create?: XOR<UserProviderCreateWithoutUserInput, UserProviderUncheckedCreateWithoutUserInput> | UserProviderCreateWithoutUserInput[] | UserProviderUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserProviderCreateOrConnectWithoutUserInput | UserProviderCreateOrConnectWithoutUserInput[]
+    createMany?: UserProviderCreateManyUserInputEnvelope
+    connect?: UserProviderWhereUniqueInput | UserProviderWhereUniqueInput[]
+  }
+
+  export type UserProviderUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<UserProviderCreateWithoutUserInput, UserProviderUncheckedCreateWithoutUserInput> | UserProviderCreateWithoutUserInput[] | UserProviderUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserProviderCreateOrConnectWithoutUserInput | UserProviderCreateOrConnectWithoutUserInput[]
+    createMany?: UserProviderCreateManyUserInputEnvelope
+    connect?: UserProviderWhereUniqueInput | UserProviderWhereUniqueInput[]
+  }
 
   export type StringFieldUpdateOperationsInput = {
     set?: string
@@ -2609,12 +4039,54 @@ export namespace Prisma {
     set?: Date | string
   }
 
+  export type UserProviderUpdateManyWithoutUserNestedInput = {
+    create?: XOR<UserProviderCreateWithoutUserInput, UserProviderUncheckedCreateWithoutUserInput> | UserProviderCreateWithoutUserInput[] | UserProviderUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserProviderCreateOrConnectWithoutUserInput | UserProviderCreateOrConnectWithoutUserInput[]
+    upsert?: UserProviderUpsertWithWhereUniqueWithoutUserInput | UserProviderUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: UserProviderCreateManyUserInputEnvelope
+    set?: UserProviderWhereUniqueInput | UserProviderWhereUniqueInput[]
+    disconnect?: UserProviderWhereUniqueInput | UserProviderWhereUniqueInput[]
+    delete?: UserProviderWhereUniqueInput | UserProviderWhereUniqueInput[]
+    connect?: UserProviderWhereUniqueInput | UserProviderWhereUniqueInput[]
+    update?: UserProviderUpdateWithWhereUniqueWithoutUserInput | UserProviderUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: UserProviderUpdateManyWithWhereWithoutUserInput | UserProviderUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: UserProviderScalarWhereInput | UserProviderScalarWhereInput[]
+  }
+
   export type IntFieldUpdateOperationsInput = {
     set?: number
     increment?: number
     decrement?: number
     multiply?: number
     divide?: number
+  }
+
+  export type UserProviderUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<UserProviderCreateWithoutUserInput, UserProviderUncheckedCreateWithoutUserInput> | UserProviderCreateWithoutUserInput[] | UserProviderUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserProviderCreateOrConnectWithoutUserInput | UserProviderCreateOrConnectWithoutUserInput[]
+    upsert?: UserProviderUpsertWithWhereUniqueWithoutUserInput | UserProviderUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: UserProviderCreateManyUserInputEnvelope
+    set?: UserProviderWhereUniqueInput | UserProviderWhereUniqueInput[]
+    disconnect?: UserProviderWhereUniqueInput | UserProviderWhereUniqueInput[]
+    delete?: UserProviderWhereUniqueInput | UserProviderWhereUniqueInput[]
+    connect?: UserProviderWhereUniqueInput | UserProviderWhereUniqueInput[]
+    update?: UserProviderUpdateWithWhereUniqueWithoutUserInput | UserProviderUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: UserProviderUpdateManyWithWhereWithoutUserInput | UserProviderUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: UserProviderScalarWhereInput | UserProviderScalarWhereInput[]
+  }
+
+  export type UserCreateNestedOneWithoutProvidersInput = {
+    create?: XOR<UserCreateWithoutProvidersInput, UserUncheckedCreateWithoutProvidersInput>
+    connectOrCreate?: UserCreateOrConnectWithoutProvidersInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutProvidersNestedInput = {
+    create?: XOR<UserCreateWithoutProvidersInput, UserUncheckedCreateWithoutProvidersInput>
+    connectOrCreate?: UserCreateOrConnectWithoutProvidersInput
+    upsert?: UserUpsertWithoutProvidersInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutProvidersInput, UserUpdateWithoutProvidersInput>, UserUncheckedUpdateWithoutProvidersInput>
   }
 
   export type NestedIntFilter<$PrismaModel = never> = {
@@ -2750,29 +4222,6 @@ export namespace Prisma {
     gte?: number | IntFieldRefInput<$PrismaModel>
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
-  export type NestedJsonNullableFilter<$PrismaModel = never> =
-    | PatchUndefined<
-        Either<Required<NestedJsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>,
-        Required<NestedJsonNullableFilterBase<$PrismaModel>>
-      >
-    | OptionalFlat<Omit<Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>
-
-  export type NestedJsonNullableFilterBase<$PrismaModel = never> = {
-    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    path?: string[]
-    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
-    string_contains?: string | StringFieldRefInput<$PrismaModel>
-    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
-    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
-    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-  }
 
   export type NestedEnumUsersRolesWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.UsersRoles | EnumUsersRolesFieldRefInput<$PrismaModel>
@@ -2804,6 +4253,168 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+  export type NestedJsonNullableFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<NestedJsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<NestedJsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type NestedJsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
+
+  export type UserProviderCreateWithoutUserInput = {
+    provider: string
+    providerId: string
+    profile?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type UserProviderUncheckedCreateWithoutUserInput = {
+    id?: number
+    provider: string
+    providerId: string
+    profile?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type UserProviderCreateOrConnectWithoutUserInput = {
+    where: UserProviderWhereUniqueInput
+    create: XOR<UserProviderCreateWithoutUserInput, UserProviderUncheckedCreateWithoutUserInput>
+  }
+
+  export type UserProviderCreateManyUserInputEnvelope = {
+    data: UserProviderCreateManyUserInput | UserProviderCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type UserProviderUpsertWithWhereUniqueWithoutUserInput = {
+    where: UserProviderWhereUniqueInput
+    update: XOR<UserProviderUpdateWithoutUserInput, UserProviderUncheckedUpdateWithoutUserInput>
+    create: XOR<UserProviderCreateWithoutUserInput, UserProviderUncheckedCreateWithoutUserInput>
+  }
+
+  export type UserProviderUpdateWithWhereUniqueWithoutUserInput = {
+    where: UserProviderWhereUniqueInput
+    data: XOR<UserProviderUpdateWithoutUserInput, UserProviderUncheckedUpdateWithoutUserInput>
+  }
+
+  export type UserProviderUpdateManyWithWhereWithoutUserInput = {
+    where: UserProviderScalarWhereInput
+    data: XOR<UserProviderUpdateManyMutationInput, UserProviderUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type UserProviderScalarWhereInput = {
+    AND?: UserProviderScalarWhereInput | UserProviderScalarWhereInput[]
+    OR?: UserProviderScalarWhereInput[]
+    NOT?: UserProviderScalarWhereInput | UserProviderScalarWhereInput[]
+    id?: IntFilter<"UserProvider"> | number
+    provider?: StringFilter<"UserProvider"> | string
+    providerId?: StringFilter<"UserProvider"> | string
+    profile?: JsonNullableFilter<"UserProvider">
+    userId?: IntFilter<"UserProvider"> | number
+  }
+
+  export type UserCreateWithoutProvidersInput = {
+    email: string
+    password?: string | null
+    name?: string | null
+    photoUrl?: string | null
+    role?: $Enums.UsersRoles
+    active?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserUncheckedCreateWithoutProvidersInput = {
+    id?: number
+    email: string
+    password?: string | null
+    name?: string | null
+    photoUrl?: string | null
+    role?: $Enums.UsersRoles
+    active?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserCreateOrConnectWithoutProvidersInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutProvidersInput, UserUncheckedCreateWithoutProvidersInput>
+  }
+
+  export type UserUpsertWithoutProvidersInput = {
+    update: XOR<UserUpdateWithoutProvidersInput, UserUncheckedUpdateWithoutProvidersInput>
+    create: XOR<UserCreateWithoutProvidersInput, UserUncheckedCreateWithoutProvidersInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutProvidersInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutProvidersInput, UserUncheckedUpdateWithoutProvidersInput>
+  }
+
+  export type UserUpdateWithoutProvidersInput = {
+    email?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUsersRolesFieldUpdateOperationsInput | $Enums.UsersRoles
+    active?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserUncheckedUpdateWithoutProvidersInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    email?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUsersRolesFieldUpdateOperationsInput | $Enums.UsersRoles
+    active?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserProviderCreateManyUserInput = {
+    id?: number
+    provider: string
+    providerId: string
+    profile?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type UserProviderUpdateWithoutUserInput = {
+    provider?: StringFieldUpdateOperationsInput | string
+    providerId?: StringFieldUpdateOperationsInput | string
+    profile?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type UserProviderUncheckedUpdateWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    provider?: StringFieldUpdateOperationsInput | string
+    providerId?: StringFieldUpdateOperationsInput | string
+    profile?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type UserProviderUncheckedUpdateManyWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    provider?: StringFieldUpdateOperationsInput | string
+    providerId?: StringFieldUpdateOperationsInput | string
+    profile?: NullableJsonNullValueInput | InputJsonValue
   }
 
 

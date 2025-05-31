@@ -125,13 +125,19 @@ exports.Prisma.UserScalarFieldEnum = {
   email: 'email',
   password: 'password',
   name: 'name',
-  providerId: 'providerId',
-  profile: 'profile',
-  photoLink: 'photoLink',
+  photoUrl: 'photoUrl',
   role: 'role',
   active: 'active',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
+};
+
+exports.Prisma.UserProviderScalarFieldEnum = {
+  id: 'id',
+  provider: 'provider',
+  providerId: 'providerId',
+  profile: 'profile',
+  userId: 'userId'
 };
 
 exports.Prisma.SortOrder = {
@@ -149,15 +155,15 @@ exports.Prisma.QueryMode = {
   insensitive: 'insensitive'
 };
 
+exports.Prisma.NullsOrder = {
+  first: 'first',
+  last: 'last'
+};
+
 exports.Prisma.JsonNullValueFilter = {
   DbNull: Prisma.DbNull,
   JsonNull: Prisma.JsonNull,
   AnyNull: Prisma.AnyNull
-};
-
-exports.Prisma.NullsOrder = {
-  first: 'first',
-  last: 'last'
 };
 exports.UsersRoles = exports.$Enums.UsersRoles = {
   user: 'user',
@@ -165,7 +171,8 @@ exports.UsersRoles = exports.$Enums.UsersRoles = {
 };
 
 exports.Prisma.ModelName = {
-  User: 'User'
+  User: 'User',
+  UserProvider: 'UserProvider'
 };
 
 /**
