@@ -1,9 +1,8 @@
-import { CreateUserDto } from "../dto/createUserWithPassword.dto";
 import { Injectable } from "@nestjs/common";
-import { IUsersRepository } from "../interfaces/users.repo.interface";
+import { IUsersRepository } from "../interfaces/usersRepository.interface";
 import { User } from "../../../../prisma/generated/prisma";
-import { UpdateUserDto } from "../dto/updateUser.dto";
 import { PrismaService } from "../../../database/prisma/prisma.service";
+import { TCreateUserWithPpassword, TUpdateUser } from "../types/users.type";
 
 @Injectable()
 export class UsersRepository implements IUsersRepository {
@@ -23,12 +22,15 @@ export class UsersRepository implements IUsersRepository {
     return await this.db.user.findUnique({ where: { id } });
   }
 
-  async create(inp: CreateUserDto): Promise<User> {
+  async create(inp: TCreateUserWithPpassword): Promise<User> {
     return await this.db.user.create({ data: inp });
   }
 
-  async updateById(id: number, data: UpdateUserDto): Promise<User> {
-    return await this.db.user.update({ where: { id }, data });
+  async updateById(id: number, inp: TUpdateUser): Promise<User> {
+    return await this.db.user.update({
+      where: { id },
+      data: inp
+    });
   }
 
   async deleteById(id: number): Promise<void> {

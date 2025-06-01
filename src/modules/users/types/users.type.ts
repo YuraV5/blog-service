@@ -10,10 +10,21 @@ export type TUser = {
   updatedAt: Date;
 };
 
-export type TUserRovider = {
-  id: number;
+export type TProvider = {
   provider: string;
   providerId: string;
-  profile: string | null;
+  profile: string;
   userId: number;
+};
+
+export type TCreateUserWithPpassword = {
+  name: string;
+  email: string;
+  password?: string;
+  photoUrl?: string;
+};
+
+export type TUpdateUser = {
+  name?: string;
+  photoUrl?: string;
 };

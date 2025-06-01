@@ -1,17 +1,17 @@
 import { BadRequestException, Injectable, NotFoundException } from "@nestjs/common";
-import { CreateUserDto } from "./dto/createUserWithPassword.dto";
-import { UpdateUserDto } from "./dto/updateUser.dto";
 import { UsersRepository } from "./repository/users.repository";
-import { TUser } from "./types/users.type";
-import { IUsersService } from "./interfaces/users.service.interface";
-import { GoogleProfileDto } from "./dto/createUserWithGoogle.dto";
-import { FacebookProfileDto } from "./dto/cresteUserWithFacebook.dto";
+import { TCreateUserWithPpassword, TProvider, TUpdateUser, TUser } from "./types/users.type";
+import { IUsersService } from "./interfaces/usersService.interface";
+import { UsersProfileRepository } from "./repository/usersProfile.repository";
 
 @Injectable()
 export class UsersService implements IUsersService {
-  constructor(private readonly usersRepo: UsersRepository) {}
+  constructor(
+    private readonly usersRepo: UsersRepository,
+    private readonly userProfileRepo: UsersProfileRepository
+  ) {}
 
-  async createWithPassword(inp: CreateUserDto): Promise<TUser> {
+  async createWithPassword(inp: TCreateUserWithPpassword): Promise<TUser> {
     const existing = await this.usersRepo.getByEmail(inp.email);
     if (existing) {
       throw new BadRequestException(`User with email ${inp.email} already exists`);
@@ -34,13 +34,13 @@ export class UsersService implements IUsersService {
     return user;
   }
 
-  async updateById(id: number, updateDto: UpdateUserDto): Promise<TUser> {
+  async updateById(id: number, inp: TUpdateUser): Promise<TUser> {
     const existing = await this.usersRepo.getOneById(id);
     if (!existing) {
       throw new NotFoundException(`User with ID ${id} not found`);
     }
 
-    const updatedUser = await this.usersRepo.updateById(id, updateDto);
+    const updatedUser = await this.usersRepo.updateById(id, inp);
     return updatedUser;
   }
 
@@ -53,7 +53,13 @@ export class UsersService implements IUsersService {
     await this.usersRepo.deleteById(id);
   }
 
-  async createWithGoogle(profile: GoogleProfileDto): Promise<any> {}
+  async createWithGoogle(profile: TProvider): Promise<any> {
+    const createUser = await this.userProfileRepo.cerateWithProvider(profile);
+    return createUser;
+  }
 
-  async createWithFacebook(profile: FacebookProfileDto): Promise<any> {}
+  async createWithFacebook(profile: TProvider): Promise<any> {
+    const createUser = await this.userProfileRepo.cerateWithProvider(profile);
+    return createUser;
+  }
 }

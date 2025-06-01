@@ -12,9 +12,5 @@ export class CreateUserDto {
   @IsString()
   @IsOptional() // Додано, бо пароль не завжди обов’язковий (наприклад, OAuth)
   @MinLength(6)
-  password?: string | null;
-
-  @IsOptional()
-  @IsString()
-  photoUrl?: string;
+  password: string;
 }
