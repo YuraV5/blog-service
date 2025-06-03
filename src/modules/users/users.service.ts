@@ -1,65 +1,82 @@
-import { BadRequestException, Injectable, NotFoundException } from "@nestjs/common";
+import { BadRequestException, Inject, Injectable, NotFoundException } from "@nestjs/common";
 import { UsersRepository } from "./repository/users.repository";
 import { TCreateUserWithPpassword, TProvider, TUpdateUser, TUser } from "./types/users.type";
 import { IUsersService } from "./interfaces/usersService.interface";
 import { UsersProfileRepository } from "./repository/usersProfile.repository";
+import { EXCEPTION_HANDLER_SERVICE } from "../../common/consts";
+import { ExceptionHandlerService } from "../../common/handlers/exceptions/exception-handler.service";
 
 @Injectable()
 export class UsersService implements IUsersService {
   constructor(
     private readonly usersRepo: UsersRepository,
-    private readonly userProfileRepo: UsersProfileRepository
+    private readonly userProfileRepo: UsersProfileRepository,
+    @Inject(EXCEPTION_HANDLER_SERVICE) private readonly errorService: ExceptionHandlerService
   ) {}
 
   async createWithPassword(inp: TCreateUserWithPpassword): Promise<TUser> {
-    const existing = await this.usersRepo.getByEmail(inp.email);
-    if (existing) {
-      throw new BadRequestException(`User with email ${inp.email} already exists`);
-    }
+    try {
+      const existing = await this.usersRepo.getByEmail(inp.email);
+      if (existing) {
+        throw new BadRequestException(`User with email ${inp.email} already exists`);
+      }
 
-    const createUser = await this.usersRepo.create(inp);
-    return createUser;
+      const createUser = await this.usersRepo.create(inp);
+      return createUser;
+    } catch (error) {
+      this.errorService.handleError(error as Error);
+    }
   }
 
   async getAll(): Promise<TUser[] | []> {
-    const users = await this.usersRepo.getAll();
-    return users;
+    try {
+      const users = await this.usersRepo.getAll();
+      return users;
+    } catch (error) {
+      this.errorService.handleError(error as Error);
+    }
   }
 
   async getOneById(id: number): Promise<TUser> {
-    const user = await this.usersRepo.getOneById(id);
-    if (!user) {
-      throw new NotFoundException(`User with ID ${id} not found`);
+    try {
+      const user = await this.usersRepo.getOneById(id);
+      if (!user) {
+        throw new NotFoundException(`User with ID ${id} not found`);
+      }
+      return user;
+    } catch (error) {
+      this.errorService.handleError(error as Error);
     }
-    return user;
   }
 
   async updateById(id: number, inp: TUpdateUser): Promise<TUser> {
-    const existing = await this.usersRepo.getOneById(id);
-    if (!existing) {
-      throw new NotFoundException(`User with ID ${id} not found`);
-    }
+    try {
+      await this.getOneById(id);
 
-    const updatedUser = await this.usersRepo.updateById(id, inp);
-    return updatedUser;
+      const updatedUser = await this.usersRepo.updateById(id, inp);
+      return updatedUser;
+    } catch (error) {
+      this.errorService.handleError(error as Error);
+    }
   }
 
   async deleteById(id: number): Promise<void> {
-    const existing = await this.usersRepo.getOneById(id);
-    if (!existing) {
-      throw new NotFoundException(`User with ID ${id} not found`);
+    try {
+      await this.getOneById(id);
+
+      await this.usersRepo.deleteById(id);
+      return;
+    } catch (error) {
+      this.errorService.handleError(error as Error);
     }
-
-    await this.usersRepo.deleteById(id);
   }
 
-  async createWithGoogle(profile: TProvider): Promise<any> {
-    const createUser = await this.userProfileRepo.cerateWithProvider(profile);
-    return createUser;
-  }
-
-  async createWithFacebook(profile: TProvider): Promise<any> {
-    const createUser = await this.userProfileRepo.cerateWithProvider(profile);
-    return createUser;
+  async createWithProvider(profile: TProvider): Promise<any> {
+    try {
+      const createUser = await this.userProfileRepo.cerateWithProvider(profile);
+      return createUser;
+    } catch (error) {
+      this.errorService.handleError(error as Error);
+    }
   }
 }

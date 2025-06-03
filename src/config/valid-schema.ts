@@ -4,6 +4,7 @@ export const validSchema = Joi.object({
   NODE_ENV: Joi.string().valid("dev", "prod").default("dev"),
   PORT: Joi.number().port().required(),
   APP_NAME: Joi.string().default("MyApp"),
+  ORIGIN_CORS: Joi.string().required(),
   PG_PROVIDER: Joi.string().valid("postgresql").required(),
   PG_USERNAME: Joi.string().required(),
   PG_PASSWORD: Joi.string().required(),
