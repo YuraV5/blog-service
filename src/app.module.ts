@@ -5,6 +5,7 @@ import { validSchema } from "./config/valid-schema";
 import { PrismaModule } from "./database/prisma/prisma.module";
 import { AuthModule } from "./modules/auth/auth.module";
 import { UsersModule } from "./modules/users/users.module";
+import { ThrottlingModule } from "./common/throttling/throttling.module";
 
 @Module({
   imports: [
@@ -16,7 +17,8 @@ import { UsersModule } from "./modules/users/users.module";
     }),
     UsersModule,
     AuthModule,
-    PrismaModule
+    PrismaModule,
+    ThrottlingModule
   ],
   controllers: [],
   providers: []
