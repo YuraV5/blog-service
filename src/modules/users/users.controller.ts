@@ -2,6 +2,7 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from "@nestjs/commo
 import { UsersService } from "./users.service";
 import { CreateUserDto } from "./dto/createUserWithPassword.dto";
 import { UpdateUserDto } from "./dto/updateUser.dto";
+import { ParamIdDto } from "../../common/dtos";
 
 @Controller("users")
 export class UsersController {
@@ -18,17 +19,18 @@ export class UsersController {
   }
 
   @Get(":id")
-  findOne(@Param("id") id: string) {
-    return this.usersService.getOneById(+id);
+  findOne(@Param() param: ParamIdDto) {
+    console.log("USER: ", param.id);
+    return this.usersService.getOneById(param.id);
   }
 
   @Patch(":id")
-  update(@Param("id") id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.usersService.updateById(+id, updateUserDto);
+  update(@Param() param: ParamIdDto, @Body() updateUserDto: UpdateUserDto) {
+    return this.usersService.updateById(param.id, updateUserDto);
   }
 
   @Delete(":id")
-  remove(@Param("id") id: string) {
-    return this.usersService.deleteById(+id);
+  remove(@Param() param: ParamIdDto) {
+    return this.usersService.deleteById(param.id);
   }
 }

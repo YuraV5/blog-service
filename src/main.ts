@@ -6,7 +6,6 @@ import { GlobalExceptionFilter } from "./common/filters/exceptions/global-except
 import { HttpExceptionFilter } from "./common/filters/exceptions/http-exception.filter";
 import helmet from "helmet";
 import { json, urlencoded } from "express";
-import rateLimit from "express-rate-limit";
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -24,16 +23,6 @@ async function bootstrap() {
   // Limit request body size to prevent large payload attacks
   app.use(json({ limit: "1mb" }));
   app.use(urlencoded({ extended: true, limit: "1mb" }));
-
-  // Basic rate limiter middleware to protect against brute-force and spam
-  app.use(
-    rateLimit({
-      windowMs: 15 * 60 * 1000, // 15 minutes
-      max: 100, // limit each IP to 100 requests per windowMs
-      standardHeaders: true,
-      legacyHeaders: false
-    })
-  );
 
   // Set global route prefix
   app.setGlobalPrefix("api");
