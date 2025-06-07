@@ -6,11 +6,13 @@ import { GlobalExceptionFilter } from "./common/filters/exceptions/global-except
 import { HttpExceptionFilter } from "./common/filters/exceptions/http-exception.filter";
 import helmet from "helmet";
 import { json, urlencoded } from "express";
+import * as cookieParser from "cookie-parser";
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const conf = app.get(ConfigService);
 
+  app.use(cookieParser());
   // Enable CORS for local development
   app.enableCors({
     origin: [conf.get<string>("app.originCors")], // e.g., http://localhost:4000

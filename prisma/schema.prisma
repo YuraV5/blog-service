@@ -24,25 +24,43 @@ model User {
   email     String     @unique
   password  String?
   name      String?
-  photoUrl  String?    @map("photo_link")
+  photoUrl  String?    @map("photo_url")
   role      UsersRoles @default(user)
   active    Boolean    @default(true)
   createdAt DateTime   @default(now()) @map("created_at")
   updatedAt DateTime   @updatedAt @map("updated_at")
 
   providers UserProvider[]
+  sessions  DeviceSession[]
 
   @@map("users")
 }
 
 model UserProvider {
   id         Int    @id @default(autoincrement())
-  provider   String // 'google', 'facebook', 'email' тощо
-  providerId String // унікальний id від провайдера
-  profile    Json? // jsonb з профілем
-  userId     Int
+  provider   String
+  providerId String @map("provider_id")
+  profile    Json?
+  userId     Int    @map("user_id")
   user       User   @relation(fields: [userId], references: [id])
 
   @@unique([provider, providerId])
   @@map("users_providers")
+}
+
+model DeviceSession {
+  id           String   @id @default(uuid())
+  userId       Int      @map("user_id")
+  provider     String
+  providerId   String   @map("provider_id")
+  deviceInfo   String?  @map("device_info")
+  accessToken  String   @map("access_token")
+  refreshToken String   @map("refresh_token")
+  revoked      Boolean  @default(false)
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+  user         User     @relation(fields: [userId], references: [id])
+
+  @@index([userId])
+  @@map("device_sessions")
 }

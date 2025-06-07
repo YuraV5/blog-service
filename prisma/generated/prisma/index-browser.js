@@ -140,6 +140,19 @@ exports.Prisma.UserProviderScalarFieldEnum = {
   userId: 'userId'
 };
 
+exports.Prisma.DeviceSessionScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  provider: 'provider',
+  providerId: 'providerId',
+  deviceInfo: 'deviceInfo',
+  accessToken: 'accessToken',
+  refreshToken: 'refreshToken',
+  revoked: 'revoked',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -172,7 +185,8 @@ exports.UsersRoles = exports.$Enums.UsersRoles = {
 
 exports.Prisma.ModelName = {
   User: 'User',
-  UserProvider: 'UserProvider'
+  UserProvider: 'UserProvider',
+  DeviceSession: 'DeviceSession'
 };
 
 /**

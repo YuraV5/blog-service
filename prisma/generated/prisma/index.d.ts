@@ -23,6 +23,11 @@ export type User = $Result.DefaultSelection<Prisma.$UserPayload>
  * 
  */
 export type UserProvider = $Result.DefaultSelection<Prisma.$UserProviderPayload>
+/**
+ * Model DeviceSession
+ * 
+ */
+export type DeviceSession = $Result.DefaultSelection<Prisma.$DeviceSessionPayload>
 
 /**
  * Enums
@@ -185,6 +190,16 @@ export class PrismaClient<
     * ```
     */
   get userProvider(): Prisma.UserProviderDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.deviceSession`: Exposes CRUD operations for the **DeviceSession** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more DeviceSessions
+    * const deviceSessions = await prisma.deviceSession.findMany()
+    * ```
+    */
+  get deviceSession(): Prisma.DeviceSessionDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -626,7 +641,8 @@ export namespace Prisma {
 
   export const ModelName: {
     User: 'User',
-    UserProvider: 'UserProvider'
+    UserProvider: 'UserProvider',
+    DeviceSession: 'DeviceSession'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -645,7 +661,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "userProvider"
+      modelProps: "user" | "userProvider" | "deviceSession"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -797,6 +813,80 @@ export namespace Prisma {
           }
         }
       }
+      DeviceSession: {
+        payload: Prisma.$DeviceSessionPayload<ExtArgs>
+        fields: Prisma.DeviceSessionFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.DeviceSessionFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DeviceSessionPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.DeviceSessionFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DeviceSessionPayload>
+          }
+          findFirst: {
+            args: Prisma.DeviceSessionFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DeviceSessionPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.DeviceSessionFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DeviceSessionPayload>
+          }
+          findMany: {
+            args: Prisma.DeviceSessionFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DeviceSessionPayload>[]
+          }
+          create: {
+            args: Prisma.DeviceSessionCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DeviceSessionPayload>
+          }
+          createMany: {
+            args: Prisma.DeviceSessionCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.DeviceSessionCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DeviceSessionPayload>[]
+          }
+          delete: {
+            args: Prisma.DeviceSessionDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DeviceSessionPayload>
+          }
+          update: {
+            args: Prisma.DeviceSessionUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DeviceSessionPayload>
+          }
+          deleteMany: {
+            args: Prisma.DeviceSessionDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.DeviceSessionUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.DeviceSessionUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DeviceSessionPayload>[]
+          }
+          upsert: {
+            args: Prisma.DeviceSessionUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DeviceSessionPayload>
+          }
+          aggregate: {
+            args: Prisma.DeviceSessionAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateDeviceSession>
+          }
+          groupBy: {
+            args: Prisma.DeviceSessionGroupByArgs<ExtArgs>
+            result: $Utils.Optional<DeviceSessionGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.DeviceSessionCountArgs<ExtArgs>
+            result: $Utils.Optional<DeviceSessionCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -883,6 +973,7 @@ export namespace Prisma {
   export type GlobalOmitConfig = {
     user?: UserOmit
     userProvider?: UserProviderOmit
+    deviceSession?: DeviceSessionOmit
   }
 
   /* Types for Logging */
@@ -978,10 +1069,12 @@ export namespace Prisma {
 
   export type UserCountOutputType = {
     providers: number
+    sessions: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     providers?: boolean | UserCountOutputTypeCountProvidersArgs
+    sessions?: boolean | UserCountOutputTypeCountSessionsArgs
   }
 
   // Custom InputTypes
@@ -1000,6 +1093,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountProvidersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: UserProviderWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountSessionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DeviceSessionWhereInput
   }
 
 
@@ -1238,6 +1338,7 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     providers?: boolean | User$providersArgs<ExtArgs>
+    sessions?: boolean | User$sessionsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -1280,6 +1381,7 @@ export namespace Prisma {
   export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "password" | "name" | "photoUrl" | "role" | "active" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     providers?: boolean | User$providersArgs<ExtArgs>
+    sessions?: boolean | User$sessionsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -1289,6 +1391,7 @@ export namespace Prisma {
     name: "User"
     objects: {
       providers: Prisma.$UserProviderPayload<ExtArgs>[]
+      sessions: Prisma.$DeviceSessionPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -1695,6 +1798,7 @@ export namespace Prisma {
   export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     providers<T extends User$providersArgs<ExtArgs> = {}>(args?: Subset<T, User$providersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserProviderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    sessions<T extends User$sessionsArgs<ExtArgs> = {}>(args?: Subset<T, User$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DeviceSessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2142,6 +2246,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: UserProviderScalarFieldEnum | UserProviderScalarFieldEnum[]
+  }
+
+  /**
+   * User.sessions
+   */
+  export type User$sessionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeviceSession
+     */
+    select?: DeviceSessionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DeviceSession
+     */
+    omit?: DeviceSessionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeviceSessionInclude<ExtArgs> | null
+    where?: DeviceSessionWhereInput
+    orderBy?: DeviceSessionOrderByWithRelationInput | DeviceSessionOrderByWithRelationInput[]
+    cursor?: DeviceSessionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DeviceSessionScalarFieldEnum | DeviceSessionScalarFieldEnum[]
   }
 
   /**
@@ -3256,6 +3384,1163 @@ export namespace Prisma {
 
 
   /**
+   * Model DeviceSession
+   */
+
+  export type AggregateDeviceSession = {
+    _count: DeviceSessionCountAggregateOutputType | null
+    _avg: DeviceSessionAvgAggregateOutputType | null
+    _sum: DeviceSessionSumAggregateOutputType | null
+    _min: DeviceSessionMinAggregateOutputType | null
+    _max: DeviceSessionMaxAggregateOutputType | null
+  }
+
+  export type DeviceSessionAvgAggregateOutputType = {
+    userId: number | null
+  }
+
+  export type DeviceSessionSumAggregateOutputType = {
+    userId: number | null
+  }
+
+  export type DeviceSessionMinAggregateOutputType = {
+    id: string | null
+    userId: number | null
+    provider: string | null
+    providerId: string | null
+    deviceInfo: string | null
+    accessToken: string | null
+    refreshToken: string | null
+    revoked: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type DeviceSessionMaxAggregateOutputType = {
+    id: string | null
+    userId: number | null
+    provider: string | null
+    providerId: string | null
+    deviceInfo: string | null
+    accessToken: string | null
+    refreshToken: string | null
+    revoked: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type DeviceSessionCountAggregateOutputType = {
+    id: number
+    userId: number
+    provider: number
+    providerId: number
+    deviceInfo: number
+    accessToken: number
+    refreshToken: number
+    revoked: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type DeviceSessionAvgAggregateInputType = {
+    userId?: true
+  }
+
+  export type DeviceSessionSumAggregateInputType = {
+    userId?: true
+  }
+
+  export type DeviceSessionMinAggregateInputType = {
+    id?: true
+    userId?: true
+    provider?: true
+    providerId?: true
+    deviceInfo?: true
+    accessToken?: true
+    refreshToken?: true
+    revoked?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type DeviceSessionMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    provider?: true
+    providerId?: true
+    deviceInfo?: true
+    accessToken?: true
+    refreshToken?: true
+    revoked?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type DeviceSessionCountAggregateInputType = {
+    id?: true
+    userId?: true
+    provider?: true
+    providerId?: true
+    deviceInfo?: true
+    accessToken?: true
+    refreshToken?: true
+    revoked?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type DeviceSessionAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DeviceSession to aggregate.
+     */
+    where?: DeviceSessionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DeviceSessions to fetch.
+     */
+    orderBy?: DeviceSessionOrderByWithRelationInput | DeviceSessionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: DeviceSessionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DeviceSessions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DeviceSessions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned DeviceSessions
+    **/
+    _count?: true | DeviceSessionCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: DeviceSessionAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: DeviceSessionSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: DeviceSessionMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: DeviceSessionMaxAggregateInputType
+  }
+
+  export type GetDeviceSessionAggregateType<T extends DeviceSessionAggregateArgs> = {
+        [P in keyof T & keyof AggregateDeviceSession]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateDeviceSession[P]>
+      : GetScalarType<T[P], AggregateDeviceSession[P]>
+  }
+
+
+
+
+  export type DeviceSessionGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DeviceSessionWhereInput
+    orderBy?: DeviceSessionOrderByWithAggregationInput | DeviceSessionOrderByWithAggregationInput[]
+    by: DeviceSessionScalarFieldEnum[] | DeviceSessionScalarFieldEnum
+    having?: DeviceSessionScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: DeviceSessionCountAggregateInputType | true
+    _avg?: DeviceSessionAvgAggregateInputType
+    _sum?: DeviceSessionSumAggregateInputType
+    _min?: DeviceSessionMinAggregateInputType
+    _max?: DeviceSessionMaxAggregateInputType
+  }
+
+  export type DeviceSessionGroupByOutputType = {
+    id: string
+    userId: number
+    provider: string
+    providerId: string
+    deviceInfo: string | null
+    accessToken: string
+    refreshToken: string
+    revoked: boolean
+    createdAt: Date
+    updatedAt: Date
+    _count: DeviceSessionCountAggregateOutputType | null
+    _avg: DeviceSessionAvgAggregateOutputType | null
+    _sum: DeviceSessionSumAggregateOutputType | null
+    _min: DeviceSessionMinAggregateOutputType | null
+    _max: DeviceSessionMaxAggregateOutputType | null
+  }
+
+  type GetDeviceSessionGroupByPayload<T extends DeviceSessionGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<DeviceSessionGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof DeviceSessionGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], DeviceSessionGroupByOutputType[P]>
+            : GetScalarType<T[P], DeviceSessionGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type DeviceSessionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    provider?: boolean
+    providerId?: boolean
+    deviceInfo?: boolean
+    accessToken?: boolean
+    refreshToken?: boolean
+    revoked?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["deviceSession"]>
+
+  export type DeviceSessionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    provider?: boolean
+    providerId?: boolean
+    deviceInfo?: boolean
+    accessToken?: boolean
+    refreshToken?: boolean
+    revoked?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["deviceSession"]>
+
+  export type DeviceSessionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    provider?: boolean
+    providerId?: boolean
+    deviceInfo?: boolean
+    accessToken?: boolean
+    refreshToken?: boolean
+    revoked?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["deviceSession"]>
+
+  export type DeviceSessionSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    provider?: boolean
+    providerId?: boolean
+    deviceInfo?: boolean
+    accessToken?: boolean
+    refreshToken?: boolean
+    revoked?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type DeviceSessionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "provider" | "providerId" | "deviceInfo" | "accessToken" | "refreshToken" | "revoked" | "createdAt" | "updatedAt", ExtArgs["result"]["deviceSession"]>
+  export type DeviceSessionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type DeviceSessionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type DeviceSessionIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $DeviceSessionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "DeviceSession"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: number
+      provider: string
+      providerId: string
+      deviceInfo: string | null
+      accessToken: string
+      refreshToken: string
+      revoked: boolean
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["deviceSession"]>
+    composites: {}
+  }
+
+  type DeviceSessionGetPayload<S extends boolean | null | undefined | DeviceSessionDefaultArgs> = $Result.GetResult<Prisma.$DeviceSessionPayload, S>
+
+  type DeviceSessionCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<DeviceSessionFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: DeviceSessionCountAggregateInputType | true
+    }
+
+  export interface DeviceSessionDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['DeviceSession'], meta: { name: 'DeviceSession' } }
+    /**
+     * Find zero or one DeviceSession that matches the filter.
+     * @param {DeviceSessionFindUniqueArgs} args - Arguments to find a DeviceSession
+     * @example
+     * // Get one DeviceSession
+     * const deviceSession = await prisma.deviceSession.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends DeviceSessionFindUniqueArgs>(args: SelectSubset<T, DeviceSessionFindUniqueArgs<ExtArgs>>): Prisma__DeviceSessionClient<$Result.GetResult<Prisma.$DeviceSessionPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one DeviceSession that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {DeviceSessionFindUniqueOrThrowArgs} args - Arguments to find a DeviceSession
+     * @example
+     * // Get one DeviceSession
+     * const deviceSession = await prisma.deviceSession.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends DeviceSessionFindUniqueOrThrowArgs>(args: SelectSubset<T, DeviceSessionFindUniqueOrThrowArgs<ExtArgs>>): Prisma__DeviceSessionClient<$Result.GetResult<Prisma.$DeviceSessionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first DeviceSession that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DeviceSessionFindFirstArgs} args - Arguments to find a DeviceSession
+     * @example
+     * // Get one DeviceSession
+     * const deviceSession = await prisma.deviceSession.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends DeviceSessionFindFirstArgs>(args?: SelectSubset<T, DeviceSessionFindFirstArgs<ExtArgs>>): Prisma__DeviceSessionClient<$Result.GetResult<Prisma.$DeviceSessionPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first DeviceSession that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DeviceSessionFindFirstOrThrowArgs} args - Arguments to find a DeviceSession
+     * @example
+     * // Get one DeviceSession
+     * const deviceSession = await prisma.deviceSession.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends DeviceSessionFindFirstOrThrowArgs>(args?: SelectSubset<T, DeviceSessionFindFirstOrThrowArgs<ExtArgs>>): Prisma__DeviceSessionClient<$Result.GetResult<Prisma.$DeviceSessionPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more DeviceSessions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DeviceSessionFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all DeviceSessions
+     * const deviceSessions = await prisma.deviceSession.findMany()
+     * 
+     * // Get first 10 DeviceSessions
+     * const deviceSessions = await prisma.deviceSession.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const deviceSessionWithIdOnly = await prisma.deviceSession.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends DeviceSessionFindManyArgs>(args?: SelectSubset<T, DeviceSessionFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DeviceSessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a DeviceSession.
+     * @param {DeviceSessionCreateArgs} args - Arguments to create a DeviceSession.
+     * @example
+     * // Create one DeviceSession
+     * const DeviceSession = await prisma.deviceSession.create({
+     *   data: {
+     *     // ... data to create a DeviceSession
+     *   }
+     * })
+     * 
+     */
+    create<T extends DeviceSessionCreateArgs>(args: SelectSubset<T, DeviceSessionCreateArgs<ExtArgs>>): Prisma__DeviceSessionClient<$Result.GetResult<Prisma.$DeviceSessionPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many DeviceSessions.
+     * @param {DeviceSessionCreateManyArgs} args - Arguments to create many DeviceSessions.
+     * @example
+     * // Create many DeviceSessions
+     * const deviceSession = await prisma.deviceSession.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends DeviceSessionCreateManyArgs>(args?: SelectSubset<T, DeviceSessionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many DeviceSessions and returns the data saved in the database.
+     * @param {DeviceSessionCreateManyAndReturnArgs} args - Arguments to create many DeviceSessions.
+     * @example
+     * // Create many DeviceSessions
+     * const deviceSession = await prisma.deviceSession.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many DeviceSessions and only return the `id`
+     * const deviceSessionWithIdOnly = await prisma.deviceSession.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends DeviceSessionCreateManyAndReturnArgs>(args?: SelectSubset<T, DeviceSessionCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DeviceSessionPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a DeviceSession.
+     * @param {DeviceSessionDeleteArgs} args - Arguments to delete one DeviceSession.
+     * @example
+     * // Delete one DeviceSession
+     * const DeviceSession = await prisma.deviceSession.delete({
+     *   where: {
+     *     // ... filter to delete one DeviceSession
+     *   }
+     * })
+     * 
+     */
+    delete<T extends DeviceSessionDeleteArgs>(args: SelectSubset<T, DeviceSessionDeleteArgs<ExtArgs>>): Prisma__DeviceSessionClient<$Result.GetResult<Prisma.$DeviceSessionPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one DeviceSession.
+     * @param {DeviceSessionUpdateArgs} args - Arguments to update one DeviceSession.
+     * @example
+     * // Update one DeviceSession
+     * const deviceSession = await prisma.deviceSession.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends DeviceSessionUpdateArgs>(args: SelectSubset<T, DeviceSessionUpdateArgs<ExtArgs>>): Prisma__DeviceSessionClient<$Result.GetResult<Prisma.$DeviceSessionPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more DeviceSessions.
+     * @param {DeviceSessionDeleteManyArgs} args - Arguments to filter DeviceSessions to delete.
+     * @example
+     * // Delete a few DeviceSessions
+     * const { count } = await prisma.deviceSession.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends DeviceSessionDeleteManyArgs>(args?: SelectSubset<T, DeviceSessionDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more DeviceSessions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DeviceSessionUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many DeviceSessions
+     * const deviceSession = await prisma.deviceSession.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends DeviceSessionUpdateManyArgs>(args: SelectSubset<T, DeviceSessionUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more DeviceSessions and returns the data updated in the database.
+     * @param {DeviceSessionUpdateManyAndReturnArgs} args - Arguments to update many DeviceSessions.
+     * @example
+     * // Update many DeviceSessions
+     * const deviceSession = await prisma.deviceSession.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more DeviceSessions and only return the `id`
+     * const deviceSessionWithIdOnly = await prisma.deviceSession.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends DeviceSessionUpdateManyAndReturnArgs>(args: SelectSubset<T, DeviceSessionUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DeviceSessionPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one DeviceSession.
+     * @param {DeviceSessionUpsertArgs} args - Arguments to update or create a DeviceSession.
+     * @example
+     * // Update or create a DeviceSession
+     * const deviceSession = await prisma.deviceSession.upsert({
+     *   create: {
+     *     // ... data to create a DeviceSession
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the DeviceSession we want to update
+     *   }
+     * })
+     */
+    upsert<T extends DeviceSessionUpsertArgs>(args: SelectSubset<T, DeviceSessionUpsertArgs<ExtArgs>>): Prisma__DeviceSessionClient<$Result.GetResult<Prisma.$DeviceSessionPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of DeviceSessions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DeviceSessionCountArgs} args - Arguments to filter DeviceSessions to count.
+     * @example
+     * // Count the number of DeviceSessions
+     * const count = await prisma.deviceSession.count({
+     *   where: {
+     *     // ... the filter for the DeviceSessions we want to count
+     *   }
+     * })
+    **/
+    count<T extends DeviceSessionCountArgs>(
+      args?: Subset<T, DeviceSessionCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], DeviceSessionCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a DeviceSession.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DeviceSessionAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends DeviceSessionAggregateArgs>(args: Subset<T, DeviceSessionAggregateArgs>): Prisma.PrismaPromise<GetDeviceSessionAggregateType<T>>
+
+    /**
+     * Group by DeviceSession.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DeviceSessionGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends DeviceSessionGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: DeviceSessionGroupByArgs['orderBy'] }
+        : { orderBy?: DeviceSessionGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, DeviceSessionGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetDeviceSessionGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the DeviceSession model
+   */
+  readonly fields: DeviceSessionFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for DeviceSession.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__DeviceSessionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the DeviceSession model
+   */
+  interface DeviceSessionFieldRefs {
+    readonly id: FieldRef<"DeviceSession", 'String'>
+    readonly userId: FieldRef<"DeviceSession", 'Int'>
+    readonly provider: FieldRef<"DeviceSession", 'String'>
+    readonly providerId: FieldRef<"DeviceSession", 'String'>
+    readonly deviceInfo: FieldRef<"DeviceSession", 'String'>
+    readonly accessToken: FieldRef<"DeviceSession", 'String'>
+    readonly refreshToken: FieldRef<"DeviceSession", 'String'>
+    readonly revoked: FieldRef<"DeviceSession", 'Boolean'>
+    readonly createdAt: FieldRef<"DeviceSession", 'DateTime'>
+    readonly updatedAt: FieldRef<"DeviceSession", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * DeviceSession findUnique
+   */
+  export type DeviceSessionFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeviceSession
+     */
+    select?: DeviceSessionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DeviceSession
+     */
+    omit?: DeviceSessionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeviceSessionInclude<ExtArgs> | null
+    /**
+     * Filter, which DeviceSession to fetch.
+     */
+    where: DeviceSessionWhereUniqueInput
+  }
+
+  /**
+   * DeviceSession findUniqueOrThrow
+   */
+  export type DeviceSessionFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeviceSession
+     */
+    select?: DeviceSessionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DeviceSession
+     */
+    omit?: DeviceSessionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeviceSessionInclude<ExtArgs> | null
+    /**
+     * Filter, which DeviceSession to fetch.
+     */
+    where: DeviceSessionWhereUniqueInput
+  }
+
+  /**
+   * DeviceSession findFirst
+   */
+  export type DeviceSessionFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeviceSession
+     */
+    select?: DeviceSessionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DeviceSession
+     */
+    omit?: DeviceSessionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeviceSessionInclude<ExtArgs> | null
+    /**
+     * Filter, which DeviceSession to fetch.
+     */
+    where?: DeviceSessionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DeviceSessions to fetch.
+     */
+    orderBy?: DeviceSessionOrderByWithRelationInput | DeviceSessionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DeviceSessions.
+     */
+    cursor?: DeviceSessionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DeviceSessions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DeviceSessions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DeviceSessions.
+     */
+    distinct?: DeviceSessionScalarFieldEnum | DeviceSessionScalarFieldEnum[]
+  }
+
+  /**
+   * DeviceSession findFirstOrThrow
+   */
+  export type DeviceSessionFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeviceSession
+     */
+    select?: DeviceSessionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DeviceSession
+     */
+    omit?: DeviceSessionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeviceSessionInclude<ExtArgs> | null
+    /**
+     * Filter, which DeviceSession to fetch.
+     */
+    where?: DeviceSessionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DeviceSessions to fetch.
+     */
+    orderBy?: DeviceSessionOrderByWithRelationInput | DeviceSessionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DeviceSessions.
+     */
+    cursor?: DeviceSessionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DeviceSessions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DeviceSessions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DeviceSessions.
+     */
+    distinct?: DeviceSessionScalarFieldEnum | DeviceSessionScalarFieldEnum[]
+  }
+
+  /**
+   * DeviceSession findMany
+   */
+  export type DeviceSessionFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeviceSession
+     */
+    select?: DeviceSessionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DeviceSession
+     */
+    omit?: DeviceSessionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeviceSessionInclude<ExtArgs> | null
+    /**
+     * Filter, which DeviceSessions to fetch.
+     */
+    where?: DeviceSessionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DeviceSessions to fetch.
+     */
+    orderBy?: DeviceSessionOrderByWithRelationInput | DeviceSessionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing DeviceSessions.
+     */
+    cursor?: DeviceSessionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DeviceSessions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DeviceSessions.
+     */
+    skip?: number
+    distinct?: DeviceSessionScalarFieldEnum | DeviceSessionScalarFieldEnum[]
+  }
+
+  /**
+   * DeviceSession create
+   */
+  export type DeviceSessionCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeviceSession
+     */
+    select?: DeviceSessionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DeviceSession
+     */
+    omit?: DeviceSessionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeviceSessionInclude<ExtArgs> | null
+    /**
+     * The data needed to create a DeviceSession.
+     */
+    data: XOR<DeviceSessionCreateInput, DeviceSessionUncheckedCreateInput>
+  }
+
+  /**
+   * DeviceSession createMany
+   */
+  export type DeviceSessionCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many DeviceSessions.
+     */
+    data: DeviceSessionCreateManyInput | DeviceSessionCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * DeviceSession createManyAndReturn
+   */
+  export type DeviceSessionCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeviceSession
+     */
+    select?: DeviceSessionSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the DeviceSession
+     */
+    omit?: DeviceSessionOmit<ExtArgs> | null
+    /**
+     * The data used to create many DeviceSessions.
+     */
+    data: DeviceSessionCreateManyInput | DeviceSessionCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeviceSessionIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * DeviceSession update
+   */
+  export type DeviceSessionUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeviceSession
+     */
+    select?: DeviceSessionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DeviceSession
+     */
+    omit?: DeviceSessionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeviceSessionInclude<ExtArgs> | null
+    /**
+     * The data needed to update a DeviceSession.
+     */
+    data: XOR<DeviceSessionUpdateInput, DeviceSessionUncheckedUpdateInput>
+    /**
+     * Choose, which DeviceSession to update.
+     */
+    where: DeviceSessionWhereUniqueInput
+  }
+
+  /**
+   * DeviceSession updateMany
+   */
+  export type DeviceSessionUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update DeviceSessions.
+     */
+    data: XOR<DeviceSessionUpdateManyMutationInput, DeviceSessionUncheckedUpdateManyInput>
+    /**
+     * Filter which DeviceSessions to update
+     */
+    where?: DeviceSessionWhereInput
+    /**
+     * Limit how many DeviceSessions to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * DeviceSession updateManyAndReturn
+   */
+  export type DeviceSessionUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeviceSession
+     */
+    select?: DeviceSessionSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the DeviceSession
+     */
+    omit?: DeviceSessionOmit<ExtArgs> | null
+    /**
+     * The data used to update DeviceSessions.
+     */
+    data: XOR<DeviceSessionUpdateManyMutationInput, DeviceSessionUncheckedUpdateManyInput>
+    /**
+     * Filter which DeviceSessions to update
+     */
+    where?: DeviceSessionWhereInput
+    /**
+     * Limit how many DeviceSessions to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeviceSessionIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * DeviceSession upsert
+   */
+  export type DeviceSessionUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeviceSession
+     */
+    select?: DeviceSessionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DeviceSession
+     */
+    omit?: DeviceSessionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeviceSessionInclude<ExtArgs> | null
+    /**
+     * The filter to search for the DeviceSession to update in case it exists.
+     */
+    where: DeviceSessionWhereUniqueInput
+    /**
+     * In case the DeviceSession found by the `where` argument doesn't exist, create a new DeviceSession with this data.
+     */
+    create: XOR<DeviceSessionCreateInput, DeviceSessionUncheckedCreateInput>
+    /**
+     * In case the DeviceSession was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<DeviceSessionUpdateInput, DeviceSessionUncheckedUpdateInput>
+  }
+
+  /**
+   * DeviceSession delete
+   */
+  export type DeviceSessionDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeviceSession
+     */
+    select?: DeviceSessionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DeviceSession
+     */
+    omit?: DeviceSessionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeviceSessionInclude<ExtArgs> | null
+    /**
+     * Filter which DeviceSession to delete.
+     */
+    where: DeviceSessionWhereUniqueInput
+  }
+
+  /**
+   * DeviceSession deleteMany
+   */
+  export type DeviceSessionDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DeviceSessions to delete
+     */
+    where?: DeviceSessionWhereInput
+    /**
+     * Limit how many DeviceSessions to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * DeviceSession without action
+   */
+  export type DeviceSessionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeviceSession
+     */
+    select?: DeviceSessionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DeviceSession
+     */
+    omit?: DeviceSessionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeviceSessionInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -3293,6 +4578,22 @@ export namespace Prisma {
   };
 
   export type UserProviderScalarFieldEnum = (typeof UserProviderScalarFieldEnum)[keyof typeof UserProviderScalarFieldEnum]
+
+
+  export const DeviceSessionScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    provider: 'provider',
+    providerId: 'providerId',
+    deviceInfo: 'deviceInfo',
+    accessToken: 'accessToken',
+    refreshToken: 'refreshToken',
+    revoked: 'revoked',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type DeviceSessionScalarFieldEnum = (typeof DeviceSessionScalarFieldEnum)[keyof typeof DeviceSessionScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -3449,6 +4750,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     providers?: UserProviderListRelationFilter
+    sessions?: DeviceSessionListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -3462,6 +4764,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     providers?: UserProviderOrderByRelationAggregateInput
+    sessions?: DeviceSessionOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -3478,6 +4781,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     providers?: UserProviderListRelationFilter
+    sessions?: DeviceSessionListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -3570,6 +4874,88 @@ export namespace Prisma {
     userId?: IntWithAggregatesFilter<"UserProvider"> | number
   }
 
+  export type DeviceSessionWhereInput = {
+    AND?: DeviceSessionWhereInput | DeviceSessionWhereInput[]
+    OR?: DeviceSessionWhereInput[]
+    NOT?: DeviceSessionWhereInput | DeviceSessionWhereInput[]
+    id?: StringFilter<"DeviceSession"> | string
+    userId?: IntFilter<"DeviceSession"> | number
+    provider?: StringFilter<"DeviceSession"> | string
+    providerId?: StringFilter<"DeviceSession"> | string
+    deviceInfo?: StringNullableFilter<"DeviceSession"> | string | null
+    accessToken?: StringFilter<"DeviceSession"> | string
+    refreshToken?: StringFilter<"DeviceSession"> | string
+    revoked?: BoolFilter<"DeviceSession"> | boolean
+    createdAt?: DateTimeFilter<"DeviceSession"> | Date | string
+    updatedAt?: DateTimeFilter<"DeviceSession"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type DeviceSessionOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    provider?: SortOrder
+    providerId?: SortOrder
+    deviceInfo?: SortOrderInput | SortOrder
+    accessToken?: SortOrder
+    refreshToken?: SortOrder
+    revoked?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type DeviceSessionWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: DeviceSessionWhereInput | DeviceSessionWhereInput[]
+    OR?: DeviceSessionWhereInput[]
+    NOT?: DeviceSessionWhereInput | DeviceSessionWhereInput[]
+    userId?: IntFilter<"DeviceSession"> | number
+    provider?: StringFilter<"DeviceSession"> | string
+    providerId?: StringFilter<"DeviceSession"> | string
+    deviceInfo?: StringNullableFilter<"DeviceSession"> | string | null
+    accessToken?: StringFilter<"DeviceSession"> | string
+    refreshToken?: StringFilter<"DeviceSession"> | string
+    revoked?: BoolFilter<"DeviceSession"> | boolean
+    createdAt?: DateTimeFilter<"DeviceSession"> | Date | string
+    updatedAt?: DateTimeFilter<"DeviceSession"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id">
+
+  export type DeviceSessionOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    provider?: SortOrder
+    providerId?: SortOrder
+    deviceInfo?: SortOrderInput | SortOrder
+    accessToken?: SortOrder
+    refreshToken?: SortOrder
+    revoked?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: DeviceSessionCountOrderByAggregateInput
+    _avg?: DeviceSessionAvgOrderByAggregateInput
+    _max?: DeviceSessionMaxOrderByAggregateInput
+    _min?: DeviceSessionMinOrderByAggregateInput
+    _sum?: DeviceSessionSumOrderByAggregateInput
+  }
+
+  export type DeviceSessionScalarWhereWithAggregatesInput = {
+    AND?: DeviceSessionScalarWhereWithAggregatesInput | DeviceSessionScalarWhereWithAggregatesInput[]
+    OR?: DeviceSessionScalarWhereWithAggregatesInput[]
+    NOT?: DeviceSessionScalarWhereWithAggregatesInput | DeviceSessionScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"DeviceSession"> | string
+    userId?: IntWithAggregatesFilter<"DeviceSession"> | number
+    provider?: StringWithAggregatesFilter<"DeviceSession"> | string
+    providerId?: StringWithAggregatesFilter<"DeviceSession"> | string
+    deviceInfo?: StringNullableWithAggregatesFilter<"DeviceSession"> | string | null
+    accessToken?: StringWithAggregatesFilter<"DeviceSession"> | string
+    refreshToken?: StringWithAggregatesFilter<"DeviceSession"> | string
+    revoked?: BoolWithAggregatesFilter<"DeviceSession"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"DeviceSession"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"DeviceSession"> | Date | string
+  }
+
   export type UserCreateInput = {
     email: string
     password?: string | null
@@ -3580,6 +4966,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     providers?: UserProviderCreateNestedManyWithoutUserInput
+    sessions?: DeviceSessionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -3593,6 +4980,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     providers?: UserProviderUncheckedCreateNestedManyWithoutUserInput
+    sessions?: DeviceSessionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -3605,6 +4993,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     providers?: UserProviderUpdateManyWithoutUserNestedInput
+    sessions?: DeviceSessionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -3618,6 +5007,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     providers?: UserProviderUncheckedUpdateManyWithoutUserNestedInput
+    sessions?: DeviceSessionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -3707,6 +5097,96 @@ export namespace Prisma {
     userId?: IntFieldUpdateOperationsInput | number
   }
 
+  export type DeviceSessionCreateInput = {
+    id?: string
+    provider: string
+    providerId: string
+    deviceInfo?: string | null
+    accessToken: string
+    refreshToken: string
+    revoked?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutSessionsInput
+  }
+
+  export type DeviceSessionUncheckedCreateInput = {
+    id?: string
+    userId: number
+    provider: string
+    providerId: string
+    deviceInfo?: string | null
+    accessToken: string
+    refreshToken: string
+    revoked?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DeviceSessionUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    provider?: StringFieldUpdateOperationsInput | string
+    providerId?: StringFieldUpdateOperationsInput | string
+    deviceInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    accessToken?: StringFieldUpdateOperationsInput | string
+    refreshToken?: StringFieldUpdateOperationsInput | string
+    revoked?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutSessionsNestedInput
+  }
+
+  export type DeviceSessionUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: IntFieldUpdateOperationsInput | number
+    provider?: StringFieldUpdateOperationsInput | string
+    providerId?: StringFieldUpdateOperationsInput | string
+    deviceInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    accessToken?: StringFieldUpdateOperationsInput | string
+    refreshToken?: StringFieldUpdateOperationsInput | string
+    revoked?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DeviceSessionCreateManyInput = {
+    id?: string
+    userId: number
+    provider: string
+    providerId: string
+    deviceInfo?: string | null
+    accessToken: string
+    refreshToken: string
+    revoked?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DeviceSessionUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    provider?: StringFieldUpdateOperationsInput | string
+    providerId?: StringFieldUpdateOperationsInput | string
+    deviceInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    accessToken?: StringFieldUpdateOperationsInput | string
+    refreshToken?: StringFieldUpdateOperationsInput | string
+    revoked?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DeviceSessionUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: IntFieldUpdateOperationsInput | number
+    provider?: StringFieldUpdateOperationsInput | string
+    providerId?: StringFieldUpdateOperationsInput | string
+    deviceInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    accessToken?: StringFieldUpdateOperationsInput | string
+    refreshToken?: StringFieldUpdateOperationsInput | string
+    revoked?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type IntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -3777,12 +5257,22 @@ export namespace Prisma {
     none?: UserProviderWhereInput
   }
 
+  export type DeviceSessionListRelationFilter = {
+    every?: DeviceSessionWhereInput
+    some?: DeviceSessionWhereInput
+    none?: DeviceSessionWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
   }
 
   export type UserProviderOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type DeviceSessionOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -4005,6 +5495,53 @@ export namespace Prisma {
     _max?: NestedJsonNullableFilter<$PrismaModel>
   }
 
+  export type DeviceSessionCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    provider?: SortOrder
+    providerId?: SortOrder
+    deviceInfo?: SortOrder
+    accessToken?: SortOrder
+    refreshToken?: SortOrder
+    revoked?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DeviceSessionAvgOrderByAggregateInput = {
+    userId?: SortOrder
+  }
+
+  export type DeviceSessionMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    provider?: SortOrder
+    providerId?: SortOrder
+    deviceInfo?: SortOrder
+    accessToken?: SortOrder
+    refreshToken?: SortOrder
+    revoked?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DeviceSessionMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    provider?: SortOrder
+    providerId?: SortOrder
+    deviceInfo?: SortOrder
+    accessToken?: SortOrder
+    refreshToken?: SortOrder
+    revoked?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DeviceSessionSumOrderByAggregateInput = {
+    userId?: SortOrder
+  }
+
   export type UserProviderCreateNestedManyWithoutUserInput = {
     create?: XOR<UserProviderCreateWithoutUserInput, UserProviderUncheckedCreateWithoutUserInput> | UserProviderCreateWithoutUserInput[] | UserProviderUncheckedCreateWithoutUserInput[]
     connectOrCreate?: UserProviderCreateOrConnectWithoutUserInput | UserProviderCreateOrConnectWithoutUserInput[]
@@ -4012,11 +5549,25 @@ export namespace Prisma {
     connect?: UserProviderWhereUniqueInput | UserProviderWhereUniqueInput[]
   }
 
+  export type DeviceSessionCreateNestedManyWithoutUserInput = {
+    create?: XOR<DeviceSessionCreateWithoutUserInput, DeviceSessionUncheckedCreateWithoutUserInput> | DeviceSessionCreateWithoutUserInput[] | DeviceSessionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: DeviceSessionCreateOrConnectWithoutUserInput | DeviceSessionCreateOrConnectWithoutUserInput[]
+    createMany?: DeviceSessionCreateManyUserInputEnvelope
+    connect?: DeviceSessionWhereUniqueInput | DeviceSessionWhereUniqueInput[]
+  }
+
   export type UserProviderUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<UserProviderCreateWithoutUserInput, UserProviderUncheckedCreateWithoutUserInput> | UserProviderCreateWithoutUserInput[] | UserProviderUncheckedCreateWithoutUserInput[]
     connectOrCreate?: UserProviderCreateOrConnectWithoutUserInput | UserProviderCreateOrConnectWithoutUserInput[]
     createMany?: UserProviderCreateManyUserInputEnvelope
     connect?: UserProviderWhereUniqueInput | UserProviderWhereUniqueInput[]
+  }
+
+  export type DeviceSessionUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<DeviceSessionCreateWithoutUserInput, DeviceSessionUncheckedCreateWithoutUserInput> | DeviceSessionCreateWithoutUserInput[] | DeviceSessionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: DeviceSessionCreateOrConnectWithoutUserInput | DeviceSessionCreateOrConnectWithoutUserInput[]
+    createMany?: DeviceSessionCreateManyUserInputEnvelope
+    connect?: DeviceSessionWhereUniqueInput | DeviceSessionWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -4053,6 +5604,20 @@ export namespace Prisma {
     deleteMany?: UserProviderScalarWhereInput | UserProviderScalarWhereInput[]
   }
 
+  export type DeviceSessionUpdateManyWithoutUserNestedInput = {
+    create?: XOR<DeviceSessionCreateWithoutUserInput, DeviceSessionUncheckedCreateWithoutUserInput> | DeviceSessionCreateWithoutUserInput[] | DeviceSessionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: DeviceSessionCreateOrConnectWithoutUserInput | DeviceSessionCreateOrConnectWithoutUserInput[]
+    upsert?: DeviceSessionUpsertWithWhereUniqueWithoutUserInput | DeviceSessionUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: DeviceSessionCreateManyUserInputEnvelope
+    set?: DeviceSessionWhereUniqueInput | DeviceSessionWhereUniqueInput[]
+    disconnect?: DeviceSessionWhereUniqueInput | DeviceSessionWhereUniqueInput[]
+    delete?: DeviceSessionWhereUniqueInput | DeviceSessionWhereUniqueInput[]
+    connect?: DeviceSessionWhereUniqueInput | DeviceSessionWhereUniqueInput[]
+    update?: DeviceSessionUpdateWithWhereUniqueWithoutUserInput | DeviceSessionUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: DeviceSessionUpdateManyWithWhereWithoutUserInput | DeviceSessionUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: DeviceSessionScalarWhereInput | DeviceSessionScalarWhereInput[]
+  }
+
   export type IntFieldUpdateOperationsInput = {
     set?: number
     increment?: number
@@ -4075,6 +5640,20 @@ export namespace Prisma {
     deleteMany?: UserProviderScalarWhereInput | UserProviderScalarWhereInput[]
   }
 
+  export type DeviceSessionUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<DeviceSessionCreateWithoutUserInput, DeviceSessionUncheckedCreateWithoutUserInput> | DeviceSessionCreateWithoutUserInput[] | DeviceSessionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: DeviceSessionCreateOrConnectWithoutUserInput | DeviceSessionCreateOrConnectWithoutUserInput[]
+    upsert?: DeviceSessionUpsertWithWhereUniqueWithoutUserInput | DeviceSessionUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: DeviceSessionCreateManyUserInputEnvelope
+    set?: DeviceSessionWhereUniqueInput | DeviceSessionWhereUniqueInput[]
+    disconnect?: DeviceSessionWhereUniqueInput | DeviceSessionWhereUniqueInput[]
+    delete?: DeviceSessionWhereUniqueInput | DeviceSessionWhereUniqueInput[]
+    connect?: DeviceSessionWhereUniqueInput | DeviceSessionWhereUniqueInput[]
+    update?: DeviceSessionUpdateWithWhereUniqueWithoutUserInput | DeviceSessionUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: DeviceSessionUpdateManyWithWhereWithoutUserInput | DeviceSessionUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: DeviceSessionScalarWhereInput | DeviceSessionScalarWhereInput[]
+  }
+
   export type UserCreateNestedOneWithoutProvidersInput = {
     create?: XOR<UserCreateWithoutProvidersInput, UserUncheckedCreateWithoutProvidersInput>
     connectOrCreate?: UserCreateOrConnectWithoutProvidersInput
@@ -4087,6 +5666,20 @@ export namespace Prisma {
     upsert?: UserUpsertWithoutProvidersInput
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutProvidersInput, UserUpdateWithoutProvidersInput>, UserUncheckedUpdateWithoutProvidersInput>
+  }
+
+  export type UserCreateNestedOneWithoutSessionsInput = {
+    create?: XOR<UserCreateWithoutSessionsInput, UserUncheckedCreateWithoutSessionsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutSessionsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutSessionsNestedInput = {
+    create?: XOR<UserCreateWithoutSessionsInput, UserUncheckedCreateWithoutSessionsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutSessionsInput
+    upsert?: UserUpsertWithoutSessionsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutSessionsInput, UserUpdateWithoutSessionsInput>, UserUncheckedUpdateWithoutSessionsInput>
   }
 
   export type NestedIntFilter<$PrismaModel = never> = {
@@ -4301,6 +5894,40 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type DeviceSessionCreateWithoutUserInput = {
+    id?: string
+    provider: string
+    providerId: string
+    deviceInfo?: string | null
+    accessToken: string
+    refreshToken: string
+    revoked?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DeviceSessionUncheckedCreateWithoutUserInput = {
+    id?: string
+    provider: string
+    providerId: string
+    deviceInfo?: string | null
+    accessToken: string
+    refreshToken: string
+    revoked?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DeviceSessionCreateOrConnectWithoutUserInput = {
+    where: DeviceSessionWhereUniqueInput
+    create: XOR<DeviceSessionCreateWithoutUserInput, DeviceSessionUncheckedCreateWithoutUserInput>
+  }
+
+  export type DeviceSessionCreateManyUserInputEnvelope = {
+    data: DeviceSessionCreateManyUserInput | DeviceSessionCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
   export type UserProviderUpsertWithWhereUniqueWithoutUserInput = {
     where: UserProviderWhereUniqueInput
     update: XOR<UserProviderUpdateWithoutUserInput, UserProviderUncheckedUpdateWithoutUserInput>
@@ -4328,6 +5955,38 @@ export namespace Prisma {
     userId?: IntFilter<"UserProvider"> | number
   }
 
+  export type DeviceSessionUpsertWithWhereUniqueWithoutUserInput = {
+    where: DeviceSessionWhereUniqueInput
+    update: XOR<DeviceSessionUpdateWithoutUserInput, DeviceSessionUncheckedUpdateWithoutUserInput>
+    create: XOR<DeviceSessionCreateWithoutUserInput, DeviceSessionUncheckedCreateWithoutUserInput>
+  }
+
+  export type DeviceSessionUpdateWithWhereUniqueWithoutUserInput = {
+    where: DeviceSessionWhereUniqueInput
+    data: XOR<DeviceSessionUpdateWithoutUserInput, DeviceSessionUncheckedUpdateWithoutUserInput>
+  }
+
+  export type DeviceSessionUpdateManyWithWhereWithoutUserInput = {
+    where: DeviceSessionScalarWhereInput
+    data: XOR<DeviceSessionUpdateManyMutationInput, DeviceSessionUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type DeviceSessionScalarWhereInput = {
+    AND?: DeviceSessionScalarWhereInput | DeviceSessionScalarWhereInput[]
+    OR?: DeviceSessionScalarWhereInput[]
+    NOT?: DeviceSessionScalarWhereInput | DeviceSessionScalarWhereInput[]
+    id?: StringFilter<"DeviceSession"> | string
+    userId?: IntFilter<"DeviceSession"> | number
+    provider?: StringFilter<"DeviceSession"> | string
+    providerId?: StringFilter<"DeviceSession"> | string
+    deviceInfo?: StringNullableFilter<"DeviceSession"> | string | null
+    accessToken?: StringFilter<"DeviceSession"> | string
+    refreshToken?: StringFilter<"DeviceSession"> | string
+    revoked?: BoolFilter<"DeviceSession"> | boolean
+    createdAt?: DateTimeFilter<"DeviceSession"> | Date | string
+    updatedAt?: DateTimeFilter<"DeviceSession"> | Date | string
+  }
+
   export type UserCreateWithoutProvidersInput = {
     email: string
     password?: string | null
@@ -4337,6 +5996,7 @@ export namespace Prisma {
     active?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    sessions?: DeviceSessionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutProvidersInput = {
@@ -4349,6 +6009,7 @@ export namespace Prisma {
     active?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    sessions?: DeviceSessionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutProvidersInput = {
@@ -4376,6 +6037,7 @@ export namespace Prisma {
     active?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sessions?: DeviceSessionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutProvidersInput = {
@@ -4388,6 +6050,73 @@ export namespace Prisma {
     active?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sessions?: DeviceSessionUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserCreateWithoutSessionsInput = {
+    email: string
+    password?: string | null
+    name?: string | null
+    photoUrl?: string | null
+    role?: $Enums.UsersRoles
+    active?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    providers?: UserProviderCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutSessionsInput = {
+    id?: number
+    email: string
+    password?: string | null
+    name?: string | null
+    photoUrl?: string | null
+    role?: $Enums.UsersRoles
+    active?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    providers?: UserProviderUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutSessionsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutSessionsInput, UserUncheckedCreateWithoutSessionsInput>
+  }
+
+  export type UserUpsertWithoutSessionsInput = {
+    update: XOR<UserUpdateWithoutSessionsInput, UserUncheckedUpdateWithoutSessionsInput>
+    create: XOR<UserCreateWithoutSessionsInput, UserUncheckedCreateWithoutSessionsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutSessionsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutSessionsInput, UserUncheckedUpdateWithoutSessionsInput>
+  }
+
+  export type UserUpdateWithoutSessionsInput = {
+    email?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUsersRolesFieldUpdateOperationsInput | $Enums.UsersRoles
+    active?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    providers?: UserProviderUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutSessionsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    email?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUsersRolesFieldUpdateOperationsInput | $Enums.UsersRoles
+    active?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    providers?: UserProviderUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserProviderCreateManyUserInput = {
@@ -4395,6 +6124,18 @@ export namespace Prisma {
     provider: string
     providerId: string
     profile?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type DeviceSessionCreateManyUserInput = {
+    id?: string
+    provider: string
+    providerId: string
+    deviceInfo?: string | null
+    accessToken: string
+    refreshToken: string
+    revoked?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type UserProviderUpdateWithoutUserInput = {
@@ -4415,6 +6156,42 @@ export namespace Prisma {
     provider?: StringFieldUpdateOperationsInput | string
     providerId?: StringFieldUpdateOperationsInput | string
     profile?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type DeviceSessionUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    provider?: StringFieldUpdateOperationsInput | string
+    providerId?: StringFieldUpdateOperationsInput | string
+    deviceInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    accessToken?: StringFieldUpdateOperationsInput | string
+    refreshToken?: StringFieldUpdateOperationsInput | string
+    revoked?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DeviceSessionUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    provider?: StringFieldUpdateOperationsInput | string
+    providerId?: StringFieldUpdateOperationsInput | string
+    deviceInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    accessToken?: StringFieldUpdateOperationsInput | string
+    refreshToken?: StringFieldUpdateOperationsInput | string
+    revoked?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DeviceSessionUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    provider?: StringFieldUpdateOperationsInput | string
+    providerId?: StringFieldUpdateOperationsInput | string
+    deviceInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    accessToken?: StringFieldUpdateOperationsInput | string
+    refreshToken?: StringFieldUpdateOperationsInput | string
+    revoked?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 
