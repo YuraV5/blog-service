@@ -5,7 +5,7 @@ import {
   ConflictException,
   Logger
 } from "@nestjs/common";
-import { PrismaClientKnownRequestError } from "../../../../prisma/generated/prisma/runtime/library";
+import { PrismaClientKnownRequestError } from "../../../prisma/generated/prisma/runtime/library";
 
 @Injectable()
 export class ExceptionHandlerService {

@@ -1,10 +1,9 @@
 import { BadRequestException, Inject, Injectable, NotFoundException } from "@nestjs/common";
-import { UsersRepository } from "./repository/users.repository";
 import { TCreateUserWithPpassword, TProvider, TUpdateUser, TUser } from "./types/users.type";
-import { IUsersService } from "./interfaces/usersService.interface";
-import { UsersProfileRepository } from "./repository/usersProfile.repository";
+import { IUsersService } from "./interfaces/users-service.interface";
 import { EXCEPTION_HANDLER_SERVICE } from "../../common/consts";
-import { ExceptionHandlerService } from "../../common/handlers/exceptions/exception-handler.service";
+import { ExceptionHandlerService } from "../../common/exceptions/exception-handler.service";
+import { UsersRepository, UsersProfileRepository } from "./repository";
 
 @Injectable()
 export class UsersService implements IUsersService {
@@ -75,6 +74,14 @@ export class UsersService implements IUsersService {
     try {
       const createUser = await this.userProfileRepo.cerateWithProvider(profile);
       return createUser;
+    } catch (error) {
+      this.errorService.handleError(error as Error);
+    }
+  }
+
+  async getByEmail(email: string): Promise<TUser> {
+    try {
+      return await this.getByEmail(email);
     } catch (error) {
       this.errorService.handleError(error as Error);
     }

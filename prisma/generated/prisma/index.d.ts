@@ -34,17 +34,30 @@ export type DeviceSession = $Result.DefaultSelection<Prisma.$DeviceSessionPayloa
  */
 export namespace $Enums {
   export const UsersRoles: {
-  user: 'user',
-  admin: 'admin'
+  USER: 'USER',
+  ADMIN: 'ADMIN'
 };
 
 export type UsersRoles = (typeof UsersRoles)[keyof typeof UsersRoles]
+
+
+export const ProviderName: {
+  EMAIL: 'EMAIL',
+  GOOGLE: 'GOOGLE',
+  FACEBOOK: 'FACEBOOK'
+};
+
+export type ProviderName = (typeof ProviderName)[keyof typeof ProviderName]
 
 }
 
 export type UsersRoles = $Enums.UsersRoles
 
 export const UsersRoles: typeof $Enums.UsersRoles
+
+export type ProviderName = $Enums.ProviderName
+
+export const ProviderName: typeof $Enums.ProviderName
 
 /**
  * ##  Prisma Client ʲˢ
@@ -3406,10 +3419,9 @@ export namespace Prisma {
   export type DeviceSessionMinAggregateOutputType = {
     id: string | null
     userId: number | null
-    provider: string | null
+    provider: $Enums.ProviderName | null
     providerId: string | null
     deviceInfo: string | null
-    accessToken: string | null
     refreshToken: string | null
     revoked: boolean | null
     createdAt: Date | null
@@ -3419,10 +3431,9 @@ export namespace Prisma {
   export type DeviceSessionMaxAggregateOutputType = {
     id: string | null
     userId: number | null
-    provider: string | null
+    provider: $Enums.ProviderName | null
     providerId: string | null
     deviceInfo: string | null
-    accessToken: string | null
     refreshToken: string | null
     revoked: boolean | null
     createdAt: Date | null
@@ -3435,7 +3446,6 @@ export namespace Prisma {
     provider: number
     providerId: number
     deviceInfo: number
-    accessToken: number
     refreshToken: number
     revoked: number
     createdAt: number
@@ -3458,7 +3468,6 @@ export namespace Prisma {
     provider?: true
     providerId?: true
     deviceInfo?: true
-    accessToken?: true
     refreshToken?: true
     revoked?: true
     createdAt?: true
@@ -3471,7 +3480,6 @@ export namespace Prisma {
     provider?: true
     providerId?: true
     deviceInfo?: true
-    accessToken?: true
     refreshToken?: true
     revoked?: true
     createdAt?: true
@@ -3484,7 +3492,6 @@ export namespace Prisma {
     provider?: true
     providerId?: true
     deviceInfo?: true
-    accessToken?: true
     refreshToken?: true
     revoked?: true
     createdAt?: true
@@ -3581,10 +3588,9 @@ export namespace Prisma {
   export type DeviceSessionGroupByOutputType = {
     id: string
     userId: number
-    provider: string
-    providerId: string
+    provider: $Enums.ProviderName
+    providerId: string | null
     deviceInfo: string | null
-    accessToken: string
     refreshToken: string
     revoked: boolean
     createdAt: Date
@@ -3616,7 +3622,6 @@ export namespace Prisma {
     provider?: boolean
     providerId?: boolean
     deviceInfo?: boolean
-    accessToken?: boolean
     refreshToken?: boolean
     revoked?: boolean
     createdAt?: boolean
@@ -3630,7 +3635,6 @@ export namespace Prisma {
     provider?: boolean
     providerId?: boolean
     deviceInfo?: boolean
-    accessToken?: boolean
     refreshToken?: boolean
     revoked?: boolean
     createdAt?: boolean
@@ -3644,7 +3648,6 @@ export namespace Prisma {
     provider?: boolean
     providerId?: boolean
     deviceInfo?: boolean
-    accessToken?: boolean
     refreshToken?: boolean
     revoked?: boolean
     createdAt?: boolean
@@ -3658,14 +3661,13 @@ export namespace Prisma {
     provider?: boolean
     providerId?: boolean
     deviceInfo?: boolean
-    accessToken?: boolean
     refreshToken?: boolean
     revoked?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type DeviceSessionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "provider" | "providerId" | "deviceInfo" | "accessToken" | "refreshToken" | "revoked" | "createdAt" | "updatedAt", ExtArgs["result"]["deviceSession"]>
+  export type DeviceSessionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "provider" | "providerId" | "deviceInfo" | "refreshToken" | "revoked" | "createdAt" | "updatedAt", ExtArgs["result"]["deviceSession"]>
   export type DeviceSessionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
   }
@@ -3684,10 +3686,9 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       userId: number
-      provider: string
-      providerId: string
+      provider: $Enums.ProviderName
+      providerId: string | null
       deviceInfo: string | null
-      accessToken: string
       refreshToken: string
       revoked: boolean
       createdAt: Date
@@ -4118,10 +4119,9 @@ export namespace Prisma {
   interface DeviceSessionFieldRefs {
     readonly id: FieldRef<"DeviceSession", 'String'>
     readonly userId: FieldRef<"DeviceSession", 'Int'>
-    readonly provider: FieldRef<"DeviceSession", 'String'>
+    readonly provider: FieldRef<"DeviceSession", 'ProviderName'>
     readonly providerId: FieldRef<"DeviceSession", 'String'>
     readonly deviceInfo: FieldRef<"DeviceSession", 'String'>
-    readonly accessToken: FieldRef<"DeviceSession", 'String'>
     readonly refreshToken: FieldRef<"DeviceSession", 'String'>
     readonly revoked: FieldRef<"DeviceSession", 'Boolean'>
     readonly createdAt: FieldRef<"DeviceSession", 'DateTime'>
@@ -4586,7 +4586,6 @@ export namespace Prisma {
     provider: 'provider',
     providerId: 'providerId',
     deviceInfo: 'deviceInfo',
-    accessToken: 'accessToken',
     refreshToken: 'refreshToken',
     revoked: 'revoked',
     createdAt: 'createdAt',
@@ -4716,6 +4715,20 @@ export namespace Prisma {
    * Reference to a field of type 'QueryMode'
    */
   export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
+    
+
+
+  /**
+   * Reference to a field of type 'ProviderName'
+   */
+  export type EnumProviderNameFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ProviderName'>
+    
+
+
+  /**
+   * Reference to a field of type 'ProviderName[]'
+   */
+  export type ListEnumProviderNameFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ProviderName[]'>
     
 
 
@@ -4880,10 +4893,9 @@ export namespace Prisma {
     NOT?: DeviceSessionWhereInput | DeviceSessionWhereInput[]
     id?: StringFilter<"DeviceSession"> | string
     userId?: IntFilter<"DeviceSession"> | number
-    provider?: StringFilter<"DeviceSession"> | string
-    providerId?: StringFilter<"DeviceSession"> | string
+    provider?: EnumProviderNameFilter<"DeviceSession"> | $Enums.ProviderName
+    providerId?: StringNullableFilter<"DeviceSession"> | string | null
     deviceInfo?: StringNullableFilter<"DeviceSession"> | string | null
-    accessToken?: StringFilter<"DeviceSession"> | string
     refreshToken?: StringFilter<"DeviceSession"> | string
     revoked?: BoolFilter<"DeviceSession"> | boolean
     createdAt?: DateTimeFilter<"DeviceSession"> | Date | string
@@ -4895,9 +4907,8 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     provider?: SortOrder
-    providerId?: SortOrder
+    providerId?: SortOrderInput | SortOrder
     deviceInfo?: SortOrderInput | SortOrder
-    accessToken?: SortOrder
     refreshToken?: SortOrder
     revoked?: SortOrder
     createdAt?: SortOrder
@@ -4911,10 +4922,9 @@ export namespace Prisma {
     OR?: DeviceSessionWhereInput[]
     NOT?: DeviceSessionWhereInput | DeviceSessionWhereInput[]
     userId?: IntFilter<"DeviceSession"> | number
-    provider?: StringFilter<"DeviceSession"> | string
-    providerId?: StringFilter<"DeviceSession"> | string
+    provider?: EnumProviderNameFilter<"DeviceSession"> | $Enums.ProviderName
+    providerId?: StringNullableFilter<"DeviceSession"> | string | null
     deviceInfo?: StringNullableFilter<"DeviceSession"> | string | null
-    accessToken?: StringFilter<"DeviceSession"> | string
     refreshToken?: StringFilter<"DeviceSession"> | string
     revoked?: BoolFilter<"DeviceSession"> | boolean
     createdAt?: DateTimeFilter<"DeviceSession"> | Date | string
@@ -4926,9 +4936,8 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     provider?: SortOrder
-    providerId?: SortOrder
+    providerId?: SortOrderInput | SortOrder
     deviceInfo?: SortOrderInput | SortOrder
-    accessToken?: SortOrder
     refreshToken?: SortOrder
     revoked?: SortOrder
     createdAt?: SortOrder
@@ -4946,10 +4955,9 @@ export namespace Prisma {
     NOT?: DeviceSessionScalarWhereWithAggregatesInput | DeviceSessionScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"DeviceSession"> | string
     userId?: IntWithAggregatesFilter<"DeviceSession"> | number
-    provider?: StringWithAggregatesFilter<"DeviceSession"> | string
-    providerId?: StringWithAggregatesFilter<"DeviceSession"> | string
+    provider?: EnumProviderNameWithAggregatesFilter<"DeviceSession"> | $Enums.ProviderName
+    providerId?: StringNullableWithAggregatesFilter<"DeviceSession"> | string | null
     deviceInfo?: StringNullableWithAggregatesFilter<"DeviceSession"> | string | null
-    accessToken?: StringWithAggregatesFilter<"DeviceSession"> | string
     refreshToken?: StringWithAggregatesFilter<"DeviceSession"> | string
     revoked?: BoolWithAggregatesFilter<"DeviceSession"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"DeviceSession"> | Date | string
@@ -5099,10 +5107,9 @@ export namespace Prisma {
 
   export type DeviceSessionCreateInput = {
     id?: string
-    provider: string
-    providerId: string
+    provider: $Enums.ProviderName
+    providerId?: string | null
     deviceInfo?: string | null
-    accessToken: string
     refreshToken: string
     revoked?: boolean
     createdAt?: Date | string
@@ -5113,10 +5120,9 @@ export namespace Prisma {
   export type DeviceSessionUncheckedCreateInput = {
     id?: string
     userId: number
-    provider: string
-    providerId: string
+    provider: $Enums.ProviderName
+    providerId?: string | null
     deviceInfo?: string | null
-    accessToken: string
     refreshToken: string
     revoked?: boolean
     createdAt?: Date | string
@@ -5125,10 +5131,9 @@ export namespace Prisma {
 
   export type DeviceSessionUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    provider?: StringFieldUpdateOperationsInput | string
-    providerId?: StringFieldUpdateOperationsInput | string
+    provider?: EnumProviderNameFieldUpdateOperationsInput | $Enums.ProviderName
+    providerId?: NullableStringFieldUpdateOperationsInput | string | null
     deviceInfo?: NullableStringFieldUpdateOperationsInput | string | null
-    accessToken?: StringFieldUpdateOperationsInput | string
     refreshToken?: StringFieldUpdateOperationsInput | string
     revoked?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -5139,10 +5144,9 @@ export namespace Prisma {
   export type DeviceSessionUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: IntFieldUpdateOperationsInput | number
-    provider?: StringFieldUpdateOperationsInput | string
-    providerId?: StringFieldUpdateOperationsInput | string
+    provider?: EnumProviderNameFieldUpdateOperationsInput | $Enums.ProviderName
+    providerId?: NullableStringFieldUpdateOperationsInput | string | null
     deviceInfo?: NullableStringFieldUpdateOperationsInput | string | null
-    accessToken?: StringFieldUpdateOperationsInput | string
     refreshToken?: StringFieldUpdateOperationsInput | string
     revoked?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -5152,10 +5156,9 @@ export namespace Prisma {
   export type DeviceSessionCreateManyInput = {
     id?: string
     userId: number
-    provider: string
-    providerId: string
+    provider: $Enums.ProviderName
+    providerId?: string | null
     deviceInfo?: string | null
-    accessToken: string
     refreshToken: string
     revoked?: boolean
     createdAt?: Date | string
@@ -5164,10 +5167,9 @@ export namespace Prisma {
 
   export type DeviceSessionUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    provider?: StringFieldUpdateOperationsInput | string
-    providerId?: StringFieldUpdateOperationsInput | string
+    provider?: EnumProviderNameFieldUpdateOperationsInput | $Enums.ProviderName
+    providerId?: NullableStringFieldUpdateOperationsInput | string | null
     deviceInfo?: NullableStringFieldUpdateOperationsInput | string | null
-    accessToken?: StringFieldUpdateOperationsInput | string
     refreshToken?: StringFieldUpdateOperationsInput | string
     revoked?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -5177,10 +5179,9 @@ export namespace Prisma {
   export type DeviceSessionUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: IntFieldUpdateOperationsInput | number
-    provider?: StringFieldUpdateOperationsInput | string
-    providerId?: StringFieldUpdateOperationsInput | string
+    provider?: EnumProviderNameFieldUpdateOperationsInput | $Enums.ProviderName
+    providerId?: NullableStringFieldUpdateOperationsInput | string | null
     deviceInfo?: NullableStringFieldUpdateOperationsInput | string | null
-    accessToken?: StringFieldUpdateOperationsInput | string
     refreshToken?: StringFieldUpdateOperationsInput | string
     revoked?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -5495,13 +5496,19 @@ export namespace Prisma {
     _max?: NestedJsonNullableFilter<$PrismaModel>
   }
 
+  export type EnumProviderNameFilter<$PrismaModel = never> = {
+    equals?: $Enums.ProviderName | EnumProviderNameFieldRefInput<$PrismaModel>
+    in?: $Enums.ProviderName[] | ListEnumProviderNameFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ProviderName[] | ListEnumProviderNameFieldRefInput<$PrismaModel>
+    not?: NestedEnumProviderNameFilter<$PrismaModel> | $Enums.ProviderName
+  }
+
   export type DeviceSessionCountOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
     provider?: SortOrder
     providerId?: SortOrder
     deviceInfo?: SortOrder
-    accessToken?: SortOrder
     refreshToken?: SortOrder
     revoked?: SortOrder
     createdAt?: SortOrder
@@ -5518,7 +5525,6 @@ export namespace Prisma {
     provider?: SortOrder
     providerId?: SortOrder
     deviceInfo?: SortOrder
-    accessToken?: SortOrder
     refreshToken?: SortOrder
     revoked?: SortOrder
     createdAt?: SortOrder
@@ -5531,7 +5537,6 @@ export namespace Prisma {
     provider?: SortOrder
     providerId?: SortOrder
     deviceInfo?: SortOrder
-    accessToken?: SortOrder
     refreshToken?: SortOrder
     revoked?: SortOrder
     createdAt?: SortOrder
@@ -5540,6 +5545,16 @@ export namespace Prisma {
 
   export type DeviceSessionSumOrderByAggregateInput = {
     userId?: SortOrder
+  }
+
+  export type EnumProviderNameWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ProviderName | EnumProviderNameFieldRefInput<$PrismaModel>
+    in?: $Enums.ProviderName[] | ListEnumProviderNameFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ProviderName[] | ListEnumProviderNameFieldRefInput<$PrismaModel>
+    not?: NestedEnumProviderNameWithAggregatesFilter<$PrismaModel> | $Enums.ProviderName
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumProviderNameFilter<$PrismaModel>
+    _max?: NestedEnumProviderNameFilter<$PrismaModel>
   }
 
   export type UserProviderCreateNestedManyWithoutUserInput = {
@@ -5672,6 +5687,10 @@ export namespace Prisma {
     create?: XOR<UserCreateWithoutSessionsInput, UserUncheckedCreateWithoutSessionsInput>
     connectOrCreate?: UserCreateOrConnectWithoutSessionsInput
     connect?: UserWhereUniqueInput
+  }
+
+  export type EnumProviderNameFieldUpdateOperationsInput = {
+    set?: $Enums.ProviderName
   }
 
   export type UserUpdateOneRequiredWithoutSessionsNestedInput = {
@@ -5871,6 +5890,23 @@ export namespace Prisma {
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
+  export type NestedEnumProviderNameFilter<$PrismaModel = never> = {
+    equals?: $Enums.ProviderName | EnumProviderNameFieldRefInput<$PrismaModel>
+    in?: $Enums.ProviderName[] | ListEnumProviderNameFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ProviderName[] | ListEnumProviderNameFieldRefInput<$PrismaModel>
+    not?: NestedEnumProviderNameFilter<$PrismaModel> | $Enums.ProviderName
+  }
+
+  export type NestedEnumProviderNameWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ProviderName | EnumProviderNameFieldRefInput<$PrismaModel>
+    in?: $Enums.ProviderName[] | ListEnumProviderNameFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ProviderName[] | ListEnumProviderNameFieldRefInput<$PrismaModel>
+    not?: NestedEnumProviderNameWithAggregatesFilter<$PrismaModel> | $Enums.ProviderName
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumProviderNameFilter<$PrismaModel>
+    _max?: NestedEnumProviderNameFilter<$PrismaModel>
+  }
+
   export type UserProviderCreateWithoutUserInput = {
     provider: string
     providerId: string
@@ -5896,10 +5932,9 @@ export namespace Prisma {
 
   export type DeviceSessionCreateWithoutUserInput = {
     id?: string
-    provider: string
-    providerId: string
+    provider: $Enums.ProviderName
+    providerId?: string | null
     deviceInfo?: string | null
-    accessToken: string
     refreshToken: string
     revoked?: boolean
     createdAt?: Date | string
@@ -5908,10 +5943,9 @@ export namespace Prisma {
 
   export type DeviceSessionUncheckedCreateWithoutUserInput = {
     id?: string
-    provider: string
-    providerId: string
+    provider: $Enums.ProviderName
+    providerId?: string | null
     deviceInfo?: string | null
-    accessToken: string
     refreshToken: string
     revoked?: boolean
     createdAt?: Date | string
@@ -5977,10 +6011,9 @@ export namespace Prisma {
     NOT?: DeviceSessionScalarWhereInput | DeviceSessionScalarWhereInput[]
     id?: StringFilter<"DeviceSession"> | string
     userId?: IntFilter<"DeviceSession"> | number
-    provider?: StringFilter<"DeviceSession"> | string
-    providerId?: StringFilter<"DeviceSession"> | string
+    provider?: EnumProviderNameFilter<"DeviceSession"> | $Enums.ProviderName
+    providerId?: StringNullableFilter<"DeviceSession"> | string | null
     deviceInfo?: StringNullableFilter<"DeviceSession"> | string | null
-    accessToken?: StringFilter<"DeviceSession"> | string
     refreshToken?: StringFilter<"DeviceSession"> | string
     revoked?: BoolFilter<"DeviceSession"> | boolean
     createdAt?: DateTimeFilter<"DeviceSession"> | Date | string
@@ -6128,10 +6161,9 @@ export namespace Prisma {
 
   export type DeviceSessionCreateManyUserInput = {
     id?: string
-    provider: string
-    providerId: string
+    provider: $Enums.ProviderName
+    providerId?: string | null
     deviceInfo?: string | null
-    accessToken: string
     refreshToken: string
     revoked?: boolean
     createdAt?: Date | string
@@ -6160,10 +6192,9 @@ export namespace Prisma {
 
   export type DeviceSessionUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
-    provider?: StringFieldUpdateOperationsInput | string
-    providerId?: StringFieldUpdateOperationsInput | string
+    provider?: EnumProviderNameFieldUpdateOperationsInput | $Enums.ProviderName
+    providerId?: NullableStringFieldUpdateOperationsInput | string | null
     deviceInfo?: NullableStringFieldUpdateOperationsInput | string | null
-    accessToken?: StringFieldUpdateOperationsInput | string
     refreshToken?: StringFieldUpdateOperationsInput | string
     revoked?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -6172,10 +6203,9 @@ export namespace Prisma {
 
   export type DeviceSessionUncheckedUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
-    provider?: StringFieldUpdateOperationsInput | string
-    providerId?: StringFieldUpdateOperationsInput | string
+    provider?: EnumProviderNameFieldUpdateOperationsInput | $Enums.ProviderName
+    providerId?: NullableStringFieldUpdateOperationsInput | string | null
     deviceInfo?: NullableStringFieldUpdateOperationsInput | string | null
-    accessToken?: StringFieldUpdateOperationsInput | string
     refreshToken?: StringFieldUpdateOperationsInput | string
     revoked?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -6184,10 +6214,9 @@ export namespace Prisma {
 
   export type DeviceSessionUncheckedUpdateManyWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
-    provider?: StringFieldUpdateOperationsInput | string
-    providerId?: StringFieldUpdateOperationsInput | string
+    provider?: EnumProviderNameFieldUpdateOperationsInput | $Enums.ProviderName
+    providerId?: NullableStringFieldUpdateOperationsInput | string | null
     deviceInfo?: NullableStringFieldUpdateOperationsInput | string | null
-    accessToken?: StringFieldUpdateOperationsInput | string
     refreshToken?: StringFieldUpdateOperationsInput | string
     revoked?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string

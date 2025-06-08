@@ -7,6 +7,7 @@ import { AuthModule } from "./modules/auth/auth.module";
 import { UsersModule } from "./modules/users/users.module";
 import { minutes, ThrottlerGuard, ThrottlerModule } from "@nestjs/throttler";
 import { APP_GUARD } from "@nestjs/core";
+import { DeviceSessionModule } from "./modules/device-session/device-session.module";
 
 @Module({
   imports: [
@@ -35,7 +36,8 @@ import { APP_GUARD } from "@nestjs/core";
     ]),
     UsersModule,
     AuthModule,
-    PrismaModule
+    PrismaModule,
+    DeviceSessionModule
   ],
   controllers: [],
   providers: [

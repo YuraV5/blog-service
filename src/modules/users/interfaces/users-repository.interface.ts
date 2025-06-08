@@ -1,5 +1,5 @@
 import { User } from "../../../../prisma/generated/prisma";
-import { CreateUserDto } from "../dto/createUserWithPassword.dto";
+import { CreateUserDto } from "../dto";
 import { UpdateUserDto } from "../dto/updateUser.dto";
 
 export interface IUsersRepository {

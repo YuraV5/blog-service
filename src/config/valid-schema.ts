@@ -12,5 +12,7 @@ export const validSchema = Joi.object({
   PG_PORT: Joi.number().port().required(),
   PG_NAME: Joi.string().required(),
   PG_SCHEMA: Joi.string().required(),
-  POSTGRES_URL: Joi.string().uri().required()
+  POSTGRES_URL: Joi.string().uri().required(),
+  JWT_REFRESH_SECRET: Joi.string().required(),
+  JWT_ACCESS_SECRET: Joi.string().required()
 });

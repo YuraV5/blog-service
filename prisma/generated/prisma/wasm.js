@@ -146,7 +146,6 @@ exports.Prisma.DeviceSessionScalarFieldEnum = {
   provider: 'provider',
   providerId: 'providerId',
   deviceInfo: 'deviceInfo',
-  accessToken: 'accessToken',
   refreshToken: 'refreshToken',
   revoked: 'revoked',
   createdAt: 'createdAt',
@@ -179,8 +178,14 @@ exports.Prisma.JsonNullValueFilter = {
   AnyNull: Prisma.AnyNull
 };
 exports.UsersRoles = exports.$Enums.UsersRoles = {
-  user: 'user',
-  admin: 'admin'
+  USER: 'USER',
+  ADMIN: 'ADMIN'
+};
+
+exports.ProviderName = exports.$Enums.ProviderName = {
+  EMAIL: 'EMAIL',
+  GOOGLE: 'GOOGLE',
+  FACEBOOK: 'FACEBOOK'
 };
 
 exports.Prisma.ModelName = {

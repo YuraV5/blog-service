@@ -1,5 +1,8 @@
 -- CreateEnum
-CREATE TYPE "UsersRoles" AS ENUM ('user', 'admin');
+CREATE TYPE "UsersRoles" AS ENUM ('USER', 'ADMIN');
+
+-- CreateEnum
+CREATE TYPE "ProviderName" AS ENUM ('EMAIL', 'GOOGLE', 'FACEBOOK');
 
 -- CreateTable
 CREATE TABLE "users" (
@@ -8,7 +11,7 @@ CREATE TABLE "users" (
     "password" TEXT,
     "name" TEXT,
     "photo_url" TEXT,
-    "role" "UsersRoles" NOT NULL DEFAULT 'user',
+    "role" "UsersRoles" NOT NULL DEFAULT 'USER',
     "active" BOOLEAN NOT NULL DEFAULT true,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL,
@@ -31,10 +34,9 @@ CREATE TABLE "users_providers" (
 CREATE TABLE "device_sessions" (
     "id" TEXT NOT NULL,
     "user_id" INTEGER NOT NULL,
-    "provider" TEXT NOT NULL,
-    "provider_id" TEXT NOT NULL,
+    "provider" "ProviderName" NOT NULL,
+    "provider_id" TEXT,
     "device_info" TEXT,
-    "access_token" TEXT NOT NULL,
     "refresh_token" TEXT NOT NULL,
     "revoked" BOOLEAN NOT NULL DEFAULT false,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,

@@ -2,11 +2,10 @@ import { NestFactory } from "@nestjs/core";
 import { AppModule } from "./app.module";
 import { ConfigService } from "@nestjs/config";
 import { ValidationPipe } from "@nestjs/common";
-import { GlobalExceptionFilter } from "./common/filters/exceptions/global-exceptions.filter";
-import { HttpExceptionFilter } from "./common/filters/exceptions/http-exception.filter";
 import helmet from "helmet";
 import { json, urlencoded } from "express";
 import * as cookieParser from "cookie-parser";
+import { GlobalExceptionFilter, HttpExceptionFilter } from "./common/filters/exceptions";
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);

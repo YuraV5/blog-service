@@ -1,6 +1,4 @@
-import { GoogleProfileDto } from "../dto/createUserWithGoogle.dto";
-import { CreateUserDto } from "../dto/createUserWithPassword.dto";
-import { UpdateUserDto } from "../dto/updateUser.dto";
+import { CreateUserDto, GoogleProfileDto, UpdateUserDto } from "../dto";
 import { TUser } from "../types/users.type";
 
 export interface IUsersService {
@@ -10,4 +8,5 @@ export interface IUsersService {
   updateById(id: number, inp: UpdateUserDto): Promise<TUser>;
   deleteById(id: number): Promise<void>;
   createWithProvider(profile: GoogleProfileDto): Promise<TUser>;
+  getByEmail(email: string): Promise<TUser>;
 }

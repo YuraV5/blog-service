@@ -15,8 +15,8 @@ datasource db {
 }
 
 enum UsersRoles {
-  user
-  admin
+  USER
+  ADMIN
 }
 
 model User {
@@ -25,7 +25,7 @@ model User {
   password  String?
   name      String?
   photoUrl  String?    @map("photo_url")
-  role      UsersRoles @default(user)
+  role      UsersRoles @default(USER)
   active    Boolean    @default(true)
   createdAt DateTime   @default(now()) @map("created_at")
   updatedAt DateTime   @updatedAt @map("updated_at")
@@ -48,18 +48,23 @@ model UserProvider {
   @@map("users_providers")
 }
 
+enum ProviderName {
+  EMAIL
+  GOOGLE
+  FACEBOOK
+}
+
 model DeviceSession {
-  id           String   @id @default(uuid())
-  userId       Int      @map("user_id")
-  provider     String
-  providerId   String   @map("provider_id")
-  deviceInfo   String?  @map("device_info")
-  accessToken  String   @map("access_token")
-  refreshToken String   @map("refresh_token")
-  revoked      Boolean  @default(false)
-  createdAt    DateTime @default(now()) @map("created_at")
-  updatedAt    DateTime @updatedAt @map("updated_at")
-  user         User     @relation(fields: [userId], references: [id])
+  id           String       @id @default(uuid())
+  userId       Int          @map("user_id")
+  provider     ProviderName
+  providerId   String?      @map("provider_id")
+  deviceInfo   String?      @map("device_info")
+  refreshToken String       @map("refresh_token")
+  revoked      Boolean      @default(false)
+  createdAt    DateTime     @default(now()) @map("created_at")
+  updatedAt    DateTime     @updatedAt @map("updated_at")
+  user         User         @relation(fields: [userId], references: [id])
 
   @@index([userId])
   @@map("device_sessions")
