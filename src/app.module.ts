@@ -1,4 +1,4 @@
-import { Module } from "@nestjs/common";
+import { MiddlewareConsumer, Module, NestModule } from "@nestjs/common";
 import { ConfigModule } from "@nestjs/config";
 import appEnv from "./config/app/app-env";
 import { validSchema } from "./config/valid-schema";
@@ -8,6 +8,7 @@ import { UsersModule } from "./modules/users/users.module";
 import { minutes, ThrottlerGuard, ThrottlerModule } from "@nestjs/throttler";
 import { APP_GUARD } from "@nestjs/core";
 import { DeviceSessionModule } from "./modules/device-session/device-session.module";
+import { DeviceInfoMiddleware } from "./common/middleware";
 
 @Module({
   imports: [
@@ -47,4 +48,8 @@ import { DeviceSessionModule } from "./modules/device-session/device-session.mod
     }
   ]
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(DeviceInfoMiddleware).forRoutes("*path");
+  }
+}

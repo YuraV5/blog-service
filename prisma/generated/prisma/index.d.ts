@@ -3424,6 +3424,7 @@ export namespace Prisma {
     deviceInfo: string | null
     refreshToken: string | null
     revoked: boolean | null
+    expiresAt: Date | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -3436,6 +3437,7 @@ export namespace Prisma {
     deviceInfo: string | null
     refreshToken: string | null
     revoked: boolean | null
+    expiresAt: Date | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -3448,6 +3450,7 @@ export namespace Prisma {
     deviceInfo: number
     refreshToken: number
     revoked: number
+    expiresAt: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -3470,6 +3473,7 @@ export namespace Prisma {
     deviceInfo?: true
     refreshToken?: true
     revoked?: true
+    expiresAt?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -3482,6 +3486,7 @@ export namespace Prisma {
     deviceInfo?: true
     refreshToken?: true
     revoked?: true
+    expiresAt?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -3494,6 +3499,7 @@ export namespace Prisma {
     deviceInfo?: true
     refreshToken?: true
     revoked?: true
+    expiresAt?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -3593,6 +3599,7 @@ export namespace Prisma {
     deviceInfo: string | null
     refreshToken: string
     revoked: boolean
+    expiresAt: Date | null
     createdAt: Date
     updatedAt: Date
     _count: DeviceSessionCountAggregateOutputType | null
@@ -3624,6 +3631,7 @@ export namespace Prisma {
     deviceInfo?: boolean
     refreshToken?: boolean
     revoked?: boolean
+    expiresAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -3637,6 +3645,7 @@ export namespace Prisma {
     deviceInfo?: boolean
     refreshToken?: boolean
     revoked?: boolean
+    expiresAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -3650,6 +3659,7 @@ export namespace Prisma {
     deviceInfo?: boolean
     refreshToken?: boolean
     revoked?: boolean
+    expiresAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -3663,11 +3673,12 @@ export namespace Prisma {
     deviceInfo?: boolean
     refreshToken?: boolean
     revoked?: boolean
+    expiresAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type DeviceSessionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "provider" | "providerId" | "deviceInfo" | "refreshToken" | "revoked" | "createdAt" | "updatedAt", ExtArgs["result"]["deviceSession"]>
+  export type DeviceSessionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "provider" | "providerId" | "deviceInfo" | "refreshToken" | "revoked" | "expiresAt" | "createdAt" | "updatedAt", ExtArgs["result"]["deviceSession"]>
   export type DeviceSessionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
   }
@@ -3691,6 +3702,7 @@ export namespace Prisma {
       deviceInfo: string | null
       refreshToken: string
       revoked: boolean
+      expiresAt: Date | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["deviceSession"]>
@@ -4124,6 +4136,7 @@ export namespace Prisma {
     readonly deviceInfo: FieldRef<"DeviceSession", 'String'>
     readonly refreshToken: FieldRef<"DeviceSession", 'String'>
     readonly revoked: FieldRef<"DeviceSession", 'Boolean'>
+    readonly expiresAt: FieldRef<"DeviceSession", 'DateTime'>
     readonly createdAt: FieldRef<"DeviceSession", 'DateTime'>
     readonly updatedAt: FieldRef<"DeviceSession", 'DateTime'>
   }
@@ -4588,6 +4601,7 @@ export namespace Prisma {
     deviceInfo: 'deviceInfo',
     refreshToken: 'refreshToken',
     revoked: 'revoked',
+    expiresAt: 'expiresAt',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -4898,6 +4912,7 @@ export namespace Prisma {
     deviceInfo?: StringNullableFilter<"DeviceSession"> | string | null
     refreshToken?: StringFilter<"DeviceSession"> | string
     revoked?: BoolFilter<"DeviceSession"> | boolean
+    expiresAt?: DateTimeNullableFilter<"DeviceSession"> | Date | string | null
     createdAt?: DateTimeFilter<"DeviceSession"> | Date | string
     updatedAt?: DateTimeFilter<"DeviceSession"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -4911,6 +4926,7 @@ export namespace Prisma {
     deviceInfo?: SortOrderInput | SortOrder
     refreshToken?: SortOrder
     revoked?: SortOrder
+    expiresAt?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     user?: UserOrderByWithRelationInput
@@ -4927,6 +4943,7 @@ export namespace Prisma {
     deviceInfo?: StringNullableFilter<"DeviceSession"> | string | null
     refreshToken?: StringFilter<"DeviceSession"> | string
     revoked?: BoolFilter<"DeviceSession"> | boolean
+    expiresAt?: DateTimeNullableFilter<"DeviceSession"> | Date | string | null
     createdAt?: DateTimeFilter<"DeviceSession"> | Date | string
     updatedAt?: DateTimeFilter<"DeviceSession"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -4940,6 +4957,7 @@ export namespace Prisma {
     deviceInfo?: SortOrderInput | SortOrder
     refreshToken?: SortOrder
     revoked?: SortOrder
+    expiresAt?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: DeviceSessionCountOrderByAggregateInput
@@ -4960,6 +4978,7 @@ export namespace Prisma {
     deviceInfo?: StringNullableWithAggregatesFilter<"DeviceSession"> | string | null
     refreshToken?: StringWithAggregatesFilter<"DeviceSession"> | string
     revoked?: BoolWithAggregatesFilter<"DeviceSession"> | boolean
+    expiresAt?: DateTimeNullableWithAggregatesFilter<"DeviceSession"> | Date | string | null
     createdAt?: DateTimeWithAggregatesFilter<"DeviceSession"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"DeviceSession"> | Date | string
   }
@@ -5112,6 +5131,7 @@ export namespace Prisma {
     deviceInfo?: string | null
     refreshToken: string
     revoked?: boolean
+    expiresAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutSessionsInput
@@ -5125,6 +5145,7 @@ export namespace Prisma {
     deviceInfo?: string | null
     refreshToken: string
     revoked?: boolean
+    expiresAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -5136,6 +5157,7 @@ export namespace Prisma {
     deviceInfo?: NullableStringFieldUpdateOperationsInput | string | null
     refreshToken?: StringFieldUpdateOperationsInput | string
     revoked?: BoolFieldUpdateOperationsInput | boolean
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutSessionsNestedInput
@@ -5149,6 +5171,7 @@ export namespace Prisma {
     deviceInfo?: NullableStringFieldUpdateOperationsInput | string | null
     refreshToken?: StringFieldUpdateOperationsInput | string
     revoked?: BoolFieldUpdateOperationsInput | boolean
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -5161,6 +5184,7 @@ export namespace Prisma {
     deviceInfo?: string | null
     refreshToken: string
     revoked?: boolean
+    expiresAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -5172,6 +5196,7 @@ export namespace Prisma {
     deviceInfo?: NullableStringFieldUpdateOperationsInput | string | null
     refreshToken?: StringFieldUpdateOperationsInput | string
     revoked?: BoolFieldUpdateOperationsInput | boolean
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -5184,6 +5209,7 @@ export namespace Prisma {
     deviceInfo?: NullableStringFieldUpdateOperationsInput | string | null
     refreshToken?: StringFieldUpdateOperationsInput | string
     revoked?: BoolFieldUpdateOperationsInput | boolean
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -5503,6 +5529,17 @@ export namespace Prisma {
     not?: NestedEnumProviderNameFilter<$PrismaModel> | $Enums.ProviderName
   }
 
+  export type DateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
   export type DeviceSessionCountOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
@@ -5511,6 +5548,7 @@ export namespace Prisma {
     deviceInfo?: SortOrder
     refreshToken?: SortOrder
     revoked?: SortOrder
+    expiresAt?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -5527,6 +5565,7 @@ export namespace Prisma {
     deviceInfo?: SortOrder
     refreshToken?: SortOrder
     revoked?: SortOrder
+    expiresAt?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -5539,6 +5578,7 @@ export namespace Prisma {
     deviceInfo?: SortOrder
     refreshToken?: SortOrder
     revoked?: SortOrder
+    expiresAt?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -5555,6 +5595,20 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumProviderNameFilter<$PrismaModel>
     _max?: NestedEnumProviderNameFilter<$PrismaModel>
+  }
+
+  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type UserProviderCreateNestedManyWithoutUserInput = {
@@ -5691,6 +5745,10 @@ export namespace Prisma {
 
   export type EnumProviderNameFieldUpdateOperationsInput = {
     set?: $Enums.ProviderName
+  }
+
+  export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null
   }
 
   export type UserUpdateOneRequiredWithoutSessionsNestedInput = {
@@ -5897,6 +5955,17 @@ export namespace Prisma {
     not?: NestedEnumProviderNameFilter<$PrismaModel> | $Enums.ProviderName
   }
 
+  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
   export type NestedEnumProviderNameWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.ProviderName | EnumProviderNameFieldRefInput<$PrismaModel>
     in?: $Enums.ProviderName[] | ListEnumProviderNameFieldRefInput<$PrismaModel>
@@ -5905,6 +5974,20 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumProviderNameFilter<$PrismaModel>
     _max?: NestedEnumProviderNameFilter<$PrismaModel>
+  }
+
+  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type UserProviderCreateWithoutUserInput = {
@@ -5937,6 +6020,7 @@ export namespace Prisma {
     deviceInfo?: string | null
     refreshToken: string
     revoked?: boolean
+    expiresAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -5948,6 +6032,7 @@ export namespace Prisma {
     deviceInfo?: string | null
     refreshToken: string
     revoked?: boolean
+    expiresAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -6016,6 +6101,7 @@ export namespace Prisma {
     deviceInfo?: StringNullableFilter<"DeviceSession"> | string | null
     refreshToken?: StringFilter<"DeviceSession"> | string
     revoked?: BoolFilter<"DeviceSession"> | boolean
+    expiresAt?: DateTimeNullableFilter<"DeviceSession"> | Date | string | null
     createdAt?: DateTimeFilter<"DeviceSession"> | Date | string
     updatedAt?: DateTimeFilter<"DeviceSession"> | Date | string
   }
@@ -6166,6 +6252,7 @@ export namespace Prisma {
     deviceInfo?: string | null
     refreshToken: string
     revoked?: boolean
+    expiresAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -6197,6 +6284,7 @@ export namespace Prisma {
     deviceInfo?: NullableStringFieldUpdateOperationsInput | string | null
     refreshToken?: StringFieldUpdateOperationsInput | string
     revoked?: BoolFieldUpdateOperationsInput | boolean
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -6208,6 +6296,7 @@ export namespace Prisma {
     deviceInfo?: NullableStringFieldUpdateOperationsInput | string | null
     refreshToken?: StringFieldUpdateOperationsInput | string
     revoked?: BoolFieldUpdateOperationsInput | boolean
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -6219,6 +6308,7 @@ export namespace Prisma {
     deviceInfo?: NullableStringFieldUpdateOperationsInput | string | null
     refreshToken?: StringFieldUpdateOperationsInput | string
     revoked?: BoolFieldUpdateOperationsInput | boolean
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

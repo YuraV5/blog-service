@@ -1,10 +1,12 @@
+import { UsersRolesEnum } from "../../../common/enum";
+
 export type TUser = {
   id: number;
   email: string;
   name?: string | null;
   password?: string | null;
   photoUrl?: string | null;
-  role: "user" | "admin";
+  role: UsersRolesEnum;
   active: boolean;
   createdAt: Date;
   updatedAt: Date;

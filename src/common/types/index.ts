@@ -1,3 +1,2 @@
-export type TMessage = {
-  message: string;
-};
+export * from "./device-info.type";
+export * from "./shared.type";

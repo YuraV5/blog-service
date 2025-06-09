@@ -1,12 +1,10 @@
-import { User } from "../../../../prisma/generated/prisma";
-import { CreateUserDto } from "../dto";
-import { UpdateUserDto } from "../dto/updateUser.dto";
+import { TCreateUserWithPpassword, TUpdateUser, TUser } from "../types/users.type";
 
 export interface IUsersRepository {
-  getByEmail(email: string): Promise<User | null>;
-  getAll(): Promise<User[] | []>;
-  getOneById(id: number): Promise<User | null>;
-  create(inp: CreateUserDto): Promise<User>;
-  updateById(id: number, inp: UpdateUserDto): Promise<User>;
+  getByEmail(email: string): Promise<TUser | null>;
+  getAll(): Promise<TUser[]>;
+  getOneById(id: number): Promise<TUser | null>;
+  create(inp: TCreateUserWithPpassword): Promise<TUser>;
+  updateById(id: number, inp: TUpdateUser): Promise<TUser>;
   deleteById(id: number): Promise<void>;
 }

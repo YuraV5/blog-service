@@ -20,14 +20,14 @@ export class UsersService implements IUsersService {
         throw new BadRequestException(`User with email ${inp.email} already exists`);
       }
 
-      const createUser = await this.usersRepo.create(inp);
-      return createUser;
+      const user = await this.usersRepo.create(inp);
+      return user;
     } catch (error) {
       this.errorService.handleError(error as Error);
     }
   }
 
-  async getAll(): Promise<TUser[] | []> {
+  async getAll(): Promise<TUser[]> {
     try {
       const users = await this.usersRepo.getAll();
       return users;
@@ -52,8 +52,8 @@ export class UsersService implements IUsersService {
     try {
       await this.getOneById(id);
 
-      const updatedUser = await this.usersRepo.updateById(id, inp);
-      return updatedUser;
+      const user = await this.usersRepo.updateById(id, inp);
+      return user;
     } catch (error) {
       this.errorService.handleError(error as Error);
     }
@@ -79,9 +79,11 @@ export class UsersService implements IUsersService {
     }
   }
 
-  async getByEmail(email: string): Promise<TUser> {
+  async getByEmail(email: string): Promise<TUser | null> {
     try {
-      return await this.getByEmail(email);
+      const user = await this.usersRepo.getByEmail(email);
+
+      return user;
     } catch (error) {
       this.errorService.handleError(error as Error);
     }

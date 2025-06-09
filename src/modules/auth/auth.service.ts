@@ -1,5 +1,5 @@
-import { BadRequestException, ConflictException, Inject, Injectable } from "@nestjs/common";
-import { TSignIn, TSignUp } from "./types/auth.type";
+import { ConflictException, Inject, Injectable } from "@nestjs/common";
+import { TSignUp } from "./types/auth.type";
 import { UsersService } from "../users/users.service";
 import { EXCEPTION_HANDLER_SERVICE } from "../../common/consts";
 import { TMessage } from "../../common/types";
@@ -9,6 +9,9 @@ import { ExceptionHandlerService } from "../../common/exceptions";
 import { HashService } from "./services";
 import { TokenService } from "./services/token.service";
 import { TJwtTokens } from "./types";
+import { DeviceSessionService } from "../device-session/device-session.service";
+import { ProvidersNamesEnum } from "../../common/enum";
+import { TDeviceInfo } from "../device-session/types";
 
 @Injectable()
 export class AuthService implements IAuthService {
@@ -16,6 +19,7 @@ export class AuthService implements IAuthService {
     private readonly userServ: UsersService,
     private readonly hash: HashService,
     private readonly tokenServ: TokenService,
+    private readonly deviceSessionServ: DeviceSessionService,
     @Inject(EXCEPTION_HANDLER_SERVICE) private readonly errorService: ExceptionHandlerService
   ) {}
 
@@ -26,39 +30,43 @@ export class AuthService implements IAuthService {
       if (user) {
         throw new ConflictException("Record already exists");
       }
+
       const hashPassword = await this.hash.createHash(password);
       await this.userServ.createWithPassword({ email, password: hashPassword, name });
+
       return { message: "success" };
     } catch (error) {
       this.errorService.handleError(error as Error);
     }
   }
 
-  async signIn(input: TSignIn): Promise<TJwtTokens> {
+  async signInWithEmail(user: TUser, device: TDeviceInfo): Promise<TJwtTokens> {
     try {
-      const { email, password } = input;
-      const user = await this.checkUserByEmail(email);
-      if (!user) {
-        throw new BadRequestException("user not found");
-      }
-      const checkPassword = await this.hash.compareHash(user.password!, password);
-      if (!checkPassword) {
-        throw new BadRequestException();
-      }
+      const session = await this.deviceSessionServ.createInitialSession(
+        user.id,
+        ProvidersNamesEnum.EMAIL,
+        `${device.device.model}-${device.device.vendor}`
+      );
 
-      const [accessToken, refreshToken] = await Promise.all([
-        this.tokenServ.generateAccessToken({ sub: user.id, role: user.role }),
-        this.tokenServ.generateRefreshToken({
-          sub: user.id,
-          sid: "change to real sid uuid",
-          sessionId: "sessionId"
-        })
-      ]);
+      const { accessToken, refreshToken } = await this.tokenServ.generateTokens(user, session.id);
+
+      const hashToken = await this.hash.createHash(refreshToken);
+      await this.deviceSessionServ.updateSession(session.id, {
+        refreshToken: hashToken
+      });
 
       return { accessToken, refreshToken };
     } catch (error) {
       this.errorService.handleError(error as Error);
     }
+  }
+
+  async validateUser(email: string, password: string): Promise<TUser | null> {
+    const user = await this.checkUserByEmail(email);
+    if (!user) return null;
+
+    const isValid = await this.hash.compareHash(user.password!, password);
+    return isValid ? user : null;
   }
 
   logout(userId: number): Promise<void> {
@@ -76,7 +84,7 @@ export class AuthService implements IAuthService {
     throw new Error("Method not implemented.");
   }
 
-  private async checkUserByEmail(email: string): Promise<TUser> {
+  private async checkUserByEmail(email: string): Promise<TUser | null> {
     return await this.userServ.getByEmail(email);
   }
 }

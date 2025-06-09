@@ -1,10 +1,11 @@
 import { TMessage } from "../../../common/types";
+import { TDeviceInfo } from "../../device-session/types";
 import { CreateUserDto } from "../../users/dto";
+import { TUser } from "../../users/types/users.type";
 import { TJwtTokens } from "../types";
-import { TSignIn } from "../types/auth.type";
 
 export interface IAuthService {
-  signIn(input: TSignIn): Promise<TJwtTokens>;
+  signInWithEmail(user: TUser, device: TDeviceInfo): Promise<TJwtTokens>;
   signUp(input: CreateUserDto): Promise<TMessage>;
   logout(userId: number): Promise<void>;
   refreshToken(token: string): Promise<{ accessToken: string; refreshToken?: string }>;

@@ -39,6 +39,7 @@ CREATE TABLE "device_sessions" (
     "device_info" TEXT,
     "refresh_token" TEXT NOT NULL,
     "revoked" BOOLEAN NOT NULL DEFAULT false,
+    "expires_at" TIMESTAMP(3),
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL,
 

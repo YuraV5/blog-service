@@ -1,7 +1,6 @@
 export type TJwtPayload = {
   sub: number;
   sid: string;
-  sessionId: string;
 };
 
 export type TJwtAccessPayload = {

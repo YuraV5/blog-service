@@ -16,6 +16,7 @@ export type TDeviceSession = {
   deviceInfo: string | null;
   refreshToken: string;
   revoked: boolean;
+  expiresAt: Date | null;
   createdAt: Date;
   updatedAt: Date;
 };
