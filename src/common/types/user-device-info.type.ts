@@ -1,4 +1,4 @@
-export type TDeviceInfo = {
+export type TUserDeviceInfo = {
   ua: string;
   device: {
     type?: string;

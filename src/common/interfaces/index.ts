@@ -1,1 +1,1 @@
-export * from "./req-device-info.interface";
+export * from "./app-modify-req.interface";

@@ -2,7 +2,7 @@ import { ConflictException, Inject, Injectable } from "@nestjs/common";
 import { TSignUp } from "./types/auth.type";
 import { UsersService } from "../users/users.service";
 import { EXCEPTION_HANDLER_SERVICE } from "../../common/consts";
-import { TMessage } from "../../common/types";
+import { TMessage, TUserDeviceInfo } from "../../common/types";
 import { TUser } from "../users/types/users.type";
 import { IAuthService } from "./interfaces";
 import { ExceptionHandlerService } from "../../common/exceptions";
@@ -11,7 +11,6 @@ import { TokenService } from "./services/token.service";
 import { TJwtTokens } from "./types";
 import { DeviceSessionService } from "../device-session/device-session.service";
 import { ProvidersNamesEnum } from "../../common/enum";
-import { TDeviceInfo } from "../device-session/types";
 
 @Injectable()
 export class AuthService implements IAuthService {
@@ -40,7 +39,7 @@ export class AuthService implements IAuthService {
     }
   }
 
-  async signInWithEmail(user: TUser, device: TDeviceInfo): Promise<TJwtTokens> {
+  async signInWithEmail(user: TUser, device: TUserDeviceInfo): Promise<TJwtTokens> {
     try {
       const session = await this.deviceSessionServ.createInitialSession(
         user.id,

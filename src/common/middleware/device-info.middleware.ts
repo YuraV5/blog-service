@@ -1,7 +1,7 @@
 import { Injectable, NestMiddleware } from "@nestjs/common";
 import { Request, Response, NextFunction } from "express";
 import { UAParser } from "ua-parser-js";
-import { TDeviceInfo } from "../types";
+import { TUserDeviceInfo } from "../types";
 
 @Injectable()
 export class DeviceInfoMiddleware implements NestMiddleware {
@@ -9,13 +9,13 @@ export class DeviceInfoMiddleware implements NestMiddleware {
     const ua = req.headers["user-agent"] || "";
     const parser = new UAParser(ua);
 
-    const deviceInfo: TDeviceInfo = {
+    const deviceInfo: TUserDeviceInfo = {
       ua,
       device: parser.getDevice(),
       os: parser.getOS(),
       browser: parser.getBrowser()
     };
-    console.log("DdviceInfo", deviceInfo);
+
     req["deviceInfo"] = deviceInfo;
     next();
   }

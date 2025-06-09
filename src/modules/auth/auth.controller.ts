@@ -22,7 +22,7 @@ export class AuthController {
   @Post("sign-in/email")
   async signIn(@Req() req: AppModifyRequest): Promise<TJwtTokens> {
     const user = req.user as TUser;
-    const device = req.deviceInfo;
+    const device = req.userDeviceInfo;
     return await this.authService.signInWithEmail(user, device);
   }
 
@@ -49,7 +49,7 @@ export class AuthController {
     const ua = req.headers["user-agent"] || "";
     const parser = new UAParser(ua);
     const device = parser.getDevice();
-    console.log(req.deviceInfo);
+    console.log(req.userDeviceInfo);
     return device;
   }
 }

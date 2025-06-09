@@ -1,8 +1,9 @@
 import { Request } from "express";
-import { TDeviceInfo } from "../../modules/device-session/types";
 import { TUser } from "../../modules/users/types/users.type";
+import { TUserDeviceInfo, TUserGeoInfo } from "../types";
 
 export interface AppModifyRequest extends Request {
-  deviceInfo: TDeviceInfo;
+  userDeviceInfo: TUserDeviceInfo;
+  userGeoInfo: TUserGeoInfo;
   user?: TUser;
 }
