@@ -15,7 +15,8 @@ export class DeviceSessionRepository implements IDevicesSessionRepository {
     const session = await this.db.deviceSession.findFirst({
       where: {
         userId,
-        deviceName
+        deviceName,
+        revoked: false
       }
     });
 
@@ -44,7 +45,7 @@ export class DeviceSessionRepository implements IDevicesSessionRepository {
 
   async findById(sessionId: string): Promise<TDeviceSession | null> {
     const session = await this.db.deviceSession.findUnique({
-      where: { id: sessionId }
+      where: { id: sessionId, revoked: false }
     });
     return session ? DeviceSessionMapper.toDomain(session) : null;
   }
@@ -58,7 +59,7 @@ export class DeviceSessionRepository implements IDevicesSessionRepository {
 
   async updateSession(sessionId: string, data: Partial<TDeviceSession>): Promise<TDeviceSession> {
     const session = await this.db.deviceSession.update({
-      where: { id: sessionId },
+      where: { id: sessionId, revoked: false },
       data
     });
     return DeviceSessionMapper.toDomain(session);
