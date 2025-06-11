@@ -10,12 +10,12 @@ export class DeviceSessionRepository implements IDevicesSessionRepository {
 
   async checkDeviceSesionByUserIdDevice(
     userId: number,
-    device: string
+    deviceName: string
   ): Promise<TDeviceSession | null> {
     const session = await this.db.deviceSession.findFirst({
       where: {
         userId,
-        deviceInfo: device
+        deviceName
       }
     });
 

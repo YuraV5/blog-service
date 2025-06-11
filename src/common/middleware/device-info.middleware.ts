@@ -11,15 +11,15 @@ export class DeviceInfoMiddleware implements NestMiddleware {
     const ua = req.headers["user-agent"] || "";
     const parser = new UAParser(ua);
 
-    const deviceInfo: TUserDeviceInfo = {
+    const deviceName: TUserDeviceInfo = {
       ua,
       device: parser.getDevice(),
       os: parser.getOS(),
       browser: parser.getBrowser()
     };
 
-    this.logger.log("DeviceInfoMiddleware", deviceInfo);
-    req["userDeviceInfo"] = deviceInfo;
+    this.logger.log("DeviceInfoMiddleware", deviceName);
+    req["userDeviceInfo"] = deviceName;
     next();
   }
 }

@@ -145,7 +145,7 @@ exports.Prisma.DeviceSessionScalarFieldEnum = {
   userId: 'userId',
   provider: 'provider',
   providerId: 'providerId',
-  deviceInfo: 'deviceInfo',
+  deviceName: 'deviceName',
   refreshToken: 'refreshToken',
   revoked: 'revoked',
   expiresAt: 'expiresAt',

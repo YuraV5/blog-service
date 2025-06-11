@@ -36,7 +36,7 @@ CREATE TABLE "device_sessions" (
     "user_id" INTEGER NOT NULL,
     "provider" "ProviderName" NOT NULL,
     "provider_id" TEXT,
-    "device_info" TEXT,
+    "device_name" TEXT,
     "refresh_token" TEXT NOT NULL,
     "revoked" BOOLEAN NOT NULL DEFAULT false,
     "expires_at" TIMESTAMP(3),
@@ -53,7 +53,7 @@ CREATE UNIQUE INDEX "users_email_key" ON "users"("email");
 CREATE UNIQUE INDEX "users_providers_provider_provider_id_key" ON "users_providers"("provider", "provider_id");
 
 -- CreateIndex
-CREATE INDEX "device_sessions_user_id_idx" ON "device_sessions"("user_id");
+CREATE UNIQUE INDEX "device_sessions_user_id_device_name_provider_key" ON "device_sessions"("user_id", "device_name", "provider");
 
 -- AddForeignKey
 ALTER TABLE "users_providers" ADD CONSTRAINT "users_providers_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

@@ -59,7 +59,7 @@ model DeviceSession {
   userId       Int          @map("user_id")
   provider     ProviderName
   providerId   String?      @map("provider_id")
-  deviceInfo   String?      @map("device_info")
+  deviceName   String?      @map("device_name")
   refreshToken String       @map("refresh_token")
   revoked      Boolean      @default(false)
   expiresAt    DateTime?    @map("expires_at")
@@ -67,6 +67,6 @@ model DeviceSession {
   updatedAt    DateTime     @updatedAt @map("updated_at")
   user         User         @relation(fields: [userId], references: [id])
 
-  @@unique([userId, deviceInfo, provider])
+  @@unique([userId, deviceName, provider])
   @@map("device_sessions")
 }

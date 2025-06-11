@@ -3421,7 +3421,7 @@ export namespace Prisma {
     userId: number | null
     provider: $Enums.ProviderName | null
     providerId: string | null
-    deviceInfo: string | null
+    deviceName: string | null
     refreshToken: string | null
     revoked: boolean | null
     expiresAt: Date | null
@@ -3434,7 +3434,7 @@ export namespace Prisma {
     userId: number | null
     provider: $Enums.ProviderName | null
     providerId: string | null
-    deviceInfo: string | null
+    deviceName: string | null
     refreshToken: string | null
     revoked: boolean | null
     expiresAt: Date | null
@@ -3447,7 +3447,7 @@ export namespace Prisma {
     userId: number
     provider: number
     providerId: number
-    deviceInfo: number
+    deviceName: number
     refreshToken: number
     revoked: number
     expiresAt: number
@@ -3470,7 +3470,7 @@ export namespace Prisma {
     userId?: true
     provider?: true
     providerId?: true
-    deviceInfo?: true
+    deviceName?: true
     refreshToken?: true
     revoked?: true
     expiresAt?: true
@@ -3483,7 +3483,7 @@ export namespace Prisma {
     userId?: true
     provider?: true
     providerId?: true
-    deviceInfo?: true
+    deviceName?: true
     refreshToken?: true
     revoked?: true
     expiresAt?: true
@@ -3496,7 +3496,7 @@ export namespace Prisma {
     userId?: true
     provider?: true
     providerId?: true
-    deviceInfo?: true
+    deviceName?: true
     refreshToken?: true
     revoked?: true
     expiresAt?: true
@@ -3596,7 +3596,7 @@ export namespace Prisma {
     userId: number
     provider: $Enums.ProviderName
     providerId: string | null
-    deviceInfo: string | null
+    deviceName: string | null
     refreshToken: string
     revoked: boolean
     expiresAt: Date | null
@@ -3628,7 +3628,7 @@ export namespace Prisma {
     userId?: boolean
     provider?: boolean
     providerId?: boolean
-    deviceInfo?: boolean
+    deviceName?: boolean
     refreshToken?: boolean
     revoked?: boolean
     expiresAt?: boolean
@@ -3642,7 +3642,7 @@ export namespace Prisma {
     userId?: boolean
     provider?: boolean
     providerId?: boolean
-    deviceInfo?: boolean
+    deviceName?: boolean
     refreshToken?: boolean
     revoked?: boolean
     expiresAt?: boolean
@@ -3656,7 +3656,7 @@ export namespace Prisma {
     userId?: boolean
     provider?: boolean
     providerId?: boolean
-    deviceInfo?: boolean
+    deviceName?: boolean
     refreshToken?: boolean
     revoked?: boolean
     expiresAt?: boolean
@@ -3670,7 +3670,7 @@ export namespace Prisma {
     userId?: boolean
     provider?: boolean
     providerId?: boolean
-    deviceInfo?: boolean
+    deviceName?: boolean
     refreshToken?: boolean
     revoked?: boolean
     expiresAt?: boolean
@@ -3678,7 +3678,7 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type DeviceSessionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "provider" | "providerId" | "deviceInfo" | "refreshToken" | "revoked" | "expiresAt" | "createdAt" | "updatedAt", ExtArgs["result"]["deviceSession"]>
+  export type DeviceSessionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "provider" | "providerId" | "deviceName" | "refreshToken" | "revoked" | "expiresAt" | "createdAt" | "updatedAt", ExtArgs["result"]["deviceSession"]>
   export type DeviceSessionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
   }
@@ -3699,7 +3699,7 @@ export namespace Prisma {
       userId: number
       provider: $Enums.ProviderName
       providerId: string | null
-      deviceInfo: string | null
+      deviceName: string | null
       refreshToken: string
       revoked: boolean
       expiresAt: Date | null
@@ -4133,7 +4133,7 @@ export namespace Prisma {
     readonly userId: FieldRef<"DeviceSession", 'Int'>
     readonly provider: FieldRef<"DeviceSession", 'ProviderName'>
     readonly providerId: FieldRef<"DeviceSession", 'String'>
-    readonly deviceInfo: FieldRef<"DeviceSession", 'String'>
+    readonly deviceName: FieldRef<"DeviceSession", 'String'>
     readonly refreshToken: FieldRef<"DeviceSession", 'String'>
     readonly revoked: FieldRef<"DeviceSession", 'Boolean'>
     readonly expiresAt: FieldRef<"DeviceSession", 'DateTime'>
@@ -4598,7 +4598,7 @@ export namespace Prisma {
     userId: 'userId',
     provider: 'provider',
     providerId: 'providerId',
-    deviceInfo: 'deviceInfo',
+    deviceName: 'deviceName',
     refreshToken: 'refreshToken',
     revoked: 'revoked',
     expiresAt: 'expiresAt',
@@ -4909,7 +4909,7 @@ export namespace Prisma {
     userId?: IntFilter<"DeviceSession"> | number
     provider?: EnumProviderNameFilter<"DeviceSession"> | $Enums.ProviderName
     providerId?: StringNullableFilter<"DeviceSession"> | string | null
-    deviceInfo?: StringNullableFilter<"DeviceSession"> | string | null
+    deviceName?: StringNullableFilter<"DeviceSession"> | string | null
     refreshToken?: StringFilter<"DeviceSession"> | string
     revoked?: BoolFilter<"DeviceSession"> | boolean
     expiresAt?: DateTimeNullableFilter<"DeviceSession"> | Date | string | null
@@ -4923,7 +4923,7 @@ export namespace Prisma {
     userId?: SortOrder
     provider?: SortOrder
     providerId?: SortOrderInput | SortOrder
-    deviceInfo?: SortOrderInput | SortOrder
+    deviceName?: SortOrderInput | SortOrder
     refreshToken?: SortOrder
     revoked?: SortOrder
     expiresAt?: SortOrderInput | SortOrder
@@ -4934,27 +4934,28 @@ export namespace Prisma {
 
   export type DeviceSessionWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    userId_deviceName_provider?: DeviceSessionUserIdDeviceNameProviderCompoundUniqueInput
     AND?: DeviceSessionWhereInput | DeviceSessionWhereInput[]
     OR?: DeviceSessionWhereInput[]
     NOT?: DeviceSessionWhereInput | DeviceSessionWhereInput[]
     userId?: IntFilter<"DeviceSession"> | number
     provider?: EnumProviderNameFilter<"DeviceSession"> | $Enums.ProviderName
     providerId?: StringNullableFilter<"DeviceSession"> | string | null
-    deviceInfo?: StringNullableFilter<"DeviceSession"> | string | null
+    deviceName?: StringNullableFilter<"DeviceSession"> | string | null
     refreshToken?: StringFilter<"DeviceSession"> | string
     revoked?: BoolFilter<"DeviceSession"> | boolean
     expiresAt?: DateTimeNullableFilter<"DeviceSession"> | Date | string | null
     createdAt?: DateTimeFilter<"DeviceSession"> | Date | string
     updatedAt?: DateTimeFilter<"DeviceSession"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
-  }, "id">
+  }, "id" | "userId_deviceName_provider">
 
   export type DeviceSessionOrderByWithAggregationInput = {
     id?: SortOrder
     userId?: SortOrder
     provider?: SortOrder
     providerId?: SortOrderInput | SortOrder
-    deviceInfo?: SortOrderInput | SortOrder
+    deviceName?: SortOrderInput | SortOrder
     refreshToken?: SortOrder
     revoked?: SortOrder
     expiresAt?: SortOrderInput | SortOrder
@@ -4975,7 +4976,7 @@ export namespace Prisma {
     userId?: IntWithAggregatesFilter<"DeviceSession"> | number
     provider?: EnumProviderNameWithAggregatesFilter<"DeviceSession"> | $Enums.ProviderName
     providerId?: StringNullableWithAggregatesFilter<"DeviceSession"> | string | null
-    deviceInfo?: StringNullableWithAggregatesFilter<"DeviceSession"> | string | null
+    deviceName?: StringNullableWithAggregatesFilter<"DeviceSession"> | string | null
     refreshToken?: StringWithAggregatesFilter<"DeviceSession"> | string
     revoked?: BoolWithAggregatesFilter<"DeviceSession"> | boolean
     expiresAt?: DateTimeNullableWithAggregatesFilter<"DeviceSession"> | Date | string | null
@@ -5128,7 +5129,7 @@ export namespace Prisma {
     id?: string
     provider: $Enums.ProviderName
     providerId?: string | null
-    deviceInfo?: string | null
+    deviceName?: string | null
     refreshToken: string
     revoked?: boolean
     expiresAt?: Date | string | null
@@ -5142,7 +5143,7 @@ export namespace Prisma {
     userId: number
     provider: $Enums.ProviderName
     providerId?: string | null
-    deviceInfo?: string | null
+    deviceName?: string | null
     refreshToken: string
     revoked?: boolean
     expiresAt?: Date | string | null
@@ -5154,7 +5155,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     provider?: EnumProviderNameFieldUpdateOperationsInput | $Enums.ProviderName
     providerId?: NullableStringFieldUpdateOperationsInput | string | null
-    deviceInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    deviceName?: NullableStringFieldUpdateOperationsInput | string | null
     refreshToken?: StringFieldUpdateOperationsInput | string
     revoked?: BoolFieldUpdateOperationsInput | boolean
     expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -5168,7 +5169,7 @@ export namespace Prisma {
     userId?: IntFieldUpdateOperationsInput | number
     provider?: EnumProviderNameFieldUpdateOperationsInput | $Enums.ProviderName
     providerId?: NullableStringFieldUpdateOperationsInput | string | null
-    deviceInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    deviceName?: NullableStringFieldUpdateOperationsInput | string | null
     refreshToken?: StringFieldUpdateOperationsInput | string
     revoked?: BoolFieldUpdateOperationsInput | boolean
     expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -5181,7 +5182,7 @@ export namespace Prisma {
     userId: number
     provider: $Enums.ProviderName
     providerId?: string | null
-    deviceInfo?: string | null
+    deviceName?: string | null
     refreshToken: string
     revoked?: boolean
     expiresAt?: Date | string | null
@@ -5193,7 +5194,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     provider?: EnumProviderNameFieldUpdateOperationsInput | $Enums.ProviderName
     providerId?: NullableStringFieldUpdateOperationsInput | string | null
-    deviceInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    deviceName?: NullableStringFieldUpdateOperationsInput | string | null
     refreshToken?: StringFieldUpdateOperationsInput | string
     revoked?: BoolFieldUpdateOperationsInput | boolean
     expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -5206,7 +5207,7 @@ export namespace Prisma {
     userId?: IntFieldUpdateOperationsInput | number
     provider?: EnumProviderNameFieldUpdateOperationsInput | $Enums.ProviderName
     providerId?: NullableStringFieldUpdateOperationsInput | string | null
-    deviceInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    deviceName?: NullableStringFieldUpdateOperationsInput | string | null
     refreshToken?: StringFieldUpdateOperationsInput | string
     revoked?: BoolFieldUpdateOperationsInput | boolean
     expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -5540,12 +5541,18 @@ export namespace Prisma {
     not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
   }
 
+  export type DeviceSessionUserIdDeviceNameProviderCompoundUniqueInput = {
+    userId: number
+    deviceName: string
+    provider: $Enums.ProviderName
+  }
+
   export type DeviceSessionCountOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
     provider?: SortOrder
     providerId?: SortOrder
-    deviceInfo?: SortOrder
+    deviceName?: SortOrder
     refreshToken?: SortOrder
     revoked?: SortOrder
     expiresAt?: SortOrder
@@ -5562,7 +5569,7 @@ export namespace Prisma {
     userId?: SortOrder
     provider?: SortOrder
     providerId?: SortOrder
-    deviceInfo?: SortOrder
+    deviceName?: SortOrder
     refreshToken?: SortOrder
     revoked?: SortOrder
     expiresAt?: SortOrder
@@ -5575,7 +5582,7 @@ export namespace Prisma {
     userId?: SortOrder
     provider?: SortOrder
     providerId?: SortOrder
-    deviceInfo?: SortOrder
+    deviceName?: SortOrder
     refreshToken?: SortOrder
     revoked?: SortOrder
     expiresAt?: SortOrder
@@ -6017,7 +6024,7 @@ export namespace Prisma {
     id?: string
     provider: $Enums.ProviderName
     providerId?: string | null
-    deviceInfo?: string | null
+    deviceName?: string | null
     refreshToken: string
     revoked?: boolean
     expiresAt?: Date | string | null
@@ -6029,7 +6036,7 @@ export namespace Prisma {
     id?: string
     provider: $Enums.ProviderName
     providerId?: string | null
-    deviceInfo?: string | null
+    deviceName?: string | null
     refreshToken: string
     revoked?: boolean
     expiresAt?: Date | string | null
@@ -6098,7 +6105,7 @@ export namespace Prisma {
     userId?: IntFilter<"DeviceSession"> | number
     provider?: EnumProviderNameFilter<"DeviceSession"> | $Enums.ProviderName
     providerId?: StringNullableFilter<"DeviceSession"> | string | null
-    deviceInfo?: StringNullableFilter<"DeviceSession"> | string | null
+    deviceName?: StringNullableFilter<"DeviceSession"> | string | null
     refreshToken?: StringFilter<"DeviceSession"> | string
     revoked?: BoolFilter<"DeviceSession"> | boolean
     expiresAt?: DateTimeNullableFilter<"DeviceSession"> | Date | string | null
@@ -6249,7 +6256,7 @@ export namespace Prisma {
     id?: string
     provider: $Enums.ProviderName
     providerId?: string | null
-    deviceInfo?: string | null
+    deviceName?: string | null
     refreshToken: string
     revoked?: boolean
     expiresAt?: Date | string | null
@@ -6281,7 +6288,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     provider?: EnumProviderNameFieldUpdateOperationsInput | $Enums.ProviderName
     providerId?: NullableStringFieldUpdateOperationsInput | string | null
-    deviceInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    deviceName?: NullableStringFieldUpdateOperationsInput | string | null
     refreshToken?: StringFieldUpdateOperationsInput | string
     revoked?: BoolFieldUpdateOperationsInput | boolean
     expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -6293,7 +6300,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     provider?: EnumProviderNameFieldUpdateOperationsInput | $Enums.ProviderName
     providerId?: NullableStringFieldUpdateOperationsInput | string | null
-    deviceInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    deviceName?: NullableStringFieldUpdateOperationsInput | string | null
     refreshToken?: StringFieldUpdateOperationsInput | string
     revoked?: BoolFieldUpdateOperationsInput | boolean
     expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -6305,7 +6312,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     provider?: EnumProviderNameFieldUpdateOperationsInput | $Enums.ProviderName
     providerId?: NullableStringFieldUpdateOperationsInput | string | null
-    deviceInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    deviceName?: NullableStringFieldUpdateOperationsInput | string | null
     refreshToken?: StringFieldUpdateOperationsInput | string
     revoked?: BoolFieldUpdateOperationsInput | boolean
     expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null

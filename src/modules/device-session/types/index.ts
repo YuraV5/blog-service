@@ -4,7 +4,7 @@ export type TCreateSession = {
   userId: number;
   provider: ProvidersNamesEnum;
   refreshToken: string;
-  deviceInfo?: string;
+  deviceName?: string;
   providerId?: string;
 };
 
@@ -13,7 +13,7 @@ export type TDeviceSession = {
   userId: number;
   provider: ProvidersNamesEnum;
   providerId: string | null;
-  deviceInfo: string | null;
+  deviceName: string | null;
   refreshToken: string;
   revoked: boolean;
   expiresAt: Date | null;

@@ -22,11 +22,11 @@ export class DeviceSessionService implements IDevicesSessionService {
     @Inject(EXCEPTION_HANDLER_SERVICE) private readonly errorService: ExceptionHandlerService
   ) {}
 
-  async findByUserAndDevice(userId: number, device: string): Promise<TDeviceSession | null> {
+  async findByUserAndDevice(userId: number, deviceName: string): Promise<TDeviceSession | null> {
     try {
       const session = await this.deviceSessionRepo.checkDeviceSesionByUserIdDevice(
         userId,
-        device.toLowerCase()
+        deviceName
       );
 
       return session ?? null;
@@ -105,13 +105,13 @@ export class DeviceSessionService implements IDevicesSessionService {
   async createInitialSession(
     userId: number,
     provider: ProvidersNamesEnum,
-    device: string
+    deviceName: string
   ): Promise<TDeviceSession> {
     const session = await this.deviceSessionRepo.createSession({
       userId,
       provider,
       refreshToken: "",
-      deviceInfo: device
+      deviceName: deviceName
     });
 
     if (!session) {
@@ -144,8 +144,11 @@ export class DeviceSessionService implements IDevicesSessionService {
     device: TUserDeviceInfo,
     provider: ProvidersNamesEnum
   ): Promise<TDeviceSession> {
-    const deviceName = device ? `${device.device.model}-${device.device.type}` : DEVICE_NO_NAME;
+    const deviceName = device ? `${device.device.model}-${device.device.vendor}` : DEVICE_NO_NAME;
+    deviceName.toLowerCase();
+
     const session = await this.findByUserAndDevice(user.id, deviceName);
+
     if (session) {
       return session;
     } else {

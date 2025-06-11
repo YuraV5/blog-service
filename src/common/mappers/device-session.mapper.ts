@@ -22,7 +22,7 @@ export class DeviceSessionMapper {
       userId: session.userId,
       provider: prismaToAppProvider(session.provider),
       providerId: session.providerId ?? null,
-      deviceInfo: session.deviceInfo ?? null,
+      deviceName: session.deviceName ?? null,
       refreshToken: session.refreshToken,
       revoked: session.revoked,
       expiresAt: (session.expiresAt ?? null) as Date | null,
