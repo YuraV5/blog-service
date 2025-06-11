@@ -8,6 +8,7 @@ import { EXCEPTION_HANDLER_SERVICE } from "../../common/consts";
 import { ExceptionHandlerService } from "../../common/exceptions";
 import { DeviceSessionModule } from "../device-session/device-session.module";
 import { JwtModule } from "@nestjs/jwt";
+import { LocalStrategy } from "./strategy";
 
 @Module({
   imports: [UsersModule, DeviceSessionModule, JwtModule],
@@ -16,7 +17,8 @@ import { JwtModule } from "@nestjs/jwt";
     AuthService,
     HashService,
     TokenService,
-    { provide: EXCEPTION_HANDLER_SERVICE, useClass: ExceptionHandlerService }
+    { provide: EXCEPTION_HANDLER_SERVICE, useClass: ExceptionHandlerService },
+    LocalStrategy
   ]
 })
 export class AuthModule {}

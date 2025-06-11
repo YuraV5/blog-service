@@ -8,6 +8,20 @@ import { TCreateSession, TDeviceSession } from "../types";
 export class DeviceSessionRepository implements IDevicesSessionRepository {
   constructor(private readonly db: PrismaService) {}
 
+  async checkDeviceSesionByUserIdDevice(
+    userId: number,
+    device: string
+  ): Promise<TDeviceSession | null> {
+    const session = await this.db.deviceSession.findFirst({
+      where: {
+        userId,
+        deviceInfo: device
+      }
+    });
+
+    return session ? DeviceSessionMapper.toDomain(session) : null;
+  }
+
   async createSession(data: TCreateSession): Promise<TDeviceSession> {
     const session = await this.db.deviceSession.create({ data });
     return DeviceSessionMapper.toDomain(session);

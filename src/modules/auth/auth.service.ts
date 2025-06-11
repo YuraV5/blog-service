@@ -11,6 +11,7 @@ import { TokenService } from "./services/token.service";
 import { TJwtTokens } from "./types";
 import { DeviceSessionService } from "../device-session/device-session.service";
 import { ProvidersNamesEnum } from "../../common/enum";
+import * as ms from "ms";
 
 @Injectable()
 export class AuthService implements IAuthService {
@@ -25,7 +26,7 @@ export class AuthService implements IAuthService {
   async signUp(input: TSignUp): Promise<TMessage> {
     try {
       const { email, password, name } = input;
-      const user = await this.checkUserByEmail(email);
+      const user = await this.userServ.getByEmail(email);
       if (user) {
         throw new ConflictException("Record already exists");
       }
@@ -41,17 +42,18 @@ export class AuthService implements IAuthService {
 
   async signInWithEmail(user: TUser, device: TUserDeviceInfo): Promise<TJwtTokens> {
     try {
-      const session = await this.deviceSessionServ.createInitialSession(
-        user.id,
-        ProvidersNamesEnum.EMAIL,
-        `${device.device.model}-${device.device.vendor}`
+      const session = await this.deviceSessionServ.getOrCreateSession(
+        user,
+        device,
+        ProvidersNamesEnum.EMAIL
       );
 
       const { accessToken, refreshToken } = await this.tokenServ.generateTokens(user, session.id);
 
       const hashToken = await this.hash.createHash(refreshToken);
       await this.deviceSessionServ.updateSession(session.id, {
-        refreshToken: hashToken
+        refreshToken: hashToken,
+        expiresAt: new Date(Date.now() + ms("7d"))
       });
 
       return { accessToken, refreshToken };
@@ -61,10 +63,10 @@ export class AuthService implements IAuthService {
   }
 
   async validateUser(email: string, password: string): Promise<TUser | null> {
-    const user = await this.checkUserByEmail(email);
-    if (!user) return null;
+    const user = await this.userServ.getByEmail(email);
 
-    const isValid = await this.hash.compareHash(user.password!, password);
+    if (!user) return null;
+    const isValid = await this.hash.compareHash(password, user.password!);
     return isValid ? user : null;
   }
 
@@ -81,9 +83,5 @@ export class AuthService implements IAuthService {
   changePassword(userId: number, newPassword: string): Promise<void> {
     console.log(userId, newPassword);
     throw new Error("Method not implemented.");
-  }
-
-  private async checkUserByEmail(email: string): Promise<TUser | null> {
-    return await this.userServ.getByEmail(email);
   }
 }

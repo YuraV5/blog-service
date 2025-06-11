@@ -1,13 +1,12 @@
-import { Body, Controller, Get, Post, Req, UseGuards } from "@nestjs/common";
+import { Body, Controller, Get, Post, Req, Res, UseGuards } from "@nestjs/common";
 import { AuthService } from "./auth.service";
 import { TMessage } from "../../common/types";
 import { SignUpUserDto } from "./dtos";
 import { LocalAuthGuard } from "./guards";
-import { Request } from "express";
-import { TJwtTokens } from "./types";
 import { TUser } from "../users/types/users.type";
 import { UAParser } from "ua-parser-js";
 import { AppModifyRequest } from "../../common/interfaces";
+import { Response } from "express";
 
 @Controller("auth")
 export class AuthController {
@@ -20,10 +19,32 @@ export class AuthController {
 
   @UseGuards(LocalAuthGuard)
   @Post("sign-in/email")
-  async signIn(@Req() req: AppModifyRequest): Promise<TJwtTokens> {
+  async signIn(
+    @Req() req: AppModifyRequest,
+    @Res({ passthrough: true }) res: Response
+  ): Promise<TMessage> {
     const user = req.user as TUser;
     const device = req.userDeviceInfo;
-    return await this.authService.signInWithEmail(user, device);
+
+    const { accessToken, refreshToken } = await this.authService.signInWithEmail(user, device);
+
+    // Встановлюємо cookie
+    res.cookie("access_token", accessToken, {
+      httpOnly: true,
+      secure: true, // true в production (з HTTPS)
+      sameSite: "lax", // або "strict"
+      maxAge: 1000 * 60 * 15 // 15 хв, або як потрібно
+    });
+
+    res.cookie("refresh_token", refreshToken, {
+      httpOnly: true,
+      secure: true,
+      sameSite: "lax",
+      maxAge: 1000 * 60 * 60 * 24 * 7 // 7 днів або інше
+    });
+
+    // Можеш також повернути JSON-повідомлення:
+    return { message: "Signed in successfully" };
   }
 
   @Get("logout")
@@ -49,7 +70,6 @@ export class AuthController {
     const ua = req.headers["user-agent"] || "";
     const parser = new UAParser(ua);
     const device = parser.getDevice();
-    console.log(req.userDeviceInfo);
     return device;
   }
 }

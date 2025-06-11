@@ -6,11 +6,14 @@ import {
   UnauthorizedException
 } from "@nestjs/common";
 import { DeviceSessionRepository } from "./repository";
-import { IDevicesSessionService } from "./interfaces/devicess-session-service.interface copy";
 import { TCreateSession, TDeviceSession } from "./types";
 import { EXCEPTION_HANDLER_SERVICE } from "../../common/consts";
 import { ExceptionHandlerService } from "../../common/exceptions";
 import { ProvidersNamesEnum } from "../../common/enum";
+import { IDevicesSessionService } from "./interfaces";
+import { DEVICE_NO_NAME } from "./const";
+import { TUserDeviceInfo } from "../../common/types";
+import { TUser } from "../users/types/users.type";
 
 @Injectable()
 export class DeviceSessionService implements IDevicesSessionService {
@@ -18,6 +21,19 @@ export class DeviceSessionService implements IDevicesSessionService {
     private readonly deviceSessionRepo: DeviceSessionRepository,
     @Inject(EXCEPTION_HANDLER_SERVICE) private readonly errorService: ExceptionHandlerService
   ) {}
+
+  async findByUserAndDevice(userId: number, device: string): Promise<TDeviceSession | null> {
+    try {
+      const session = await this.deviceSessionRepo.checkDeviceSesionByUserIdDevice(
+        userId,
+        device.toLowerCase()
+      );
+
+      return session ?? null;
+    } catch (error) {
+      this.errorService.handleError(error as Error);
+    }
+  }
 
   async createSession(data: TCreateSession): Promise<TDeviceSession> {
     try {
@@ -121,5 +137,20 @@ export class DeviceSessionService implements IDevicesSessionService {
     }
 
     return session;
+  }
+
+  async getOrCreateSession(
+    user: TUser,
+    device: TUserDeviceInfo,
+    provider: ProvidersNamesEnum
+  ): Promise<TDeviceSession> {
+    const deviceName = device ? `${device.device.model}-${device.device.type}` : DEVICE_NO_NAME;
+    const session = await this.findByUserAndDevice(user.id, deviceName);
+    if (session) {
+      return session;
+    } else {
+      const initSession = await this.createInitialSession(user.id, provider, deviceName);
+      return initSession;
+    }
   }
 }

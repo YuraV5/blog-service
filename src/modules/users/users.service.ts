@@ -82,7 +82,6 @@ export class UsersService implements IUsersService {
   async getByEmail(email: string): Promise<TUser | null> {
     try {
       const user = await this.usersRepo.getByEmail(email);
-
       return user;
     } catch (error) {
       this.errorService.handleError(error as Error);

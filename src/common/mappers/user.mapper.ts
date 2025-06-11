@@ -20,6 +20,7 @@ export class UserMapper {
       email: user.email,
       name: user.name,
       photoUrl: user.photoUrl,
+      password: user.password,
       role: prismaToAppUserRole(user.role),
       active: user.active,
       createdAt: user.createdAt,

@@ -1,5 +1,5 @@
 import { DeviceSession } from "../../../../prisma/generated/prisma";
-import { TCreateSession } from "../types";
+import { TCreateSession, TDeviceSession } from "../types";
 
 export interface IDevicesSessionRepository {
   createSession(data: TCreateSession): Promise<DeviceSession>;
@@ -7,4 +7,5 @@ export interface IDevicesSessionRepository {
   revokeSession(sessionId: string): Promise<DeviceSession>;
   findById(sessionId: string): Promise<DeviceSession | null>;
   deleteById(sessionId: string): Promise<DeviceSession>;
+  checkDeviceSesionByUserIdDevice(userId: number, device: string): Promise<TDeviceSession | null>;
 }

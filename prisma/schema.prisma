@@ -67,6 +67,6 @@ model DeviceSession {
   updatedAt    DateTime     @updatedAt @map("updated_at")
   user         User         @relation(fields: [userId], references: [id])
 
-  @@index([userId])
+  @@unique([userId, deviceInfo, provider])
   @@map("device_sessions")
 }
